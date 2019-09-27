@@ -1,0 +1,21 @@
+{% extends 'tatuadmin/base.html'%}
+{% block content %}
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Delete Ticket?</legend>
+                </fieldset>
+                <h2>Are You sure you want to delete the ticket {{ object.name}}?</h2>
+                <div class="form-group">
+                    <button class="btn btn-outline-danger" type="submit">Delete</button>
+                    <a href="{% url 'ticket_management' %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+{% endblock content %}
