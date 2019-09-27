@@ -22,11 +22,9 @@
         <a  class="nav-item nav-link" href="{% url 'department_management'%}">Department Management</a>
         <a  class="nav-item nav-link" href="{% url 'ticket_management'%}">Ticket Management</a>
         
-        <a href="{% url 'login '%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
-        
+        <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>      
         {% else %}
-        <a href="{% url 'logout '%}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
-         
+        <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
         {% endif %}
         
       </ul>

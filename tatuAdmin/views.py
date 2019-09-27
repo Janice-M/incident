@@ -16,12 +16,13 @@ def admin_home(request):
 
 
 # ###################################### agent management ##########################################################
+@login_required
 def user_management(request):
     profiles=Profile.get_agents()
 
     return render(request,'agent/agentManagement.html',{'profiles':profiles}) 
 
-
+@login_required
 def create_agent(request):
 
     if request.method=='POST':
@@ -46,7 +47,7 @@ def create_agent(request):
         form=AgentCreationForm()
     return render(request,'agent/createAgent.html',{'form':form})  
 
-
+@login_required
 def edit_agent(request,pk):
     agent=User.objects.get(pk=pk)
     if request.method=='POST':
@@ -63,6 +64,7 @@ def edit_agent(request,pk):
 
 
 # ###################################### department management ##########################################################
+@login_required
 def department_management(request):
 
     departments=Department.get_departments()
@@ -70,7 +72,7 @@ def department_management(request):
     return render(request,'department/departmentmanagement.html',{'departments':departments}) 
 
 
-
+@login_required
 def create_department(request):
 
     if request.method=='POST':
@@ -88,7 +90,7 @@ def create_department(request):
     return render(request,'department/createDepartment.html',{'form':form})
 
 
-
+@login_required
 def edit_department(request,pk):
     department=Department.objects.get(pk=pk)
     if request.method=='POST':
@@ -106,6 +108,7 @@ def edit_department(request,pk):
 
 
 # ###################################### ticket management ##########################################################
+@login_required
 def ticket_management(request):
 
     tickets=TicketType.get_ticket_types()
@@ -113,7 +116,7 @@ def ticket_management(request):
     return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
 
 
-
+@login_required
 def create_ticket(request):
 
     if request.method=='POST':
@@ -145,7 +148,7 @@ def create_ticket(request):
     return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub}) 
 
 
-
+@login_required
 def edit_ticket(request,pk):
     ticket=TicketType.objects.get(pk=pk)
     if request.method=='POST':
@@ -161,7 +164,7 @@ def edit_ticket(request,pk):
     return render(request,'ticket/editTicket.html',{'form':form}) 
 
 
-class TicketDeleteView(SuccessMessageMixin,DeleteView):
+class TicketDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     '''
     class view method to delete a ticket
         declare the model to be affected
@@ -175,6 +178,7 @@ class TicketDeleteView(SuccessMessageMixin,DeleteView):
   
 
 # ###################################### ticket subtypes ##########################################################
+@login_required
 def create_ticket_subtypes(request):
 
     if request.method=='POST':
