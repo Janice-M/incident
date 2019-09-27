@@ -112,3 +112,34 @@ def ticket_management(request):
 
     return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
 
+
+
+def create_ticket(request):
+
+    if request.method=='POST':
+        tform=CreateTicketTypeForm(request.POST)
+        tformsub=CreateTicketSubtype(request.POST)
+
+        if tform.is_valid():
+
+            tform.save()
+            tformsub.save()
+
+            ticketname=tform.cleaned_data.get('name')
+            newlyCreatedTicket=TicketType.objects.filter(name=ticketname).first()
+
+            subtypename=tformsub.cleaned_data.get('subtype')
+            newlyCreatedSubtype=TicketSubType.objects.filter(subtype=subtypename).first()
+
+            newlyCreatedSubtype.ticket=newlyCreatedTicket
+            newlyCreatedSubtype.save()
+
+
+            messages.success(request,f'{ticketname} created successfully')
+            return redirect('ticket_management')
+    else:
+
+        tform=CreateTicketTypeForm(request.POST)
+        tformsub=CreateTicketSubtype(request.POST)
+
+    return render(request,'ticket/ticketManagement.html',{'tform':tform,'tformsub':tformsub})  
