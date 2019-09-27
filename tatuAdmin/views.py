@@ -173,3 +173,21 @@ class TicketDeleteView(SuccessMessageMixin,DeleteView):
     success_url='/'
     success_message = "Ticket was deleted successfully"
   
+
+# ###################################### ticket subtypes ##########################################################
+def create_ticket_subtypes(request):
+
+    if request.method=='POST':
+        subtypesform=CreateMoreTicketSubtype(request.POST)
+     
+        if subtypesform.is_valid():
+
+            subtypesform.save()
+            subtypename=subtypesform.cleaned_data.get('subtype')
+
+            messages.success(request,f'{subtypename} created successfully')
+            return redirect('ticket_management')
+    else:
+        subtypesform=CreateMoreTicketSubtype(request.POST)
+    
+    return render(request,'ticket/createSubtype.html',{'form':subtypesform})   
