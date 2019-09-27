@@ -19,4 +19,20 @@ class AgentCreationForm(UserCreationForm):
 class AgentEditForm(forms.ModelForm):
     class Meta:
         model=Profile
-        fields=['is_staff','department','phone_number']     
+        fields=['is_staff','department','phone_number']    
+
+
+
+####################################department#######################################
+
+class CreateDepartmentForm(forms.ModelForm): 
+    class Meta:
+        model=Department
+        fields='__all__'    
+
+
+class DepartmentEditForm(forms.ModelForm):
+    class Meta:
+        model=Department
+        fields='__all__'
+ 
