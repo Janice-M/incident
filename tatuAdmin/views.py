@@ -13,3 +13,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 def admin_home(request):
     return render(request,'adminHome.html')
 
+
+# ###################################### agent management ##########################################################
+def user_management(request):
+    profiles=Profile.get_agents()
+
+    return render(request,'agent/agentManagement.html',{'profiles':profiles}) 
