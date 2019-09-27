@@ -36,7 +36,7 @@ def create_agent(request):
 
             createdAgent=User.objects.filter(email=useremail).first()
             createdAgent.profile.is_staff=True
-            createdAgent.profile.phonenumber=userphonenumber
+            createdAgent.profile.phone_number=userphonenumber
             createdAgent.save()
 
             messages.success(request,f'Account created for Agent {username}')
