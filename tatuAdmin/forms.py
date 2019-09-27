@@ -36,3 +36,15 @@ class DepartmentEditForm(forms.ModelForm):
         model=Department
         fields='__all__'
  
+
+####################################tickets#######################################
+
+class CreateTicketTypeForm(forms.ModelForm): 
+    class Meta:
+        model=TicketType
+        fields='__all__'    
+
+class EditTicketTypeForm(forms.ModelForm):
+    class Meta:
+        model=TicketType
+        fields='__all__' 
