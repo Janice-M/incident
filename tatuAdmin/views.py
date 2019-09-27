@@ -69,3 +69,21 @@ def department_management(request):
 
     return render(request,'department/departmentmanagement.html',{'departments':departments}) 
 
+
+
+def create_department(request):
+
+    if request.method=='POST':
+        form=CreateDepartmentForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            department=form.cleaned_data.get('department')
+            messages.success(request,f'{department} created successfully')
+            return redirect('department_management')
+    else:
+
+        form=CreateDepartmentForm()
+    return render(request,'department/createDepartment.html',{'form':form})
+
