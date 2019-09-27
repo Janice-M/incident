@@ -44,3 +44,10 @@ class TicketType(models.Model):
         ticket=cls.objects.get(pk=pk)
         ticket.delete()
              
+
+class TicketSubType(models.Model):
+    subtype=models.CharField(max_length=15)
+    ticket=models.ForeignKey(TicketType,on_delete=models.CASCADE,null=True,blank=True)
+
+    def __str__(self):
+        return self.subtype
