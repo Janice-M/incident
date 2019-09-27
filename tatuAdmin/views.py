@@ -44,4 +44,19 @@ def create_agent(request):
     else:
 
         form=AgentCreationForm()
-    return render(request,'agent/createAgent.html',{'form':form})     
+    return render(request,'agent/createAgent.html',{'form':form})  
+
+
+def edit_agent(request,pk):
+    agent=User.objects.get(pk=pk)
+    if request.method=='POST':
+        form=AgentEditForm(request.POST,instance=agent.profile)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Account Updated for Agent {agent.username}')
+            return redirect('user_management')
+    else:
+
+        form=AgentEditForm(instance=agent.profile)
+    return render(request,'agent/editAgent.html',{'form':form}) 
