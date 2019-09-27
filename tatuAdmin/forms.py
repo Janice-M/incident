@@ -48,3 +48,14 @@ class EditTicketTypeForm(forms.ModelForm):
     class Meta:
         model=TicketType
         fields='__all__' 
+
+
+class CreateTicketSubtype(forms.ModelForm): 
+    class Meta:
+        model=TicketSubType
+        fields=['subtype'] 
+
+class CreateMoreTicketSubtype(forms.ModelForm): 
+    class Meta:
+        model=TicketSubType
+        fields='__all__' 
