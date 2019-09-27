@@ -13,3 +13,9 @@ class AgentCreationForm(UserCreationForm):
     class Meta:
         model=User
         fields=['username','email','password1','password2']
+
+
+class AgentEditForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        fields=['is_staff','department']     
