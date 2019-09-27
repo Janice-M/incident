@@ -142,4 +142,4 @@ def create_ticket(request):
         tform=CreateTicketTypeForm(request.POST)
         tformsub=CreateTicketSubtype(request.POST)
 
-    return render(request,'ticket/ticketManagement.html',{'tform':tform,'tformsub':tformsub})  
+    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub})  
