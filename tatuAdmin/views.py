@@ -60,3 +60,12 @@ def edit_agent(request,pk):
 
         form=AgentEditForm(instance=agent.profile)
     return render(request,'agent/editAgent.html',{'form':form}) 
+
+
+# ###################################### department management ##########################################################
+def department_management(request):
+
+    departments=Department.get_departments()
+
+    return render(request,'department/departmentmanagement.html',{'departments':departments}) 
+
