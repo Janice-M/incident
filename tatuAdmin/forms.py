@@ -9,10 +9,11 @@ from customer.models import Profile
 
 class AgentCreationForm(UserCreationForm):
     email=forms.EmailField()
+    phonenumber=forms.CharField(max_length=16)
 
     class Meta:
         model=User
-        fields=['username','email','password1','password2']
+        fields=['username','email','phonenumber','password1','password2']
 
 
 class AgentEditForm(forms.ModelForm):
