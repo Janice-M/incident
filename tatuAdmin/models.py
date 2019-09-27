@@ -23,7 +23,7 @@ class TicketType(models.Model):
         (Very_Low,'5. Very Low'),
     )
 
-    name=models.CharField(max_length=15)
+    name=models.CharField(max_length=15,unique=True)
     priority=models.IntegerField(
         choices=PRIORITY_CHOICES,
         default=3,

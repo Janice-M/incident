@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from tatuAdmin.models import Department
 
 # Create your models here.
 
@@ -8,12 +9,19 @@ class Profile(models.Model):
     '''
     '''
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    bio=models.TextField(max_length=140,blank=True)
     profile_photo=models.ImageField(upload_to='profile_pics',default='default_profile.png',blank=True)
-    
-    
+    phone_number=model.Charfield(blank=True,null=True,max_length=16)
+    department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
+    is_staff = models.BooleanField(default=False,null=True)
+
     def __str__(self):
-        return f'{self.user.username}-Profile'
+        return f'{self.user.username} Profile'
+
+    @classmethod
+    def get_agents(cls):
+        agents=cls.objects.filter(is_staff=True).all()
+        return agents
+    
 
     # def save(self,*args,**kwargs):
     #     '''
