@@ -103,3 +103,12 @@ def edit_department(request,pk):
         form=DepartmentEditForm(instance=department)
     return render(request,'department/editDepartment.html',{'form':form}) 
 
+
+
+# ###################################### ticket management ##########################################################
+def ticket_management(request):
+
+    tickets=TicketType.get_ticket_types()
+
+    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
+
