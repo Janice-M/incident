@@ -11,5 +11,7 @@ urlpatterns = [
     path('department_management/create_department',views.create_department,name='create_department'),
     path('department_management/<int:pk>/edit_department',views.edit_department,name='edit_department'),
     path('ticket_management/',views.ticket_management,name='ticket_management'),
+    path('ticket_management/create_ticket',views.create_ticket,name='create_ticket'),
+    path('ticket_management/<int:pk>/edit_ticket',views.edit_ticket,name='edit_ticket'),
 ]
 
