@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 from . import views
+from .views import TicketDeleteView
 
 urlpatterns = [
     path('',views.admin_home,name='admin_home'),
@@ -13,5 +14,6 @@ urlpatterns = [
     path('ticket_management/',views.ticket_management,name='ticket_management'),
     path('ticket_management/create_ticket',views.create_ticket,name='create_ticket'),
     path('ticket_management/<int:pk>/edit_ticket',views.edit_ticket,name='edit_ticket'),
+    path('ticket_management/<int:pk>/delete_ticket',views.TicketDeleteView.as_view(),name='delete_ticket'),
 ]
 
