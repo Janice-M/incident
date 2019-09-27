@@ -142,4 +142,20 @@ def create_ticket(request):
         tform=CreateTicketTypeForm(request.POST)
         tformsub=CreateTicketSubtype(request.POST)
 
-    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub})  
+    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub}) 
+
+
+
+def edit_ticket(request,pk):
+    ticket=TicketType.objects.get(pk=pk)
+    if request.method=='POST':
+        form=EditTicketTypeForm(request.POST,instance=ticket)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Ticket updated successfully')
+            return redirect('ticket_management')
+    else:
+
+        form=EditTicketTypeForm(instance=ticket)
+    return render(request,'ticket/editTicket.html',{'form':form}) 
