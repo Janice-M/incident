@@ -18,4 +18,4 @@ class AgentCreationForm(UserCreationForm):
 class AgentEditForm(forms.ModelForm):
     class Meta:
         model=Profile
-        fields=['is_staff','department']     
+        fields=['is_staff','department','phone_number']     
