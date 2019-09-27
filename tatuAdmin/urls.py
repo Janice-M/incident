@@ -8,5 +8,7 @@ urlpatterns = [
     path('user_management/create_agent',views.create_agent,name='create_agent'),
     path('user_management/<int:pk>/edit_agent',views.edit_agent,name='edit_agent'),
     path('department_management/',views.department_management,name='department_management'),
+    path('department_management/create_department',views.create_department,name='create_department'),
+    path('department_management/<int:pk>/edit_department',views.edit_department,name='edit_department'),
 ]
 
