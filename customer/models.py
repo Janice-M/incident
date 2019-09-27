@@ -10,7 +10,7 @@ class Profile(models.Model):
     '''
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     profile_photo=models.ImageField(upload_to='profile_pics',default='default_profile.png',blank=True)
-    phone_number=models.CharField(blank=True,null=True,max_length=16)
+    phone_number=models.CharField(blank=False,null=True,max_length=16)
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
 

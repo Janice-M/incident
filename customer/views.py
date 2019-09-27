@@ -18,6 +18,13 @@ def register(request):
         if form.is_valid():
             form.save()
             username=form.cleaned_data.get('username')
+            useremail=form.cleaned_data.get('email')
+            userphonenumber=form.cleaned_data.get('phonenumber')
+
+            createdUser=User.objects.filter(email=useremail).first()
+            createdUser.profile.phone_number=userphonenumber
+            createdUser.save()
+
             messages.success(request,f'Account for {username} created!')
             return redirect('login')
 
