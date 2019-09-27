@@ -87,3 +87,19 @@ def create_department(request):
         form=CreateDepartmentForm()
     return render(request,'department/createDepartment.html',{'form':form})
 
+
+
+def edit_department(request,pk):
+    department=Department.objects.get(pk=pk)
+    if request.method=='POST':
+        form=DepartmentEditForm(request.POST,instance=department)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,f'Department updated successfully')
+            return redirect('department_management')
+    else:
+
+        form=DepartmentEditForm(instance=department)
+    return render(request,'department/editDepartment.html',{'form':form}) 
+
