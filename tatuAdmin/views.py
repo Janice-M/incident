@@ -159,3 +159,17 @@ def edit_ticket(request,pk):
 
         form=EditTicketTypeForm(instance=ticket)
     return render(request,'ticket/editTicket.html',{'form':form}) 
+
+
+class TicketDeleteView(SuccessMessageMixin,DeleteView):
+    '''
+    class view method to delete a ticket
+        declare the model to be affected
+        declare the template to be used
+       
+    '''
+    model=TicketType
+    template_name='ticket/ticketConfirmDelete.html'
+    success_url='/'
+    success_message = "Ticket was deleted successfully"
+  
