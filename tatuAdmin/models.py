@@ -50,4 +50,18 @@ class TicketSubType(models.Model):
     ticket=models.ForeignKey(TicketType,on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
-        return self.subtype
+        return f'{self.subtype} Subtype'
+
+
+
+class Department(models.Model):
+    department_name=models.CharField(max_length=30)
+    department_description=models.TextField(max_length=200,blank=True)
+
+    def __str__(self):
+        return f'{self.department_name} Department'
+
+    @classmethod
+    def get_departments(cls):
+        departments=cls.objects.all()
+        return departments   
