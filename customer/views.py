@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegistrationForm,UserUpdateForm,ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from tatuAdmin import views as tatuAdmin_views
 
 
 # Create your views here.
@@ -25,6 +26,16 @@ def register(request):
     
     return render(request,'registration/registration_form.html',{'form':form})
 
+@login_required    
 def index(request):
-    
-    return render(request,'index.html')
+    '''
+    view to redirect the user to their specific dashboard
+    '''
+
+    current_user=request.user
+    if current_user.is_superuser and current_user.is_staff==True:
+
+        return redirect(tatuAdmin_views.admin_home)
+
+    else :
+        return render(request,'index.html')
