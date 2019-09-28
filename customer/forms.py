@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import *
 
 class UserRegistrationForm(UserCreationForm):
     email=forms.EmailField()
@@ -26,7 +26,12 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model=Profile
-        fields=['profile_photo','phone_number',]        
+        fields=['profile_photo','phone_number',] 
+              
+class CreateTicketForm(forms.ModelForm):
+    class Meta:
+        model=Create_ticket
+        fields=['issue','summary','ticket_type','ticket_subtype']    
 
 
 
