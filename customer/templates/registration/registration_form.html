@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Join The Incident management module today</legend>
+                    {{form | crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" type="submit">Sign Up</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">Already Have An Account? <a href="{% url 'login' %}" class="ml-2">Sign
+                        In</a></small>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock content %}

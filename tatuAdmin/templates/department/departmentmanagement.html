@@ -5,16 +5,16 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_agent'%}"
-      >Create Agent</a
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_department'%}"
+      >Create Department</a
     >
   </div>
 
   <div class="row">
     <!-- <div class="col-md-2"></div> -->
     <ul class="list-group">
-        {% for profile in profiles %}
-        <li class="list-group-item"> <a href="{% url 'edit_agent' profile.user.id %}">{{profile.user.username}}</a></li>
+        {% for department in departments %}
+        <li class="list-group-item"> <a href="{% url 'edit_department' department.id %}">{{department.department_name}}</a></li>
         {% endfor %}
     </ul>
 

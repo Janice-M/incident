@@ -1,0 +1,30 @@
+{% extends 'tatuadmin/base.html'%}
+
+{% load crispy_forms_tags %} 
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_ticket' %}"
+      >Create Ticket Type</a
+    >
+    <a class="btn btn-sm btn-outline-info" href="{% url 'create_ticket_subtype' %}"
+      >Create Ticket Subtype</a
+    >
+  </div>
+
+  <div class="row">
+    <!-- <div class="col-md-2"></div> -->
+    <ul class="list-group">
+        {% for ticket in tickets %}
+        <li class="list-group-item"> 
+          <a href="{% url 'edit_ticket' ticket.id %}">{{ticket.name}}</a>
+          <a class="btn btn-outline-danger"  href="{% url 'delete_ticket' ticket.id %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+<!-- row -->
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'tatuadmin/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form action="" method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group mt-4">
+                            <legend class="border-bottom mb-4">Creat Agent</legend>
+                            {{form | crispy}}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="btn btn-outline-primary" type="submit">Submit</button>
+                        </div>
+                    </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+{% endblock content %}
