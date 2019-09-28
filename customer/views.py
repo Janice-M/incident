@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 
 
-# Create your views here.
 def register(request):
+# Create your views here.
     '''
     view function for registering 
     '''

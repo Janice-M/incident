@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container">
-  <div class="row">
+  <div class="row mt-2">
     <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_agent'%}"
       >Create Agent</a
     >
@@ -12,13 +12,32 @@
 
   <div class="row">
     <!-- <div class="col-md-2"></div> -->
-    <ul class="list-group">
-        {% for profile in profiles %}
-        <li class="list-group-item"> <a href="{% url 'edit_agent' profile.user.id %}">{{profile.user.username}}</a></li>
+
+    <table class="table table-responsive mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Department</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for profile in profiles %}
+        <tr>
+          <th scope="row">{{profile.user.id}}</th>
+          <td><a href="{% url 'edit_agent' profile.user.id %}">{{profile.user.username}}</a></td>
+          <td>{{profile.user.email}}</td>
+          <td>{{profile.phone_number}}</td>
+          <td>{{profile.department}}</td>
+        </tr>
         {% endfor %}
-    </ul>
+      </tbody>
+    </table>
+  
 
 </div>
 <!-- row -->
-
+</div>
 {% endblock content %}
