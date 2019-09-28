@@ -51,11 +51,11 @@ class Create_ticket(models.Model):
        (Closed,'2. Closed'),
        
    )
-    owner=models.ForeignKey(User,on_delete=models.CASCADE)
+    owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
     ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE)
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
-    agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING)
+    agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent')
     issue = models.CharField(max_length=40)
     summary = models.TextField(max_length=140,blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
