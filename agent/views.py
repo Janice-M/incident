@@ -24,6 +24,7 @@ def take_or_assign_ticket(request, pk):
         if form.is_valid():
             take_form=form.save(commit=False)
             take_form.status=Create_ticket.Pending
+            take_form.is_taken=True
             take_form.save()
 
 
@@ -33,4 +34,4 @@ def take_or_assign_ticket(request, pk):
     else:
         form=Take_or_Assign_Form(instance=ticket)
 
-    return render(request,'tickets/createticket.html',{'form':form})
+    return render(request,'agent/take_or_assign.html',{'form':form})
