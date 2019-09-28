@@ -138,7 +138,7 @@ def create_ticket(request):
             newlyCreatedSubtype.save()
 
 
-            messages.success(request,f'{ticketname} created successfully')
+            messages.success(request,f'Ticket Type {ticketname} created successfully')
             return redirect('ticket_management')
     else:
 
