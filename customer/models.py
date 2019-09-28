@@ -21,7 +21,7 @@ class Profile(models.Model):
 
     @classmethod
     def get_agents(cls):
-        agents=cls.objects.filter(is_staff=True).all()
+        agents=cls.objects.filter(is_customer=False).all()
         return agents
 
     @classmethod

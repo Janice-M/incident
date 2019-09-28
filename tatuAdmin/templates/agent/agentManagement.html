@@ -20,6 +20,7 @@
           <th scope="col">Agent</th>
           <th scope="col">Email</th>
           <th scope="col">Phone Number</th>
+          <th scope="col">Active</th>
           <th scope="col">Department</th>
         </tr>
       </thead>
@@ -30,6 +31,7 @@
           <td><a href="{% url 'edit_agent' profile.user.id %}">{{profile.user.username}}</a></td>
           <td>{{profile.user.email}}</td>
           <td>{{profile.phone_number}}</td>
+          <td>{{profile.is_staff}}</td>
           <td>{{profile.department}}</td>
         </tr>
         {% endfor %}
