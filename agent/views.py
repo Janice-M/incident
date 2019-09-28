@@ -12,13 +12,14 @@ def index(request):
     return render(request, 'agent/index.html' ,{'tickets' : tickets })
 
 @login_required
-def take_or_assign_ticket(request):
+def take_or_assign_ticket(request, pk):
     '''
     view function for taking or asignong a ticket
     '''
+    ticket=Create_ticket.objects.get(pk=pk)
     current_user=request.user
     if request.method=='POST':
-        form=Take_or_Assign_Form(request.POST)
+        form=Take_or_Assign_Form(request.POST, instance=ticket)
 
         if form.is_valid():
             take_form=form.save(commit=False)
@@ -30,6 +31,6 @@ def take_or_assign_ticket(request):
             return redirect('index')
 
     else:
-        form=CreateTicketForm()
+        form=Take_or_Assign_Form(instance=ticket)
 
     return render(request,'tickets/createticket.html',{'form':form})
