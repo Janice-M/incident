@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegistrationForm,UserUpdateForm,ProfileUpdateForm
+from .forms import UserRegistrationForm,UserUpdateForm,ProfileUpdateForm,CreateTicketForm
 from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
+from .models import Create_ticket
 
 
 # Create your views here.
@@ -46,3 +47,29 @@ def index(request):
 
     else :
         return render(request,'index.html')
+
+@login_required
+def create_ticket(request):
+    '''
+    view function for creating a ticket 
+    '''
+    current_user=request.user
+    if request.method=='POST':
+        form=CreateTicketForm(request.POST)
+
+        if form.is_valid():
+            ctform=form.save(commit=False)
+            ctform.status=Create_ticket.Open
+            ctform.owner=current_user 
+            issue=form.cleaned_data.get('issue')
+            ctform.save()
+            
+
+            messages.success(request,f'Your {issue} has been recieved!')
+            return redirect('index')
+
+    else:
+        form=CreateTicketForm()
+    
+    return render(request,'tickets/createticket.html',{'form':form})
+
