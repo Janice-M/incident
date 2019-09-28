@@ -8,8 +8,10 @@ django-heroku==0.3.1
 django-phonenumber-field==3.0.1
 django-registration==3.0.1
 django-registration-redux==2.4
+django-templated-mail==1.1.1
 django-tinymce==2.8.0
 djangorestframework==3.10.3
+djoser==2.0.3
 gunicorn==19.9.0
 phonenumbers==8.10.19
 Pillow==6.1.0
