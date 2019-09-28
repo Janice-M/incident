@@ -7,6 +7,6 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name='index'),
-    # path('create_ticket/',views.create_ticket,name='createticket'),
+    path('take_or_assign_ticket/<int:pk>/',views.take_or_assign_ticket,name='take_or_assign_ticket'),
     # path('profile/',views.profile,name='profile'),
 ]
