@@ -33,6 +33,8 @@ urlpatterns = [
     path('tatuadmin/',include('tatuAdmin.urls')),
     path('customer/',include('customer.urls')),
     path('agent/', include('agent.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 
 ]
 
