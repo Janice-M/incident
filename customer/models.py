@@ -14,14 +14,21 @@ class Profile(models.Model):
     phone_number=models.CharField(blank=False,null=True,max_length=16)
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
+    is_customer = models.BooleanField(default=True,null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
 
     @classmethod
     def get_agents(cls):
-        agents=cls.objects.filter(is_staff=True).all()
+        agents=cls.objects.filter(is_customer=False).all()
         return agents
+
+    @classmethod
+    def get_customers(cls):
+        customers=cls.objects.filter(is_customer=True).all()
+        return customers
+        
     
 
     def save(self,*args,**kwargs):
