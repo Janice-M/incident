@@ -97,6 +97,6 @@ def profile(request):
     context={
         'usrForm':usrForm,
         'profForm':profForm,
-        'posts':posts
+      
     }
     return render(request,'registration/profile.html',context)
