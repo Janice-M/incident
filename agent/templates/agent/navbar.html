@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-md navbar-light bg-secondary sticky-top">
+        <a class="navbar-brand" href="#">
+               Agent of Tatucity
+              </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href=""> <i class="fa fa-home fa-1x mr-2"></i>Home<span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+
+            {% if user.is_authenticated %}
+            <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40px;   display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 50%;height: 40px;">
+            <a href="{% url 'profile' %}" class="nav-item nav-link">{{user.username}}</a>
+                     <a href="" class="nav-item nav-link">My Ticket(s)</a>
+            <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
+            {% else %}
+            <a href="{% url 'login'%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
+
+
+            {% endif %}
+        </ul>
+    </div>
+</nav>

@@ -28,8 +28,8 @@ class Profile(models.Model):
     def get_customers(cls):
         customers=cls.objects.filter(is_customer=True).all()
         return customers
-        
-    
+
+
 
     def save(self,*args,**kwargs):
         '''
@@ -43,7 +43,7 @@ class Profile(models.Model):
         if img.height > 300 or img.width > 300:
             output_size=(300,300)
             img.thumbnail(output_size)
-            img.save(self.profile_photo.path) 
+            img.save(self.profile_photo.path)
 
 class Create_ticket(models.Model):
     '''
@@ -56,7 +56,7 @@ class Create_ticket(models.Model):
        (Open,'0. Open'),
        (Pending,'1. Pending'),
        (Closed,'2. Closed'),
-       
+
    )
     owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
     ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE)
@@ -81,5 +81,5 @@ class Create_ticket(models.Model):
     @classmethod
     def get_tickets(cls):
 
-        tickets=cls.objects.all()
+        tickets=cls.objects.filter(is_taken=False).all()
         return tickets
