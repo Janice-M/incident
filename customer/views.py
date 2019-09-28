@@ -8,8 +8,8 @@ from tatuAdmin import views as tatuAdmin_views
 from .models import Create_ticket
 
 
-# Create your views here.
 def register(request):
+# Create your views here.
     '''
     view function for registering 
     '''
