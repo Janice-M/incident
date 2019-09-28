@@ -65,3 +65,9 @@ class Create_ticket(models.Model):
 
     def __str__(self):
         return f'{self.owner.username}{self.issue}'
+
+    @classmethod
+    def get_my_tickets(cls,owner):
+        my_tickets=cls.objects.filter(owner=owner).all()
+         return my_tickets
+
