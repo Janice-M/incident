@@ -24,19 +24,19 @@ class Profile(models.Model):
         return agents
     
 
-    # def save(self,*args,**kwargs):
-    #     '''
-    #         overriding the save method of the profile method to resize images
+    def save(self,*args,**kwargs):
+        '''
+            overriding the save method of the profile method to resize images
 
-    #         careful now...make sure the intergrity of the method is retained lest everything collapses
-    #     '''
-    #     super(Profile,self).save(*args,**kwargs)
-    #     img=Image.open(self.profile_photo.path)
+            careful now...make sure the intergrity of the method is retained lest everything collapses
+        '''
+        super(Profile,self).save(*args,**kwargs)
+        img=Image.open(self.profile_photo.path)
 
-    #     if img.height > 300 or img.width > 300:
-    #         output_size=(300,300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.profile_photo.path) 
+        if img.height > 300 or img.width > 300:
+            output_size=(300,300)
+            img.thumbnail(output_size)
+            img.save(self.profile_photo.path) 
 
 class Create_ticket(models.Model):
     '''
