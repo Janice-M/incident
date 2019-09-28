@@ -12,7 +12,7 @@ def index(request):
     return render(request, 'agent/index.html' ,{'tickets' : tickets })
 
 @login_required
-def take_or_assign_form(request):
+def take_or_assign_ticket(request):
     '''
     view function for taking or asignong a ticket
     '''
