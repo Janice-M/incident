@@ -9,6 +9,7 @@ from .models import Create_ticket
 from .generator import randomStringDigits
 
 
+
 def register(request):
 # Create your views here.
     '''
@@ -78,3 +79,24 @@ def create_ticket(request):
     
     return render(request,'tickets/createticket.html',{'form':form})
 
+@login_required
+def profile(request):
+    if request.method=='POST':
+        usrForm=UserUpdateForm(request.POST,instance=request.user)
+        profForm=ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        if usrForm.is_valid() and profForm.is_valid():
+            usrForm.save()
+            profForm.save()
+
+            messages.success(request,'Your account has been updated!')
+            return redirect('index')
+    else:
+        usrForm=UserUpdateForm(instance=request.user)
+        profForm=ProfileUpdateForm(instance=request.user.profile) 
+
+    context={
+        'usrForm':usrForm,
+        'profForm':profForm,
+      
+    }
+    return render(request,'registration/profile.html',context)
