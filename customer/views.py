@@ -6,6 +6,8 @@ from .forms import UserRegistrationForm,UserUpdateForm,ProfileUpdateForm,CreateT
 from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 from .models import Create_ticket
+from .generator import randomStringDigits
+
 
 
 def register(request):
@@ -46,7 +48,8 @@ def index(request):
         return redirect(tatuAdmin_views.admin_home)
 
     else :
-        return render(request,'index.html')
+        tickets=Create_ticket.get_my_tickets(request.user)
+        return render(request,'index.html',{'tickets':tickets})
 
 @login_required
 def create_ticket(request):
@@ -62,6 +65,9 @@ def create_ticket(request):
             ctform.status=Create_ticket.Open
             ctform.owner=current_user 
             issue=form.cleaned_data.get('issue')
+            val=randomStringDigits()
+            ctform.ticket_number=str(current_user.id)+val+str(current_user.profile.phone_number)
+
             ctform.save()
             
 
@@ -73,3 +79,24 @@ def create_ticket(request):
     
     return render(request,'tickets/createticket.html',{'form':form})
 
+@login_required
+def profile(request):
+    if request.method=='POST':
+        usrForm=UserUpdateForm(request.POST,instance=request.user)
+        profForm=ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        if usrForm.is_valid() and profForm.is_valid():
+            usrForm.save()
+            profForm.save()
+
+            messages.success(request,'Your account has been updated!')
+            return redirect('index')
+    else:
+        usrForm=UserUpdateForm(instance=request.user)
+        profForm=ProfileUpdateForm(instance=request.user.profile) 
+
+    context={
+        'usrForm':usrForm,
+        'profForm':profForm,
+      
+    }
+    return render(request,'registration/profile.html',context)
