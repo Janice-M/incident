@@ -8,4 +8,4 @@ from customer.models import Create_ticket
 @login_required
 def index(request):
     tickets = Create_ticket.get_tickets()
-    return render(request, 'index.html' ,{'tickets' : tickets })
+    return render(request, 'agent/index.html' ,{'tickets' : tickets })
