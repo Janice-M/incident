@@ -5,7 +5,7 @@ from django.contrib import messages
 from .forms import UserRegistrationForm,UserUpdateForm,ProfileUpdateForm,CreateTicketForm
 from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
-from customer import views as customer_views
+from agent import views as agent_views
 from .models import Create_ticket
 from .generator import randomStringDigits
 
@@ -48,7 +48,7 @@ def index(request):
 
         return redirect(tatuAdmin_views.admin_home)
     elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
-        return redirect(customer_views.index)
+        return redirect(agent_views.index)
 
     else :
         tickets=Create_ticket.get_my_tickets(request.user)
