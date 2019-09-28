@@ -69,5 +69,10 @@ class Create_ticket(models.Model):
     @classmethod
     def get_my_tickets(cls,owner):
         my_tickets=cls.objects.filter(owner=owner).all()
-         return my_tickets
+        return my_tickets
 
+    @classmethod
+    def get_tickets(cls):
+
+        tickets=cls.objects.all()
+        return tickets
