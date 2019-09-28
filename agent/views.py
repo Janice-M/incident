@@ -6,8 +6,9 @@ from tatuAdmin import views as tatuAdmin_views
 from customer.models import Create_ticket
 from .forms import *
 # Create your views here.
+
 @login_required
-def index(request):
+def agent_home(request):
     tickets = Create_ticket.get_tickets()
     return render(request, 'agent/index.html' ,{'tickets' : tickets })
 
@@ -29,7 +30,7 @@ def take_or_assign_ticket(request, pk):
 
 
             messages.success(request,f'Ticket {take_form.status} has change from open to pending!')
-            return redirect('index')
+            return redirect('agent_home')
 
     else:
         form=Take_or_Assign_Form(instance=ticket)
