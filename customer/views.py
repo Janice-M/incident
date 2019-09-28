@@ -46,7 +46,8 @@ def index(request):
         return redirect(tatuAdmin_views.admin_home)
 
     else :
-        return render(request,'index.html')
+        tickets=Create_ticket.get_my_tickets(request.user)
+        return render(request,'index.html',{'tickets':tickets})
 
 @login_required
 def create_ticket(request):
