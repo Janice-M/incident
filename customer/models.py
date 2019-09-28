@@ -22,6 +22,7 @@ class Profile(models.Model):
     def get_agents(cls):
         agents=cls.objects.filter(is_staff=True).all()
         return agents
+        
     
 
     def save(self,*args,**kwargs):

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import *
 from .models import *
+from customer.models import Create_ticket
 from customer.models import Profile
 from django.views.generic import (UpdateView,DeleteView)
 from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
@@ -29,6 +30,7 @@ def create_agent(request):
         form=AgentCreationForm(request.POST)
 
         if form.is_valid():
+
             form.save()
 
             username=form.cleaned_data.get('username')
@@ -68,6 +70,7 @@ def edit_agent(request,pk):
 def department_management(request):
 
     departments=Department.get_departments()
+    
 
     return render(request,'department/departmentmanagement.html',{'departments':departments}) 
 
@@ -112,8 +115,9 @@ def edit_department(request,pk):
 def ticket_management(request):
 
     tickets=TicketType.get_ticket_types()
+    all_tickets=Create_ticket.get_tickets()
 
-    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
+    return render(request,'ticket/ticketManagement.html',{'tickets':tickets,'all_tickets':all_tickets})     
 
 
 @login_required
