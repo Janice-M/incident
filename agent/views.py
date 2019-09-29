@@ -12,6 +12,7 @@ def agent_home(request):
     tickets = Create_ticket.get_tickets()
     return render(request, 'agent/index.html' ,{'tickets' : tickets })
 
+
 @login_required
 def take_or_assign_ticket(request, pk):
     '''
@@ -36,3 +37,17 @@ def take_or_assign_ticket(request, pk):
         form=Take_or_Assign_Form(instance=ticket)
 
     return render(request,'agent/take_or_assign.html',{'form':form})
+
+
+
+@login_required
+def my_tickets(request):
+    '''
+    view to redirect the agents to their specific tickets
+    '''
+
+    current_user=request.user
+    tickets=Create_ticket.get_agent_tickets(request.user)
+
+    return render(request,'agent/my_tickets.html',{'tickets':tickets})
+
