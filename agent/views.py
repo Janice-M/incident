@@ -12,7 +12,7 @@ def agent_home(request):
     tickets = Create_ticket.get_tickets()
     closed_tickets=Create_ticket.get_closed_tickets()
     pending_tickets=Create_ticket.get_pending_tickets()
-    return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets'})
+    return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
 
 
 @login_required

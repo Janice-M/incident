@@ -21,7 +21,8 @@
                 margin-right: auto;
                 border-radius: 50%;height: 40px;">
             <a href="{% url 'profile' %}" class="nav-item nav-link">{{user.username}}</a>
-                     <a href="{% url 'createticket' %}" class="nav-item nav-link">Create ticket</a>
+            <a href="{% url 'createticket' %}" class="nav-item nav-link">Create ticket</a>
+            <a href="" class="nav-item nav-link"><i class="fa fa-bell fa-1x"></i> <span class="badge"></span></a>
             <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
             {% else %}
             <a href="{% url 'login'%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
