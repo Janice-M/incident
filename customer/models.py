@@ -83,3 +83,8 @@ class Create_ticket(models.Model):
 
         tickets=cls.objects.filter(is_taken=False).all()
         return tickets
+    @classmethod
+    def get_agent_tickets(cls,agent):
+
+        tickets=cls.objects.filter(agent=agent).all()
+        return tickets
