@@ -30,6 +30,7 @@ def register(request):
 
         if form.is_valid():
             rf=form.save(commit=False)
+            rf.is_active=False
 
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
@@ -48,12 +49,25 @@ def register(request):
 
             except ObjectDoesNotExist:
                 form.save()
+                
+                current_site=get_current_site(request)
+                mail_subject='Activate your Tatu Account.'
+                message=render_to_string('account_email_activate.html',{
+                    'user':rf,
+                    'domain':current_site.domain,
+                    'uid':urlsafe_base64_encode(force_bytes(rf.pk)),
+                    'token':account_activation_token.make_token(rf),
+
+                })
+                to_email=useremail
+                email=EmailMessage(mail_subject,message,to=[to_email])
+                email.send()
 
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.save()
                 
-                messages.success(request,f'Account for {username} created!')
+                messages.success(request,f'Account for {username} created!Please confirm you email to complete registration')
                 return redirect('login')
 
     else:
