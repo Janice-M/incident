@@ -1,0 +1,51 @@
+{%extends 'customer/base.html'%} 
+{% block content %}
+<div class="container">
+
+  <div class="row mt-2">
+    {% if ticket %}
+      <h5 class="title">Found {{ ticket|length }} of ticket number {{message}}</h5>
+    {% else %}
+      <h5 class="title"> Found 0 ticket for the  ticket number{{message}}</h5>
+    {% endif %}
+  </div>
+
+</div>
+        {% if ticket %}
+
+        <section id="welcome-section" class="container">
+            <div class="row mt-2">
+         
+                <table class="table table-responsive mt-2">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Last Updated</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ticket Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in ticket %}
+                        <tr>
+                            <th scope="row">{{ticket.id}}</th>
+                            
+                            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                            <td>{{ticket.date_created }}</td>
+                            <td>{{ticket.last_updated }}</td>
+                            <td>{{ticket.get_status_display}}</td>
+                            <td>{{ticket.ticket_number}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        
+    </div>
+</section>
+
+{% endif %}
+
+{% endblock %}

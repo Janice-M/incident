@@ -118,15 +118,15 @@ def search_results(request):
         ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
 
         context={
-        'message':f"{search_term}",
+        'message':f"{ticket_number}",
         'ticket':ticketi
         }
 
-        return render(request,'cutomer/search.html',context)
+        return render(request,'customer/search.html',context)
                 
     else :
 
         context={
-        'message':f"{search_term}"
+        'message':f"{ticket_number}"
         }
-        return render(request,'cutomer/search.html',context) 
+        return render(request,'customer/search.html',context) 
