@@ -7,12 +7,16 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
+    // {
+    //   path: '/chats',
+    //   name: 'Chat',
+    //   component: Chat
+    // },
     {
-      path: '/chats',
-      name: 'Chat',
-      component: Chat
+        path: '/chats/:uri?',
+        name: 'Chat',
+        component: Chat
     },
-
     {
       path: '/auth',
       name: 'UserAuth',
