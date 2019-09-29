@@ -8,6 +8,8 @@ from tatuAdmin import views as tatuAdmin_views
 from agent import views as agent_views
 from .models import Create_ticket
 from .generator import randomStringDigits
+from customer.models import Profile
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -20,17 +22,32 @@ def register(request):
         form=UserRegistrationForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            rf=form.save(commit=False)
+
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
+            
+            try:
+                if User.objects.get(email=useremail):
 
-            createdUser=User.objects.filter(email=useremail).first()
-            createdUser.profile.phone_number=userphonenumber
-            createdUser.save()
+                    messages.warning(request,f'Email already in use with another account')
+                    return render(request,'registration/registration_form.html',{'form':form})
 
-            messages.success(request,f'Account for {username} created!')
-            return redirect('login')
+                elif userphonenumber==Profile.objects.filter(phone_number=userphonenumber).first():
+                    messages.warning(request,f'Phone number already in use with another account')
+                    return render(request,'registration/registration_form.html',{'form':form})
+
+
+            except ObjectDoesNotExist:
+                form.save()
+
+                createdUser=User.objects.filter(email=useremail).first()
+                createdUser.profile.phone_number=userphonenumber
+                createdUser.save()
+                
+                messages.success(request,f'Account for {username} created!')
+                return redirect('login')
 
     else:
         form=UserRegistrationForm()
