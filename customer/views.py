@@ -11,6 +11,14 @@ from .generator import randomStringDigits
 from customer.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
 
+from django.contrib.auth import login,authenticate
+from django.contrib.sites.shortcuts import (get_current_site)
+from django.utils.encoding import force_bytes,force_text
+from django.utils.http import (urlsafe_base64_encode, urlsafe_base64_decode)
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.core.mail import EmailMessage
+from django.http import HttpResponse,Http404,HttpResponseRedirect
 
 
 def register(request):
@@ -23,6 +31,7 @@ def register(request):
 
         if form.is_valid():
             rf=form.save(commit=False)
+            rf.is_active=False
 
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
@@ -41,18 +50,51 @@ def register(request):
 
             except ObjectDoesNotExist:
                 form.save()
+                
+                current_site=get_current_site(request)
+                mail_subject='Activate your Tatu Account.'
+                message=render_to_string('registration/account_email_activate.html',{
+                    'user':rf,
+                    'domain':current_site.domain,
+                    'uid':urlsafe_base64_encode(force_bytes(rf.pk)),
+                    'token':account_activation_token.make_token(rf),
+
+                })
+
+                to_email=useremail
+                email=EmailMessage(mail_subject,message,to=[to_email])
+                email.send()
 
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.save()
                 
-                messages.success(request,f'Account for {username} created!')
+                messages.success(request,f'Account for {username} created!Please confirm you email to complete registration')
                 return redirect('login')
 
     else:
         form=UserRegistrationForm()
 
     return render(request,'registration/registration_form.html',{'form':form})
+
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('index')
+        
+    else:
+        return HttpResponse('Activation link is invalid!')
+        
 
 @login_required
 def index(request):
