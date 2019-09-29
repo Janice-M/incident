@@ -50,3 +50,30 @@ def my_tickets(request):
     tickets=Create_ticket.get_agent_tickets(request.user)
 
     return render(request,'agent/my_tickets.html',{'tickets':tickets})
+@login_required
+def create_ticket(request):
+    '''
+    view function for creating a ticket
+    '''
+    current_user=request.user
+    if request.method=='POST':
+        form=CreateTicketForm(request.POST)
+
+        if form.is_valid():
+            ctform=form.save(commit=False)
+            ctform.status=Create_ticket.Open
+            ctform.owner=current_user
+            issue=form.cleaned_data.get('issue')
+            val=randomStringDigits()
+            ctform.ticket_number=str(current_user.id)+val+str(current_user.profile.phone_number)
+
+            ctform.save()
+
+
+            messages.success(request,f'Your {issue} has been recieved!')
+            return redirect('index')
+
+    else:
+        form=CreateTicketForm()
+
+    return render(request,'tickets/createticket.html',{'form':form})
