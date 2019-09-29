@@ -127,6 +127,6 @@ def search_results(request):
     else :
 
         context={
-        'message':f"{ticket_number}"
+        'message':f"Incorrect Ticket Number"
         }
         return render(request,'customer/search.html',context) 
