@@ -62,7 +62,7 @@ class Create_ticket(models.Model):
     ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE)
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
-    agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent')
+    agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent',blank=True)
     issue = models.CharField(max_length=40)
     summary = models.TextField(max_length=140,blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -81,8 +81,15 @@ class Create_ticket(models.Model):
     @classmethod
     def get_tickets(cls):
 
-        tickets=cls.objects.filter(is_taken=False).all()
+        tickets=cls.objects.filter(is_taken=False).filter(status=cls.Open).all()
         return tickets
+
+    @classmethod
+    def get_closed_tickets(cls):
+
+        tickets=cls.objects.filter(status=cls.Closed).all()
+        return tickets
+    
 
     @classmethod
     def get_agent_tickets(cls,agent):

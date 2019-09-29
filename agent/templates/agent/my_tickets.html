@@ -14,7 +14,8 @@
               <th scope="col">Agent</th>
               <th scope="col">Status</th>
               <th scope="col">Ticket Number</th>
-              <th scope="col">Take/ Assign Ticket(s)</th>
+              <th scope="col">Re-Assign Ticket(s)</th>
+              <th scope="col">Resolve Ticket(s)</th>
             </tr>
           </thead>
           <tbody>
@@ -28,7 +29,8 @@
               <td>{{ticket.agent.username}}</td>
               <td>{{ticket.status}}</td>
               <td>{{ticket.ticket_number}}</td>
-              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
+              <td><a href="{% url 'resolve_ticket' ticket.id %}">Resolve Ticket</a></td>
             </tr>
             {% endfor %}
           </tbody>

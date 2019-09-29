@@ -10,7 +10,8 @@ from .forms import *
 @login_required
 def agent_home(request):
     tickets = Create_ticket.get_tickets()
-    return render(request, 'agent/index.html' ,{'tickets' : tickets })
+    closed_tickets=Create_ticket.get_closed_tickets()
+    return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets})
 
 
 @login_required
@@ -51,3 +52,39 @@ def my_tickets(request):
 
     return render(request,'agent/my_tickets.html',{'tickets':tickets})
 
+
+@login_required
+def resolve_ticket(request,pk):
+    '''
+    view function for resolving a ticket
+    '''
+    ticket=Create_ticket.objects.get(pk=pk)
+    current_user=request.user
+    if request.method=='POST':
+        form=ResolveTicketForm(request.POST, instance=ticket)
+
+        if form.is_valid():
+            resolve_form=form.save(commit=False)
+            if resolve_form.status==Create_ticket.Open:
+            
+                resolve_form.is_taken=False
+                resolve_form.agent=None
+                resolve_form.save()
+
+                messages.success(request,f'Ticket {resolve_form.issue} has change from pending to Open !')
+                return redirect('my_tickets')
+
+            elif resolve_form.status==Create_ticket.Closed:
+
+                resolve_form.is_taken=False
+                resolve_form.agent=request.user
+                resolve_form.save()
+
+                messages.success(request,f'Ticket {resolve_form.issue} has change from pending to Closed !')
+                return redirect('my_tickets')
+
+
+    else:
+         form=ResolveTicketForm(instance=ticket)
+
+    return render(request,'agent/resolve_ticket.html',{'form':form})
