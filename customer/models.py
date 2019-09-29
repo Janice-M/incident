@@ -89,6 +89,13 @@ class Create_ticket(models.Model):
 
         tickets=cls.objects.filter(status=cls.Closed).all()
         return tickets
+
+    @classmethod
+    def get_pending_tickets(cls):
+
+        tickets=cls.objects.filter(status=cls.Pending).all()
+        return tickets
+        
     
 
     @classmethod
