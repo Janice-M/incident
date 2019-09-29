@@ -29,7 +29,8 @@ class ChatSessionView(APIView):
     def patch(self, request, *args, **kwargs):
         """Add a user to a chat session.The patch method for the ChatSessionView is idempotent because making an request to it multiples times gives us the same result. That means a user can join a chat room several times but there’s only going to be one instance of that user in the response (and also in our database table).
 
-Another thing to note about the patch method is that it returns the owner of the chat room as a member but in our database we never add the owner as a member of the room, we just retrieve his information and insert it into the list that’s returned back to the client. There’s no point duplicating information by having the owner as a member of their chatroom in the database."""
+        Another thing to note about the patch method is that it returns the owner of the chat room as a member but in our database we never add the owner as a member of the room, we just retrieve his information and insert it into the list that’s returned back to the client. There’s no point duplicating information by having the owner as a member of their chatroom in the database.
+        """
         User = get_user_model()
 
         uri = kwargs['uri']
