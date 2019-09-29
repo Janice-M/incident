@@ -86,6 +86,7 @@ def create_ticket(request):
 
     return render(request,'tickets/createticket.html',{'form':form})
 
+
 @login_required
 def profile(request):
     if request.method=='POST':

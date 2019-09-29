@@ -26,7 +26,7 @@
               <td>{{ticket.ticket_type.name}}</td>
               <td>{{ticket.ticket_subtype.subtype}}</td>
               <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.status}}</td>
+              <td>{{ticket.get_status_display}}</td>
               <td>{{ticket.ticket_number}}</td>
               <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
             </tr>
@@ -62,7 +62,7 @@
               <td>{{ticket.ticket_type.name}}</td>
               <td>{{ticket.ticket_subtype.subtype}}</td>
               <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.status}}</td>
+              <td>{{ticket.get_status_display}}</td>
               <td>{{ticket.ticket_number}}</td>
               <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
             </tr>
@@ -98,10 +98,10 @@
               <td>{{ticket.ticket_type.name}}</td>
               <td>{{ticket.ticket_subtype.subtype}}</td>
               <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.status}}</td>
+              <td>{{ticket.get_status_display}}</td>
               <td>{{ticket.ticket_number}}</td>
             </tr>
-            
+
             {% endfor %}
           </tbody>
         </table>
