@@ -1,13 +1,16 @@
 """Views for the chat app."""
 
+from django.http import Http404
 from django.contrib.auth import get_user_model
+
 from .models import (
     ChatSession, ChatSessionMember, ChatSessionMessage, deserialize_user
 )
 
+from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import permissions
+from notifications.signals import notify
 
 
 class ChatSessionView(APIView):
@@ -27,10 +30,7 @@ class ChatSessionView(APIView):
         })
 
     def patch(self, request, *args, **kwargs):
-        """Add a user to a chat session.The patch method for the ChatSessionView is idempotent because making an request to it multiples times gives us the same result. That means a user can join a chat room several times but there’s only going to be one instance of that user in the response (and also in our database table).
-
-        Another thing to note about the patch method is that it returns the owner of the chat room as a member but in our database we never add the owner as a member of the room, we just retrieve his information and insert it into the list that’s returned back to the client. There’s no point duplicating information by having the owner as a member of their chatroom in the database.
-        """
+        """Add a user to a chat session."""
         User = get_user_model()
 
         uri = kwargs['uri']
@@ -85,11 +85,31 @@ class ChatSessionMessageView(APIView):
         user = request.user
         chat_session = ChatSession.objects.get(uri=uri)
 
-        ChatSessionMessage.objects.create(
+        chat_session_message = ChatSessionMessage.objects.create(
             user=user, chat_session=chat_session, message=message
+        )
+
+        notif_args = {
+            'source': user,
+            'source_display_name': user.get_full_name(),
+            'category': 'chat', 'action': 'Sent',
+            'obj': chat_session_message.id,
+            'short_description': 'You a new message', 'silent': True,
+            'extra_data': {
+                'uri': chat_session.uri,
+                'message': chat_session_message.to_json()
+            }
+        }
+        notify.send(
+            sender=self.__class__,**notif_args, channels=['websocket']
         )
 
         return Response ({
             'status': 'SUCCESS', 'uri': chat_session.uri, 'message': message,
             'user': deserialize_user(user)
         })
+
+
+def raise_404(request):
+    """Raise a 404 Error."""
+    raise Http404
