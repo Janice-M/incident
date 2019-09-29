@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 from customer.models import Create_ticket
 from .forms import *
+from django.utils import timezone
 # Create your views here.
 
 @login_required
@@ -28,6 +29,7 @@ def take_or_assign_ticket(request, pk):
         if form.is_valid():
             take_form=form.save(commit=False)
             take_form.status=Create_ticket.Pending
+            take_form.last_updated=timezone.now()
             take_form.is_taken=True
             take_form.save()
 
@@ -69,6 +71,7 @@ def resolve_ticket(request,pk):
             if resolve_form.status==Create_ticket.Open:
             
                 resolve_form.is_taken=False
+                resolve_form.last_updated=timezone.now()
                 resolve_form.agent=None
                 resolve_form.save()
 

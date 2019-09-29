@@ -8,10 +8,9 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Issue</th>
-              <th scope="col">Ticket Type</th>
-              <th scope="col">Ticket Subtype</th>
-              <th scope="col">Agent</th>
+              <th scope="col">Title</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Last Updated</th>
               <th scope="col">Status</th>
               <th scope="col">Ticket Number</th>
             </tr>
@@ -22,9 +21,8 @@
               <th scope="row">{{ticket.id}}</th>
            
               <td>{{ticket.issue}}</td>
-              <td>{{ticket.ticket_type.name}}</td>
-              <td>{{ticket.ticket_subtype.subtype}}</td>
-              <td>{{ticket.agent.username}}</td>
+              <td>{{ticket.date_created }}</td>
+              <td>{{ticket.last_updated }}</td>
               <td>{{ticket.status}}</td>
               <td>{{ticket.ticket_number}}</td>
             </tr>
