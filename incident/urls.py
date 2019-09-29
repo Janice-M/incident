@@ -35,6 +35,7 @@ urlpatterns = [
     path('agent/', include('agent.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    path('api/', include('chat.uris')),
 
 ]
 
