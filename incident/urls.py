@@ -35,7 +35,7 @@ urlpatterns = [
     path('agent/', include('agent.urls')),
     # path('auth/', include('djoser.urls')),
     # path('auth/', include('djoser.urls.authtoken')),
-    path('api/', include('chat.urls')),
+    # path('api/', include('chat.urls')),
 
 ]
 
@@ -47,10 +47,10 @@ urlpatterns = [
 
 
 # chat app urls
-urlpatterns += [
-    path('api/', include('chat.urls')),
-]
-
+# urlpatterns += [
+#     path('api/', include('chat.urls')),
+# ]
+#
 
 
 
