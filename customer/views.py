@@ -108,3 +108,25 @@ def profile(request):
 
     }
     return render(request,'registration/profile.html',context)
+
+
+def search_results(request):
+    current_user=request.user
+    if 'ticket' in request.GET and request.GET['ticket']:
+
+        ticket_number=request.GET.get('ticket')
+        ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
+
+        context={
+        'message':f"{search_term}",
+        'ticket':ticketi
+        }
+
+        return render(request,'cutomer/search.html',context)
+                
+    else :
+
+        context={
+        'message':f"{search_term}"
+        }
+        return render(request,'cutomer/search.html',context) 
