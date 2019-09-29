@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="text-center">Welcome to Chatire!</h1>
+    <h1 class="text-center">Welcome to IMM Chat!</h1>
     <div id="auth-container" class="row">
       <div class="col-sm-4 offset-sm-4">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -12,10 +12,9 @@
           </li>
         </ul>
 
-        <!-- sign up tab -->
         <div class="tab-content" id="myTabContent">
 
-          <div class="tab-pane fade show active" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+          <div class="tab-pane fade show active" id="signup" role="tabpanel" aria-labelledby="signin-tab">
             <form @submit.prevent="signUp">
               <div class="form-group">
                 <input v-model="email" type="email" class="form-control" id="email" placeholder="Email Address" required>
@@ -39,9 +38,7 @@
               <button type="submit" class="btn btn-block btn-primary">Sign up</button>
             </form>
           </div>
-          <!-- /sign up tab -->
 
-          <!-- sign in tab -->
           <div class="tab-pane fade" id="signin" role="tabpanel" aria-labelledby="signin-tab">
             <form @submit.prevent="signIn">
               <div class="form-group">
@@ -53,7 +50,6 @@
               <button type="submit" class="btn btn-block btn-primary">Sign in</button>
             </form>
           </div>
-          <!-- /sign in tab -->
 
         </div>
       </div>
@@ -74,31 +70,30 @@
 
     methods: {
       signUp () {
-        $.post("http://localhost:8000/auth/users/create/", this.$data, (data) => {
-          alert("Your account has been created. You will be Signed In automatically!")
+        $.post('http://localhost:8000/auth/users/create/', this.$data, (data) => {
+          alert('Your account has been created. You will be signed in automatically')
           this.signIn()
         })
         .fail((response) => {
-          alert(response.ResponseText)
+          alert(response.responseText)
         })
       },
 
       signIn () {
         const credentials = {username: this.username, password: this.password}
 
-        $.post("http://localhost:8000/auth/token/create/", credentials, (data) => {
-          localStorage.setItem('authToken', data.auth_token)
-          localStorage.setItem('username', this.username)
-          this.router.push('/chats')
+        $.post('http://localhost:8000/auth/jwt/create/', credentials, (data) => {
+          sessionStorage.setItem('authToken', data.token)
+          sessionStorage.setItem('username', this.username)
+          this.$router.push('/chats')
         })
         .fail((response) => {
-          alert(response.ResponseText)
+          alert(response.responseText)
         })
       }
     }
 
   }
-
 </script>
 
 <style scoped>
