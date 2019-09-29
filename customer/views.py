@@ -103,3 +103,13 @@ def profile(request):
 
     }
     return render(request,'registration/profile.html',context)
+@login_required
+def my_tickets(request):
+    '''
+    view to redirect the agents to their specific tickets
+    '''
+
+    current_user=request.user
+    tickets=Create_ticket.get_agent_tickets(request.user)
+
+    return render(request,'agent/my_tickets.html',{'tickets':tickets})
