@@ -44,15 +44,19 @@ def index(request):
     '''
 
     current_user=request.user
-    if current_user.is_superuser and current_user.is_staff==True:
 
+    if current_user.is_superuser==True:
+
+        print(current_user.is_superuser,"yeeeeeeeeeeeeeeeeeeah")
         return redirect(tatuAdmin_views.admin_home)
+
     elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
-        return redirect(agent_views.index)
+        print(current_user.is_superuser,"ageeeeeeeeeeeeeeeeeeeeeeeeeeent")
+        return redirect(agent_views.agent_home)
 
     else :
         tickets=Create_ticket.get_my_tickets(request.user)
-        return render(request,'index.html',{'tickets':tickets})
+        return render(request,'customer/index.html',{'tickets':tickets})
 
 @login_required
 def create_ticket(request):
@@ -103,13 +107,3 @@ def profile(request):
 
     }
     return render(request,'registration/profile.html',context)
-@login_required
-def my_tickets(request):
-    '''
-    view to redirect the agents to their specific tickets
-    '''
-
-    current_user=request.user
-    tickets=Create_ticket.get_agent_tickets(request.user)
-
-    return render(request,'agent/my_tickets.html',{'tickets':tickets})
