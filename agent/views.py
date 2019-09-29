@@ -1,3 +1,5 @@
+#updated agent views.py
+
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -50,30 +52,30 @@ def my_tickets(request):
     tickets=Create_ticket.get_agent_tickets(request.user)
 
     return render(request,'agent/my_tickets.html',{'tickets':tickets})
+
+
 @login_required
-def create_ticket(request):
+def resolve_ticket(request,pk):
     '''
-    view function for creating a ticket
+    view function for resolving a ticket
     '''
+    ticket=Create_ticket.objects.get(pk=pk)
     current_user=request.user
     if request.method=='POST':
-        form=CreateTicketForm(request.POST)
+        form=ResolveTicketForm(request.POST, instance=ticket)
 
         if form.is_valid():
-            ctform=form.save(commit=False)
-            ctform.status=Create_ticket.Open
-            ctform.owner=current_user
-            issue=form.cleaned_data.get('issue')
-            val=randomStringDigits()
-            ctform.ticket_number=str(current_user.id)+val+str(current_user.profile.phone_number)
+            resolve_form=form.save(commit=False)
+            if resolve_form.status==Create_ticket.Open or resolve_form.status==Create_ticket.Closed:
 
-            ctform.save()
+                resolve_form.is_taken=False
+                resolve_form.agent=None
+                resolve_form.save()
 
-
-            messages.success(request,f'Your {issue} has been recieved!')
-            return redirect('index')
+                messages.success(request,f'Ticket {resolve_form.issue} has change from pending to {resolve_form.status}!')
+                return redirect('my_tickets')
 
     else:
-        form=CreateTicketForm()
+         form=ResolveTicketForm(instance=ticket)
 
-    return render(request,'tickets/createticket.html',{'form':form})
+    return render(request,'agent/resolve_ticket.html',{'form':form})
