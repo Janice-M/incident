@@ -37,6 +37,8 @@ def register(request):
 
     return render(request,'registration/registration_form.html',{'form':form})
 
+
+
 @login_required
 def index(request):
     '''
@@ -56,7 +58,7 @@ def index(request):
 
     else :
         tickets=Create_ticket.get_my_tickets(request.user)
-        return render(request,'customer/index.html',{'tickets':tickets})
+        return render(request,'index.html',{'tickets':tickets})
 
 @login_required
 def create_ticket(request):
