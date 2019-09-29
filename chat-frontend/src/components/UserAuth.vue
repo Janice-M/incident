@@ -15,7 +15,7 @@
         <div class="tab-content" id="myTabContent">
 
           <div class="tab-pane fade show active" id="signup" role="tabpanel" aria-labelledby="signin-tab">
-            <form @submit.prevent="signUp"> 
+            <form @submit.prevent="signUp">
               <div class="form-group">
                 <input v-model="email" type="email" class="form-control" id="email" placeholder="Email Address" required>
               </div>
