@@ -21,7 +21,14 @@
                 margin-right: auto;
                 border-radius: 50%;height: 40px;">
             <a href="{% url 'profile' %}" class="nav-item nav-link">{{user.username}}</a>
-            <a href="{% url 'createticket' %}" class="nav-item nav-link">Create ticket</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Open New Ticket
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'createticket' %}">Create Ticket</a>
+                </div>
+              </li>
             <a href="" class="nav-item nav-link"><i class="fa fa-bell fa-1x"></i> <span class="badge"></span></a>
             <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
             {% else %}

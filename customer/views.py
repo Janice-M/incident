@@ -76,9 +76,9 @@ def create_ticket(request):
             ctform.ticket_number=str(current_user.id)+val+str(current_user.profile.phone_number)
 
             ctform.save()
+            mssg=f'{request.user.username} ,Thank You for contacting us.A support ticket request has been created and a representative will be getting back to you shortly if necessary.'
 
-
-            messages.success(request,f'Your {issue} has been recieved!')
+            messages.success(request,mssg)
             return redirect('index')
 
     else:
