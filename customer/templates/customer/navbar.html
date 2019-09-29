@@ -29,7 +29,11 @@
                   <a class="dropdown-item" href="{% url 'createticket' %}">Create Ticket</a>
                 </div>
               </li>
-            <a href="" class="nav-item nav-link"><i class="fa fa-bell fa-1x"></i> <span class="badge"></span></a>
+              
+              <a href="" class="nav-item nav-link"><i class="fa fa-bell fa-1x"></i> <span class="badge"></span></a>
+            <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
+            </form>
             <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
             {% else %}
             <a href="{% url 'login'%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>

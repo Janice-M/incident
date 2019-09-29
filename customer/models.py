@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 from tatuAdmin.models import *
 from django.utils import timezone
+from django.db.models import Q
 
 # Create your models here.
 
@@ -102,3 +103,8 @@ class Create_ticket(models.Model):
     def get_agent_tickets(cls,agent):
         tickets=cls.objects.filter(agent=agent).all()
         return tickets    
+
+    @classmethod
+    def search_my_tickets(cls,owner,ticket_number):
+        ticket=cls.objects.filter(owner=owner).filter(ticket_number=ticket_number)
+        return ticket
