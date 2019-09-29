@@ -18,7 +18,7 @@ from django.utils.http import (urlsafe_base64_encode, urlsafe_base64_decode)
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
-from django.http import HttpResponse,Http404
+from django.http import HttpResponse,Http404,HttpResponseRedirect
 
 
 def register(request):
@@ -53,13 +53,14 @@ def register(request):
                 
                 current_site=get_current_site(request)
                 mail_subject='Activate your Tatu Account.'
-                message=render_to_string('account_email_activate.html',{
+                message=render_to_string('registration/account_email_activate.html',{
                     'user':rf,
                     'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(rf.pk)),
                     'token':account_activation_token.make_token(rf),
 
                 })
+
                 to_email=useremail
                 email=EmailMessage(mail_subject,message,to=[to_email])
                 email.send()
@@ -77,21 +78,22 @@ def register(request):
     return render(request,'registration/registration_form.html',{'form':form})
 
 
-def activate(request,uidb64,token):
-    try:
-        uid=force_text(urlsafe_base64_decode(uidb64))
-        user=User.objects.get(pk=uid)
 
-    except (TypeError,ValueError,OverflowError,User.DoesNotExist):
-        user=None
-        if user is not None and account_activation_token(user,token):
-            user.is_active=True
-            user.save()
-            login(request,user)
-            messages.success(request,f'Thank you for your email confirmation. Now you can login your account.')
-            return redirect('login')
-        else:
-            return HttpResponse('Activation Link is invalid')    
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('index')
+        
+    else:
+        return HttpResponse('Activation link is invalid!')
         
 
 @login_required
