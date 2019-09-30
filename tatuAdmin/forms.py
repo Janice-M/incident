@@ -17,9 +17,10 @@ class AgentCreationForm(UserCreationForm):
 
 
 class AgentEditForm(forms.ModelForm):
+    is_active=forms.BooleanField()
     class Meta:
         model=Profile
-        fields=['is_staff','department','phone_number']    
+        fields=['is_staff','is_active','department','phone_number']    
 
 
 
