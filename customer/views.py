@@ -37,6 +37,8 @@ def register(request):
 
     return render(request,'registration/registration_form.html',{'form':form})
 
+
+
 @login_required
 def index(request):
     '''
@@ -44,11 +46,15 @@ def index(request):
     '''
 
     current_user=request.user
-    if current_user.is_superuser and current_user.is_staff==True:
 
+    if current_user.is_superuser==True:
+
+        print(current_user.is_superuser,"yeeeeeeeeeeeeeeeeeeah")
         return redirect(tatuAdmin_views.admin_home)
+
     elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
-        return redirect(agent_views.index)
+        print(current_user.is_superuser,"ageeeeeeeeeeeeeeeeeeeeeeeeeeent")
+        return redirect(agent_views.agent_home)
 
     else :
         tickets=Create_ticket.get_my_tickets(request.user)

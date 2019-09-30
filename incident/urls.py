@@ -33,8 +33,24 @@ urlpatterns = [
     path('tatuadmin/',include('tatuAdmin.urls')),
     path('customer/',include('customer.urls')),
     path('agent/', include('agent.urls')),
+    # path('auth/', include('djoser.urls')),
+    # path('auth/', include('djoser.urls.authtoken')),
+    # path('api/', include('chat.urls')),
 
 ]
+
+# # djoser urls
+# urlpatterns += [
+#     path('auth/', include('djoser.urls')),
+#     path('auth/', include('djoser.urls.authtoken')),
+# ]
+
+
+# chat app urls
+# urlpatterns += [
+#     path('api/', include('chat.urls')),
+# ]
+#
 
 
 
