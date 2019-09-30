@@ -73,8 +73,8 @@ def create_agent(request):
                     'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
                     'token':account_activation_token.make_token(agent_form),
-                    'password':form.cleaned_data.get('password')
-                    'email' :form.cleaned_data.get('email')
+                    'password':form.cleaned_data.get('password'),
+                    'email':form.cleaned_data.get('email')
 
                 })
 
