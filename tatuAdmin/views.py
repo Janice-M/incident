@@ -9,6 +9,7 @@ from customer.models import Profile
 from django.views.generic import (UpdateView,DeleteView)
 from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import ObjectDoesNotExist
 
 
 from django.contrib.auth import login,authenticate
@@ -35,7 +36,7 @@ def user_management(request):
 
 @login_required
 def create_agent(request):
-      
+
     '''
     view function for creating an agent
     '''
@@ -70,8 +71,8 @@ def create_agent(request):
                 message=render_to_string('agent/account_email_activate.html',{
                     'user':agent_form,
                     'domain':current_site.domain,
-                    'uid':urlsafe_base64_encode(force_bytes(rf.pk)),
-                    'token':account_activation_token.make_token(rf),
+                    'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
+                    'token':account_activation_token.make_token(agent_form),
 
                 })
 
