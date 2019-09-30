@@ -8,6 +8,7 @@ from .forms import *
 from django.utils import timezone
 # Create your views here.
 
+
 @login_required
 def agent_home(request):
     tickets = Create_ticket.get_tickets()

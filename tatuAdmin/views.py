@@ -29,7 +29,7 @@ def create_agent(request):
     if request.method=='POST':
         form=AgentCreationForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid(): 
 
             form.save()
 
