@@ -67,12 +67,14 @@ def create_agent(request):
                 form.save()
                 
                 current_site=get_current_site(request)
-                mail_subject='Activate your Agebnt Account.'
+                mail_subject='Activate your Agent Account.'
                 message=render_to_string('agent/account_email_activate.html',{
                     'user':agent_form,
                     'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
                     'token':account_activation_token.make_token(agent_form),
+                    'password':form.cleaned_data.get('password')
+                    'email' :form.cleaned_data.get('email')
 
                 })
 
