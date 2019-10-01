@@ -16,11 +16,11 @@
             margin-left: auto;
             margin-right: auto;
             border-radius: 50%;height: 200x;">
-             <h4 style="font-family: 'Pacifico', cursive;size: 50px">Welcome friend,</h4>
+             
       </div>
       <div class="col-md-6 mt-5">
 
-        <form  class="form-horizontal"action="" method="post" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
+        <form  class="form-horizontal"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;">
           <h4 style="font-family: 'Pacifico', cursive;" class="text-center">Sign Up</h4>
           {% csrf_token %}
           {% bootstrap_form form layout='inline'%}
@@ -30,6 +30,9 @@
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
             </div>
           <input type="hidden" name="next" value="{{next}}">
+          <div class="row" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
+                <p>Already have an account?  <a href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i>Login</a></p>
+              </div>
          
         </form>
       </div>
