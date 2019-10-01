@@ -67,7 +67,10 @@ def register(request):
 
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
+                createdUser.profile.is_customer= True
                 createdUser.save()
+                
+                
                 
                 messages.success(request,f'Account for {username} created!Please confirm you email to complete registration')
                 return redirect('login')
