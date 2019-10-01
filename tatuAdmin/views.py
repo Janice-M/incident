@@ -96,7 +96,6 @@ def create_agent(request):
 
     return render(request,'agent/createAgent.html',{'form':form})
 
-
 @login_required
 def edit_agent(request,pk):
     agent=User.objects.get(pk=pk)
@@ -105,7 +104,14 @@ def edit_agent(request,pk):
         usrform=AgentUpdateForm(request.POST,instance=agent)
 
         if form.is_valid() and usrform.is_valid():
-            form.save()
+            profile=form.save(commit=False)
+            if profile.is_staff==False:
+                agent.is_active=False
+                profile.save()
+            else:
+                agent.is_active=True
+                profile.save()  
+                  
             usrform.save()
             messages.success(request,f'Account Updated for Agent {agent.username}')
             return redirect('user_management')

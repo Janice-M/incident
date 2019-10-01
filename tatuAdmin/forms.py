@@ -19,7 +19,7 @@ class AgentCreationForm(UserCreationForm):
 class AgentProfileEditForm(forms.ModelForm):
     class Meta:
         model=Profile
-        fields=['is_staff','is_active','department','phone_number']
+        fields=['is_staff','department','phone_number']
 
 class AgentUpdateForm(forms.ModelForm):
     email=forms.EmailField()
