@@ -13,7 +13,7 @@
               <th scope="col">Date Created</th>
               <th scope="col">Agent</th>
               <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
+              <th scope="col">Priority</th>
               <th scope="col">Assign Ticket(s)</th>
             </tr>
           </thead>
@@ -27,7 +27,7 @@
               <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
               <td>{{ticket.agent.username}}</td>
               <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
+              <td>{{ticket.ticket_type.get_priority_display}}</td>
               <td><a href="{%url 'assign_ticket' ticket.id %}">Assign Ticket(s)</a> </td>
             </tr>
             {% endfor %}
@@ -49,9 +49,7 @@
               <th scope="col">Date Created</th>
               <th scope="col">Agent</th>
               <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
-              
-            
+              <th scope="col">Priority</th>
             </tr>
           </thead>
           <tbody>
@@ -64,7 +62,7 @@
               <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
               <td>{{ticket.agent.username}}</td>
               <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
+              <td>{{ticket.ticket_type.get_priority_display}}</td>
               
             </tr>
             {% endfor %}
@@ -87,7 +85,7 @@
               <th scope="col">Date Created</th>
               <th scope="col">Agent</th>
               <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
+              <th scope="col">Priority</th>
               <th scope="col">Take/ Assign Ticket(s)</th>
             
             </tr>
@@ -102,7 +100,7 @@
               <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
               <td>{{ticket.agent.username}}</td>
               <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
+              <td>{{ticket.ticket_type.get_priority_display}}</td>
               <td><a href="{%url 'assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
             </tr>
 
