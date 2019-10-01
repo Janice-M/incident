@@ -229,8 +229,8 @@ def assign_ticket(request, pk):
             take_form.save()
 
 
-            messages.success(request,f'Ticket {take_form.status} has change from open to pending!')
-            return redirect('ticket_management')
+            messages.success(request,f'Ticket {take_form.status} has changed from open to pending!')
+            return redirect('admin_home')
 
     else:
         form=AssignForm(instance=ticket)
