@@ -1,48 +1,17 @@
-<nav class="navbar navbar-expand-md sticky-top"style="background-color:">
-        
-               
-           
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
 
-            </li>
-        </ul>
-        
-
-            {% if user.is_authenticated %}
-            <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40px;   display: block;
-                margin-left: auto;
-                margin-right: auto;
-                border-radius: 50%;height: 40px;">
-              
-              
-            <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
-            </form>
-           
-            {% else %}
-          
-            
-            {% endif %}
-        </div>
-</nav>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- The sidebar -->
 <div class="sidebar">
-        <img src="https://www.freelogodesign.org/file/app/client/thumb/9062699f-1110-438f-9e49-fcd99bba4af0_200x200.png?1569420923340" alt=""style="width:150px;   display: block;
+        <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40%;   display: block;
         margin-left: auto;
         margin-right: auto;
-        border-radius: 50%;height: 150px;">
+        border-radius: 50%;height: 40%;">
         {% if user.is_authenticated %}
+        <a href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home</a>
   <a href="{% url 'createticket' %}"><i class="fa fa-fw fa-home"></i> Create Ticket</a>
   <a href="{% url 'logout' %}" ><i class="fa fa-fw fa-wrench"></i> Logout</a>
-  <a href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home</a>
+ 
   {% else %}
 
   <a href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i> Login</a>
@@ -51,14 +20,28 @@
   {% endif %}
 </div>
 <style>
+    img {
+    margin-top: 30px;
+    padding: 3px;
+    border: 3px solid white;
+    border-radius: 50%;
+}
     .sidebar {
   height: 100%;
-  width: 160px;
+  width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: lightblue;
+  background: #F17153;
+    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#F17153, #F58D63, #f1ab53);
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#F17153, #F58D63, #f1ab53);
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#F17153, #F58D63, #f1ab53);
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#F17153, #F58D63, #f1ab53);
   overflow-x: hidden;
   padding-top: 50px;
 }
@@ -74,12 +57,16 @@
 
 /* Style links on mouse-over */
 .sidebar a:hover {
-  color: #f1f1f1;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left: 5px solid white;
+    color: white;
+    font-weight: bolder;
+    padding-left: 35px;
 }
 
 /* Style the main content */
 .main {
-  margin-left: 160px; /* Same as the width of the sidenav */
+  margin-left: 200px; /* Same as the width of the sidenav */
   padding: 0px 10px;
 }
 

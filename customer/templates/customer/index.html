@@ -1,5 +1,6 @@
 {% include 'customer/base.html'%}
 {% block content %}
+<main>
 <section id="welcome-section" class="container">
     <div class="row mt-2">
       <h5>My Tickets ({{tickets|length }})</h5>
@@ -66,4 +67,11 @@
         
     {% endfor %}
 </section>
+</main>
+<style>
+/* Style the main content */
+main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}</style>
 {% endblock  %}
