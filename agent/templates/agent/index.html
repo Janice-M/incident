@@ -1,5 +1,6 @@
 {% include 'agent/base.html'%}
 {% block content %}
+<main>
 <section id="welcome-section" class="container">
     <div class="row mt-2">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -39,7 +40,7 @@
           </div>
         </div>
         
-      <h5>Open Tickets ({{tickets|length }})</h5>
+      <h5>Open Tickets </h5>
 
         <table class="table table-responsive mt-2">
           <thead class="thead-dark">
@@ -75,7 +76,7 @@
     </div>
 
     <div class="row mt-2">
-      <h5>Closed Tickets ({{closed_tickets|length }})</h5>
+      <h5>Closed Tickets </h5>
 
         <table class="table table-responsive mt-2">
           <thead class="thead-dark">
@@ -112,7 +113,7 @@
 
 
     <div class="row mt-2">
-      <h5>Pending Tickets ({{pending_tickets|length }})</h5>
+      <h5>Pending Tickets </h5>
 
         <table class="table table-responsive mt-2">
           <thead class="thead-dark">
@@ -262,7 +263,12 @@
     {% endfor %}
     <!-- ========================== -->
 </section>
+</main>
 <style>
+  main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}
 .card-counter{
     box-shadow: 2px 2px 10px #DADADA;
     margin: 5px;
