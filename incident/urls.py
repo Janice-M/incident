@@ -25,6 +25,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
     path('',customer_views.index,name='index'),
     path('register/',customer_views.register,name='register'),
