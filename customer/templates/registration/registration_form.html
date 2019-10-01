@@ -1,5 +1,5 @@
 
-{% extends 'customer/base.html'%}
+{% extends 'customer/base1.html'%}
 {% load bootstrap4 %}
 {% block content %}
 
@@ -11,9 +11,11 @@
   <div class="col-md-6">
     <div class="row">
       <div class="col-md-6 mt-5 nosho">
-       
+   
+            
       </div>
       <div class="col-md-6 mt-5">
+
         <form  class="form-horizontal"action="" method="post" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
           <h4 style="font-family: 'Pacifico', cursive;" class="text-center">Sign Up</h4>
           {% csrf_token %}
