@@ -1,26 +1,46 @@
+
 {% extends 'customer/base.html'%}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container">
+
+<div class="container ">
+<div class="row">
+  <div class="col-md-3">
+
+  </div>
+  <div class="col-md-6">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Join The Incident management module today</legend>
-                    {{form | crispy}}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-primary" type="submit">Sign Up</button>
-                </div>
-            </form>
-            <div class="border-top pt-3">
-                <small class="text-muted">Already Have An Account? <a href="{% url 'login' %}" class="ml-2">Sign
-                        In</a></small>
+      <div class="col-md-6 mt-5 nosho">
+       
+      </div>
+      <div class="col-md-6 mt-5">
+        <form  class="form-horizontal"action="" method="post" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
+          <h4 style="font-family: 'Pacifico', cursive;" class="text-center">Sign Up</h4>
+          {% csrf_token %}
+          {{form | crispy}}
+          {{ formset.management_form }}
+          {{ formset.non_form_errors }}
+          {{ formset|crispy }}   
+         
+          <div class="form-group">
+                <button class="btn btn-outline-primary" type="submit">Sign Up</button>
             </div>
-        </div>
-        <div class="col-md-2"></div>
+          <input type="hidden" name="next" value="{{next}}">
+         
+        </form>
+      </div>
     </div>
+  </div>
+  <div class="col-md-1">
 </div>
+</div>
+
+
+
+
+
+
+
+
+
 {% endblock content %}
