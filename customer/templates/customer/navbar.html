@@ -8,8 +8,9 @@
         margin-right: auto;
         border-radius: 50%;height: 40%;">
         {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>{{user.username}}</a>
         <a href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home</a>
-  <a href="{% url 'createticket' %}"><i class="fa fa-fw fa-home"></i> Create Ticket</a>
+  <a href="{% url 'createticket' %}"><i class="fa fa-plus"></i></i> Create Ticket</a>
   <a href="{% url 'logout' %}" ><i class="fa fa-fw fa-wrench"></i> Logout</a>
  
   {% else %}
@@ -28,20 +29,20 @@
 }
     .sidebar {
   height: 100%;
-  width: 200px;
+  width: 300px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background: #F17153;
+  background: #357EC7;
     /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#F17153, #F58D63, #f1ab53);
+    background: -webkit-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
     /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#F17153, #F58D63, #f1ab53);
+    background: -o-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
     /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#F17153, #F58D63, #f1ab53);
+    background: -moz-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
     /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#F17153, #F58D63, #f1ab53);
+    background: linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
   overflow-x: hidden;
   padding-top: 50px;
 }
@@ -51,7 +52,7 @@
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
-  color: #818181;
+  color: whitesmoke;
   display: block;
 }
 
