@@ -28,7 +28,7 @@
               <td>{{ticket.agent.username}}</td>
               <td>{{ticket.get_status_display}}</td>
               <td>{{ticket.ticket_number}}</td>
-              <td><a href="">Assign Ticket(s)</a> </td>
+              <td><a href="{%url 'assign_ticket' ticket.id %}">Assign Ticket(s)</a> </td>
             </tr>
             {% endfor %}
           </tbody>
