@@ -211,6 +211,31 @@ def create_ticket(request):
 
     return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub}) 
 
+@login_required
+def assign_ticket(request, pk):
+    '''
+    view function to assign a ticket to an agent
+    '''
+    ticket=Create_ticket.objects.get(pk=pk)
+    current_user=request.user
+    if request.method=='POST':
+        form=AssignForm(request.POST, instance=ticket)
+
+        if form.is_valid():
+            take_form=form.save(commit=False)
+            take_form.status=Create_ticket.Pending
+            take_form.last_updated=timezone.now()
+            take_form.is_taken=True
+            take_form.save()
+
+
+            messages.success(request,f'Ticket {take_form.status} has changed from open to pending!')
+            return redirect('admin_home')
+
+    else:
+        form=AssignForm(instance=ticket)
+
+    return render(request,'agent/assign_ticket.html',{'form':form})
 
 @login_required
 def edit_ticket(request,pk):

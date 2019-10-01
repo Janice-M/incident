@@ -5,6 +5,7 @@ from tatuAdmin.models import *
 from django.utils import timezone
 from django.db.models import Q
 
+
 # Create your models here.
 
 class Profile(models.Model):

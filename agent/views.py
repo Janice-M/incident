@@ -6,7 +6,9 @@ from tatuAdmin import views as tatuAdmin_views
 from customer.models import Create_ticket
 from .forms import *
 from django.utils import timezone
+from customer.forms import UserUpdateForm,ProfileUpdateForm
 # Create your views here.
+
 
 @login_required
 def agent_home(request):
@@ -15,6 +17,26 @@ def agent_home(request):
     pending_tickets=Create_ticket.get_pending_tickets()
     return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
 
+def profile(request):
+    if request.method=='POST':
+        usrForm=UserUpdateForm(request.POST,instance=request.user)
+        profForm=ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        if usrForm.is_valid() and profForm.is_valid():
+            usrForm.save()
+            profForm.save()
+
+            messages.success(request,'Your account has been updated!')
+            return redirect('index')
+    else:
+        usrForm=UserUpdateForm(instance=request.user)
+        profForm=ProfileUpdateForm(instance=request.user.profile)
+
+    context={
+        'usrForm':usrForm,
+        'profForm':profForm,
+
+    }
+    return render(request,'agent/profile.html',context)
 
 @login_required
 def take_or_assign_ticket(request, pk):
@@ -89,6 +111,6 @@ def resolve_ticket(request,pk):
 
 
     else:
-         form=ResolveTicketForm(instance=ticket)
+        form=ResolveTicketForm(instance=ticket)
 
     return render(request,'agent/resolve_ticket.html',{'form':form})

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from phonenumber_field.formfields import PhoneNumberField
 from django.db import models
 from .models import *
-from customer.models import Profile
+from customer.models import *
 
 
 class AgentCreationForm(UserCreationForm):
@@ -69,3 +69,9 @@ class CreateMoreTicketSubtype(forms.ModelForm):
     class Meta:
         model=TicketSubType
         fields='__all__' 
+
+class AssignForm(forms.ModelForm):
+    class Meta:
+        model=Create_ticket
+        fields=['ticket_type','agent']
+
