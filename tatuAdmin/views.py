@@ -24,7 +24,10 @@ from django.http import HttpResponse,Http404,HttpResponseRedirect
 # Create your views here.
 @login_required
 def admin_home(request):
-    return render(request,'adminHome.html')
+    tickets = Create_ticket.get_tickets()
+    closed_tickets=Create_ticket.get_closed_tickets()
+    pending_tickets=Create_ticket.get_pending_tickets()
+    return render(request,'adminHome.html',{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
 
 
 # ###################################### agent management ##########################################################
