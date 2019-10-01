@@ -16,11 +16,20 @@ class AgentCreationForm(UserCreationForm):
         fields=['username','email','phonenumber','password1','password2']
 
 
-class AgentEditForm(forms.ModelForm):
-    is_active=forms.BooleanField()
+class AgentProfileEditForm(forms.ModelForm):
     class Meta:
         model=Profile
-        fields=['is_staff','is_active','department','phone_number']    
+        fields=['is_staff','department','phone_number']
+
+class AgentUpdateForm(forms.ModelForm):
+    email=forms.EmailField()
+
+    class Meta:
+        '''
+            update username and email
+        '''
+        model=User
+        fields=['username','email']    
 
 
 
