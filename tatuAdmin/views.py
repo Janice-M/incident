@@ -104,8 +104,9 @@ def edit_agent(request,pk):
         form=AgentProfileEditForm(request.POST,instance=agent.profile)
         usrform=AgentUpdateForm(request.POST,instance=agent)
 
-        if form.is_valid():
+        if form.is_valid() and usrform.is_valid():
             form.save()
+            usrform.save()
             messages.success(request,f'Account Updated for Agent {agent.username}')
             return redirect('user_management')
     else:
