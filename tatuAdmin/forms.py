@@ -69,3 +69,9 @@ class CreateMoreTicketSubtype(forms.ModelForm):
     class Meta:
         model=TicketSubType
         fields='__all__' 
+
+class AssignForm(forms.ModelForm):
+    class Meta:
+        model=Create_ticket
+        fields=['ticket_type','agent']
+
