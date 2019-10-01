@@ -7,3 +7,4 @@ agent/migrations/
 tatuAdmin/migrations/
 chat/chromedriver
 chat/chromedriver_linux64/
+chat/migrations/0001_initial.py
