@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 from tatuAdmin.models import *
 from django.utils import timezone
+from django.db.models import Q
 
 # Create your models here.
 
@@ -14,29 +15,36 @@ class Profile(models.Model):
     phone_number=models.CharField(blank=False,null=True,max_length=16)
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
+    is_customer = models.BooleanField(default=True,null=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
 
     @classmethod
     def get_agents(cls):
-        agents=cls.objects.filter(is_staff=True).all()
+        agents=cls.objects.filter(is_customer=False).all()
         return agents
-    
 
-    # def save(self,*args,**kwargs):
-    #     '''
-    #         overriding the save method of the profile method to resize images
+    @classmethod
+    def get_customers(cls):
+        customers=cls.objects.filter(is_customer=True).all()
+        return customers
 
-    #         careful now...make sure the intergrity of the method is retained lest everything collapses
-    #     '''
-    #     super(Profile,self).save(*args,**kwargs)
-    #     img=Image.open(self.profile_photo.path)
 
-    #     if img.height > 300 or img.width > 300:
-    #         output_size=(300,300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.profile_photo.path) 
+
+    def save(self,*args,**kwargs):
+        '''
+            overriding the save method of the profile method to resize images
+
+            careful now...make sure the intergrity of the method is retained lest everything collapses
+        '''
+        super(Profile,self).save(*args,**kwargs)
+        img=Image.open(self.profile_photo.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size=(300,300)
+            img.thumbnail(output_size)
+            img.save(self.profile_photo.path)
 
 class Create_ticket(models.Model):
     '''
@@ -49,15 +57,15 @@ class Create_ticket(models.Model):
        (Open,'0. Open'),
        (Pending,'1. Pending'),
        (Closed,'2. Closed'),
-       
+
    )
     owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
     ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE)
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
-    agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent')
-    issue = models.CharField(max_length=40)
-    summary = models.TextField(max_length=140,blank=True)
+    agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent',blank=True)
+    issue = models.CharField(max_length=60,blank=False)
+    summary = models.TextField(max_length=120,blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(default=timezone.now)
     ticket_number = models.CharField(max_length=100,blank=True,null=True)
@@ -65,3 +73,38 @@ class Create_ticket(models.Model):
 
     def __str__(self):
         return f'{self.owner.username}{self.issue}'
+
+    @classmethod
+    def get_my_tickets(cls,owner):
+        my_tickets=cls.objects.filter(owner=owner).all()
+        return my_tickets
+
+    @classmethod
+    def get_tickets(cls):
+
+        tickets=cls.objects.filter(is_taken=False).filter(status=cls.Open).all()
+        return tickets
+
+    @classmethod
+    def get_closed_tickets(cls):
+
+        tickets=cls.objects.filter(status=cls.Closed).all()
+        return tickets
+
+    @classmethod
+    def get_pending_tickets(cls):
+
+        tickets=cls.objects.filter(status=cls.Pending).all()
+        return tickets
+        
+    
+
+    @classmethod
+    def get_agent_tickets(cls,agent):
+        tickets=cls.objects.filter(agent=agent).all()
+        return tickets    
+
+    @classmethod
+    def search_my_tickets(cls,owner,ticket_number):
+        ticket=cls.objects.filter(owner=owner).filter(ticket_number=ticket_number)
+        return ticket

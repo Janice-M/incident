@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md navbar-light bg-secondary sticky-top">
+        <a class="navbar-brand" href="{% url 'index' %}">
+               Resident of Tatucity
+              </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home<span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+
+            {% if user.is_authenticated %}
+            <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40px;   display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 50%;height: 40px;">
+            <a href="{% url 'profile' %}" class="nav-item nav-link">{{user.username}}</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Open New Ticket
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'createticket' %}">Create Ticket</a>
+                </div>
+              </li>
+              
+              <a href="" class="nav-item nav-link"><i class="fa fa-bell fa-1x"></i> <span class="badge"></span></a>
+            <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
+            </form>
+            <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
+            {% else %}
+            <a href="{% url 'login'%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
+            
+            <a href="{% url 'register'%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Customer Register</a>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

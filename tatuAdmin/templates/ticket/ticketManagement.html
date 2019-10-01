@@ -4,27 +4,81 @@
 
 {% block content %}
 <div class="container">
-  <div class="row">
-    <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_ticket' %}"
+  <div class="row mt-2">
+    <a class="btn btn-sm btn-outline-secondary " href="{% url 'create_ticket' %}"
       >Create Ticket Type</a
     >
-    <a class="btn btn-sm btn-outline-info" href="{% url 'create_ticket_subtype' %}"
+    <a class="btn btn-sm btn-outline-info ml-2" href="{% url 'create_ticket_subtype' %}"
       >Create Ticket Subtype</a
     >
   </div>
 
-  <div class="row">
-    <!-- <div class="col-md-2"></div> -->
-    <ul class="list-group">
-        {% for ticket in tickets %}
-        <li class="list-group-item"> 
-          <a href="{% url 'edit_ticket' ticket.id %}">{{ticket.name}}</a>
-          <a class="btn btn-outline-danger"  href="{% url 'delete_ticket' ticket.id %}">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
+
+    <div class="row mt-2">
+        <h5> Ticket Types ({{tickets |length }})</h5>
+        <table class="table table-responsive mt-2">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ticket Type</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Delete</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+              <tr>
+                <th scope="row">{{ticket.id}}</th>
+                <td><a href="{% url 'edit_ticket' ticket.id %}">{{ticket.name}}</a></td>
+                <td>{{ticket.priority}}</td>
+                <td><a class="btn btn-outline-danger"  href="{% url 'delete_ticket' ticket.id %}">Delete</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        
+      
+    
+    </div>
+    <!-- row -->
+
+
+<div class="row mt-2">
+    <h5>Open Tickets ({{all_tickets |length }})</h5>
+    <table class="table table-responsive mt-2">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Issue</th>
+            <th scope="col">Ticket Type</th>
+            <th scope="col">Ticket Subtype</th>
+            <th scope="col">Agent</th>
+            <th scope="col">Status</th>
+            <th scope="col">Ticket Number</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for ticket in all_tickets %}
+          <tr>
+            <th scope="row">{{ticket.id}}</th>
+            <td>{{ticket.owner.username}}</td>
+            <td>{{ticket.issue}}</td>
+            <td>{{ticket.ticket_type.name}}</td>
+            <td>{{ticket.ticket_subtype.subtype}}</td>
+            <td>{{ticket.agent.username}}</td>
+            <td>{{ticket.get_status_display}}</td>
+            <td>{{ticket.ticket_number}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    
+  
 
 </div>
 <!-- row -->
+</div>
 
 {% endblock content %}
