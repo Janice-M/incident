@@ -6,6 +6,7 @@ from tatuAdmin import views as tatuAdmin_views
 from customer.models import Create_ticket
 from .forms import *
 from django.utils import timezone
+from customers.forms import UserUpdateForm,ProfileUpdateForm
 # Create your views here.
 
 
@@ -110,6 +111,6 @@ def resolve_ticket(request,pk):
 
 
     else:
-         form=ResolveTicketForm(instance=ticket)
+        form=ResolveTicketForm(instance=ticket)
 
     return render(request,'agent/resolve_ticket.html',{'form':form})
