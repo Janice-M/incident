@@ -34,7 +34,7 @@ def register(request):
             rf.is_active=False
 
             username=form.cleaned_data.get('username')
-            useremail=form.cleaned_data.get('email')
+            useremail=forformm.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
             
             try:
