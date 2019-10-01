@@ -17,6 +17,7 @@ class Profile(models.Model):
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
     is_customer = models.BooleanField(default=True,null=True)
+    role=models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

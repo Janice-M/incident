@@ -24,7 +24,10 @@ from django.http import HttpResponse,Http404,HttpResponseRedirect
 # Create your views here.
 @login_required
 def admin_home(request):
-    return render(request,'adminHome.html')
+    tickets = Create_ticket.get_tickets()
+    closed_tickets=Create_ticket.get_closed_tickets()
+    pending_tickets=Create_ticket.get_pending_tickets()
+    return render(request,'adminHome.html',{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
 
 
 # ###################################### agent management ##########################################################
@@ -96,21 +99,30 @@ def create_agent(request):
 
     return render(request,'agent/createAgent.html',{'form':form})
 
-
 @login_required
 def edit_agent(request,pk):
     agent=User.objects.get(pk=pk)
     if request.method=='POST':
-        form=AgentEditForm(request.POST,instance=agent.profile)
+        form=AgentProfileEditForm(request.POST,instance=agent.profile)
+        usrform=AgentUpdateForm(request.POST,instance=agent)
 
-        if form.is_valid():
-            form.save()
+        if form.is_valid() and usrform.is_valid():
+            profile=form.save(commit=False)
+            if profile.is_staff==False:
+                agent.is_active=False
+                profile.save()
+            else:
+                agent.is_active=True
+                profile.save()  
+                  
+            usrform.save()
             messages.success(request,f'Account Updated for Agent {agent.username}')
             return redirect('user_management')
     else:
 
-        form=AgentEditForm(instance=agent.profile)
-    return render(request,'agent/editAgent.html',{'form':form}) 
+        form=AgentProfileEditForm(instance=agent.profile)
+        usrform=AgentUpdateForm(instance=agent)
+    return render(request,'agent/editAgent.html',{'form':form,'usrform':usrform}) 
 
 
 # ###################################### department management ##########################################################
@@ -199,6 +211,31 @@ def create_ticket(request):
 
     return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub}) 
 
+@login_required
+def assign_ticket(request, pk):
+    '''
+    view function to assign a ticket to an agent
+    '''
+    ticket=Create_ticket.objects.get(pk=pk)
+    current_user=request.user
+    if request.method=='POST':
+        form=AssignForm(request.POST, instance=ticket)
+
+        if form.is_valid():
+            take_form=form.save(commit=False)
+            take_form.status=Create_ticket.Pending
+            take_form.last_updated=timezone.now()
+            take_form.is_taken=True
+            take_form.save()
+
+
+            messages.success(request,f'Ticket {take_form.status} has changed from open to pending!')
+            return redirect('admin_home')
+
+    else:
+        form=AssignForm(instance=ticket)
+
+    return render(request,'agent/assign_ticket.html',{'form':form})
 
 @login_required
 def edit_ticket(request,pk):

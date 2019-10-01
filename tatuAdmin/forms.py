@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from phonenumber_field.formfields import PhoneNumberField
 from django.db import models
 from .models import *
-from customer.models import Profile
+from customer.models import *
 
 
 class AgentCreationForm(UserCreationForm):
@@ -16,11 +16,20 @@ class AgentCreationForm(UserCreationForm):
         fields=['username','email','phonenumber','password1','password2']
 
 
-class AgentEditForm(forms.ModelForm):
-    is_active=forms.BooleanField()
+class AgentProfileEditForm(forms.ModelForm):
     class Meta:
         model=Profile
-        fields=['is_staff','is_active','department','phone_number']    
+        fields=['is_staff','department','phone_number']
+
+class AgentUpdateForm(forms.ModelForm):
+    email=forms.EmailField()
+
+    class Meta:
+        '''
+            update username and email
+        '''
+        model=User
+        fields=['username','email']    
 
 
 
@@ -60,3 +69,9 @@ class CreateMoreTicketSubtype(forms.ModelForm):
     class Meta:
         model=TicketSubType
         fields='__all__' 
+
+class AssignForm(forms.ModelForm):
+    class Meta:
+        model=Create_ticket
+        fields=['ticket_type','agent']
+
