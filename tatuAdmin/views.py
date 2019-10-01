@@ -112,6 +112,7 @@ def edit_agent(request,pk):
     else:
 
         form=AgentEditForm(instance=agent.profile)
+        usrform=AgentUpdateForm(instance=agent)
     return render(request,'agent/editAgent.html',{'form':form}) 
 
 
