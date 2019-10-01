@@ -111,9 +111,9 @@ def edit_agent(request,pk):
             return redirect('user_management')
     else:
 
-        form=AgentEditForm(instance=agent.profile)
+        form=AgentProfileEditForm(instance=agent.profile)
         usrform=AgentUpdateForm(instance=agent)
-    return render(request,'agent/editAgent.html',{'form':form}) 
+    return render(request,'agent/editAgent.html',{'form':form,'usrform':usrform}) 
 
 
 # ###################################### department management ##########################################################

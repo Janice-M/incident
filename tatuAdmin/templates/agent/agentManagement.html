@@ -31,7 +31,7 @@
           <td><a href="{% url 'edit_agent' profile.user.id %}">{{profile.user.username}}</a></td>
           <td>{{profile.user.email}}</td>
           <td>{{profile.phone_number}}</td>
-          <td>{{profile.is_staff}}</td>
+          <td>{{profile.is_active}}</td>
           <td>{{profile.department}}</td>
         </tr>
         {% endfor %}
