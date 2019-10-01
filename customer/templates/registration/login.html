@@ -1,6 +1,6 @@
 
 {% extends 'customer/base.html'%}
-{% load crispy_forms_tags %}
+{% load bootstrap4 %}
 {% block content %}
 
 <div class="container ">
@@ -17,7 +17,7 @@
         <form  action="" method="post" style="border: 2px solid lightgrey; padding:10%; background-color:white;" class="mt-5">
             <h4 style="font-family: 'Pacifico', cursive;" class="text-center">Login</h4>
           {% csrf_token %}
-          {{form | crispy}}
+          {% bootstrap_form form layout='inline'%}
 
           <div class="form-group">
             <input type="submit" class="btn btn-primary btn-sm" value="Login">

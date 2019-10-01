@@ -1,7 +1,6 @@
 
 {% extends 'customer/base.html'%}
-{% load crispy_forms_tags %}
-{% crispy example_formset example_formset.form.helper %}
+{% load bootstrap4 %}
 {% block content %}
 
 <div class="container ">
@@ -18,10 +17,8 @@
         <form  class="form-horizontal"action="" method="post" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
           <h4 style="font-family: 'Pacifico', cursive;" class="text-center">Sign Up</h4>
           {% csrf_token %}
-          {{form | crispy}}
-          {{ formset.management_form }}
-          {{ formset.non_form_errors }}
-          {{ formset|crispy }}   
+          {% bootstrap_form form layout='inline'%}
+       
          
           <div class="form-group">
                 <button class="btn btn-outline-primary" type="submit">Sign Up</button>
