@@ -88,6 +88,7 @@ def create_agent(request):
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.profile.is_staff=True
+                
                 createdUser.profile.is_customer=False
                 createdUser.save()
                 
