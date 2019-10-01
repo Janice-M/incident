@@ -101,7 +101,8 @@ def create_agent(request):
 def edit_agent(request,pk):
     agent=User.objects.get(pk=pk)
     if request.method=='POST':
-        form=AgentEditForm(request.POST,instance=agent.profile)
+        form=AgentProfileEditForm(request.POST,instance=agent.profile)
+        form=AgentUpdateForm(request.POST,instance=agent)
 
         if form.is_valid():
             form.save()
