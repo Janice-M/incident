@@ -10,6 +10,5 @@ urlpatterns = [
     path('my_tickets/',views.my_tickets,name='my_tickets'),
     path('resolve_tickets/<int:pk>',views.resolve_ticket,name='resolve_ticket'),
     # path('profile/',views.profile,name='profile'),
-     
-     path('profile/',views.profile,name='profile'),
+    path('profile/',views.profile,name='profile'),
 ]
