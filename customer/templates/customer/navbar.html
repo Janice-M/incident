@@ -3,11 +3,13 @@
 
 <!-- The sidebar -->
 <div class="sidebar">
+   
+        {% if user.is_authenticated %}
+    
         <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40%;   display: block;
         margin-left: auto;
         margin-right: auto;
-        border-radius: 50%;height: 40%;">
-        {% if user.is_authenticated %}
+        border-radius: 25px;height: 40%;">
         <a href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>{{user.username}}</a>
         <a href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home</a>
   <a href="{% url 'createticket' %}"><i class="fa fa-plus"></i></i> Create Ticket</a>
@@ -25,12 +27,12 @@
     img {
     margin-top: 30px;
     padding: 3px;
-    border: 3px solid white;
-    border-radius: 50%;
+   
+    border-radius: 25px;
 }
     .sidebar {
   height: 100%;
-  width: 300px;
+  width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
