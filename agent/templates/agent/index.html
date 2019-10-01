@@ -39,150 +39,7 @@
             </div>
           </div>
         </div>
-        
-      <h5>Open Tickets </h5>
-
-        <table class="table table-responsive mt-2">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Issue</th>
-              <th scope="col">Ticket Type</th>
-              <th scope="col">Date Created</th>
-              <th scope="col">Agent</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
-              <th scope="col">Take/ Assign Ticket(s)</th>
-            </tr>
-          </thead>
-          <tbody>
-              {% for ticket in tickets %}
-            <tr>
-              <th scope="row">{{ticket.id}}</th>
-
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-              <td>{{ticket.ticket_type.name}}</td>
-              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-              <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
-              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-
-    </div>
-
-    <div class="row mt-2">
-      <h5>Closed Tickets </h5>
-
-        <table class="table table-responsive mt-2">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Issue</th>
-              <th scope="col">Ticket Type</th>
-              <th scope="col">Date Created</th>
-              <th scope="col">Agent</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
-              <th scope="col">Take/ Assign Ticket(s)</th>
-            </tr>
-          </thead>
-          <tbody>
-              {% for ticket in closed_tickets %}
-            <tr>
-              <th scope="row">{{ticket.id}}</th>
-
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-              <td>{{ticket.ticket_type.name}}</td>
-              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-              <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
-              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-
-    </div>
-
-
-    <div class="row mt-2">
-      <h5>Pending Tickets </h5>
-
-        <table class="table table-responsive mt-2">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Issue</th>
-              <th scope="col">Ticket Type</th>
-              <th scope="col">Date Created</th>
-              <th scope="col">Agent</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
-            </tr>
-          </thead>
-          <tbody>
-              {% for ticket in pending_tickets %}
-            <tr>
-              <th scope="row">{{ticket.id}}</th>
-
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-              <td>{{ticket.ticket_type.name}}</td>
-              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-              <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
-            </tr>
-
-            {% endfor %}
-          </tbody>
-        </table>
-    </div>
-   <!-- ==============modals========= -->
-   {% for ticket in tickets  %}
-   <div class="row mt-2">
-
-<!-- Modal -->
-<div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-         </button>
-       </div>
-       <div class="modal-body">
-        <div class="card card-body">
-          <h6>Ticket Number:{{ticket.ticket_number}}</h6>
-          <p class="card-text">{{ticket.summary}}</p>
-          <li class="list-group">
-             <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
-             <li class="list-group-item">Email: {{ticket.owner.email}}</li>
-             <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
-             <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
-            <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
-            <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-          </li>
-        </div>
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-       </div>
-     </div>
-   </div>
- </div>
-
-   </div>
-       
-   {% endfor %}
-
+    
    <!-- ==============modals========= -->
    {% for ticket in closed_tickets  %}
    <div class="row mt-2">
@@ -326,5 +183,204 @@
     opacity: 0.5;
     display: block;
     font-size: 18px;
-  }</style>
+  }
+  .container {
+  overflow: hidden;
+}
+
+.filterDiv {
+ 
+
+  color:black;
+ 
+ 
+  margin: 2px;
+  display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+
+  cursor: pointer;
+}
+
+/* Add a light grey background on mouse-over */
+.btn:hover {
+  background-color: rgb(221, 221, 221);
+}
+
+/* Add a dark background to the active button */
+.btn.active {
+ 
+  color: white;
+}</style>
+<main>
+  <div id="myBtnContainer">
+      <button class="btn btn-success active"onclick="filterSelection('all')"> Show all</button>
+      <button class="btn btn-primary"onclick="filterSelection('open')"> Open tickets</button>
+      <button class="btn btn-primary" onclick="filterSelection('closed')"> Closed tickets</button>
+      <button class="btn btn-primary"onclick="filterSelection('pending')"> Pending Tickets</button>
+     
+    </div>
+    
+    <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
+    <div class="container">
+      <div class="filterDiv open"><div class="row mt-2">  <h5>Open Tickets </h5>
+      
+        <table class="table table-responsive mt-2">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Issue</th>
+              <th scope="col">Ticket Type</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Agent</th>
+              <th scope="col">Status</th>
+              <th scope="col">Ticket Number</th>
+              <th scope="col">Take/ Assign Ticket(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for ticket in tickets %}
+            <tr>
+              <th scope="row">{{ticket.id}}</th>
+
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+              <td>{{ticket.ticket_type.name}}</td>
+              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+              <td>{{ticket.agent.username}}</td>
+              <td>{{ticket.get_status_display}}</td>
+              <td>{{ticket.ticket_number}}</td>
+              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+</div>
+</div> 
+      <div class="filterDiv closed"> <div class="row mt-2">
+
+          <h5>Closed Tickets </h5>
+    
+            <table class="table table-responsive mt-2">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Issue</th>
+                  <th scope="col">Ticket Type</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Agent</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Ticket Number</th>
+                  <th scope="col">Take/ Assign Ticket(s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for ticket in closed_tickets %}
+                <tr>
+                  <th scope="row">{{ticket.id}}</th>
+    
+                  <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                  <td>{{ticket.ticket_type.name}}</td>
+                  <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                  <td>{{ticket.agent.username}}</td>
+                  <td>{{ticket.get_status_display}}</td>
+                  <td>{{ticket.ticket_number}}</td>
+                  <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+  </div>
+      <div class="filterDiv pending"> <div class="row mt-2">
+          <h5>Pending Tickets </h5>
+    
+            <table class="table table-responsive mt-2">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Issue</th>
+                  <th scope="col">Ticket Type</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Agent</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Ticket Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for ticket in pending_tickets %}
+                <tr>
+                  <th scope="row">{{ticket.id}}</th>
+    
+                  <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                  <td>{{ticket.ticket_type.name}}</td>
+                  <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                  <td>{{ticket.agent.username}}</td>
+                  <td>{{ticket.get_status_display}}</td>
+                  <td>{{ticket.ticket_number}}</td>
+                </tr>
+    
+                {% endfor %}
+              </tbody>
+            </table></div>
+     
+    </div>
+  </main>
+    <script>
+    filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("filterDiv");
+  if (c == "all") c = "";
+  // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
+
+// Show filtered elements
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {
+      element.className += " " + arr2[i];
+    }
+  }
+}
+
+// Hide elements that are not selected
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);
+    }
+  }
+  element.className = arr1.join(" ");
+}
+
+// Add active class to the current control button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}</script>
 {% endblock  %}
