@@ -1,23 +1,45 @@
-{% extends 'agent/base.html'%}
-{% load crispy_forms_tags %}
-{% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Resolve Ticket</legend>
-                    {{form | crispy}}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-primary" type="submit">Change Status</button>
-                </div>
-            </form>
 
-        </div>
-        <div class="col-md-2"></div>
+{% extends 'agent/base.html'%}
+{% load bootstrap4 %}
+{% block content %}
+
+<div class="container ">
+<div class="row">
+  <div class="col-md-">
+
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-6 mt-5 nosho">
+   
+           
+       
+             
+      </div>
+      <div class="col-md-6 mt-5">
+
+        <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
+                <h4 style="font-family: 'Pacifico', cursive; color: #357EC7;size: 20px" class="text-center">Resolve ticket</h4>
+
+          {% csrf_token %}
+          {% bootstrap_form form layout='inline'%}
+       
+         
+          <div class="form-group">
+                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Resolve Ticlet  </button>
+            </div>
+     
+              </div>
+         
+        </form>
+      </div>
     </div>
+  </div>
+  <div class="col-md-1">
 </div>
+</div>
+
+
+
+
 {% endblock content %}
