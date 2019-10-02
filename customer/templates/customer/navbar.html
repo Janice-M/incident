@@ -1,0 +1,84 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- The sidebar -->
+<div class="sidebar">
+
+        {% if user.is_authenticated %}
+
+        <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40%;   display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 25px;height: 40%;">
+        <a href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>{{user.username}}</a>
+        <a href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home</a>
+  <a href="{% url 'createticket' %}"><i class="fa fa-plus"></i></i> Create Ticket</a>
+  <a href="{% url 'logout' %}" ><i class="fa fa-sign-out"></i> Logout</a>
+  <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
+    </form>
+
+  {% else %}
+
+  <a href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i> Login</a>
+
+  <a href="{% url 'register' %}"><i class="fa fa-fw fa-envelope"></i> Register</a>
+  {% endif %}
+</div>
+<style>
+    img {
+    margin-top: 30px;
+    padding: 3px;
+
+    border-radius: 25px;
+}
+    .sidebar {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background: #357EC7;
+    /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
+  overflow-x: hidden;
+  padding-top: 50px;
+}
+
+/* Style sidebar links */
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: whitesmoke;
+  display: block;
+}
+
+/* Style links on mouse-over */
+.sidebar a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left: 5px solid white;
+    color: white;
+    font-weight: bolder;
+    padding-left: 35px;
+}
+
+/* Style the main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}
+
+/* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+</style>

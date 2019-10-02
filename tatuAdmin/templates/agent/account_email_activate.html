@@ -1,0 +1,15 @@
+{% autoescape off %}
+
+    Welcome {{ user.username }},
+    ue the following credentials to log in
+    username:{{username}}
+    password: {{password}} 
+    to login in.
+    
+    Please click on the link to begin service:
+    http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+    
+
+    All men must serve,
+    Grey Worm
+{% endautoescape %}

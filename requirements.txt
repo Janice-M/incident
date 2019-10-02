@@ -9,7 +9,12 @@ django-bootstrap4==0.0.8
 django-cors-headers==3.1.0
 django-crispy-forms==1.7.2
 django-heroku==0.3.1
+<<<<<<< HEAD
 django-notifs==2.6.0
+=======
+django-model-utils==3.2.0
+django-notifications-hq==1.5.0
+>>>>>>> 57afba36ca41f19d1aa8c0b6441874ada4ef70eb
 django-phonenumber-field==3.0.1
 django-registration==3.0.1
 django-registration-redux==2.4
@@ -22,7 +27,11 @@ djoser==2.0.3
 gevent==1.2.2
 greenlet==0.4.12
 gunicorn==19.9.0
+<<<<<<< HEAD
 kombu==4.1.0
+=======
+jsonfield==2.0.2
+>>>>>>> 57afba36ca41f19d1aa8c0b6441874ada4ef70eb
 phonenumbers==8.10.19
 pika==0.11.2
 Pillow==6.1.0
@@ -33,6 +42,9 @@ pytz==2019.2
 simplejson==3.13.2
 six==1.11.0
 sqlparse==0.3.0
+<<<<<<< HEAD
 uWSGI==2.0.15
 vine==1.1.4
+=======
+>>>>>>> 57afba36ca41f19d1aa8c0b6441874ada4ef70eb
 whitenoise==4.1.3

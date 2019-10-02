@@ -1,42 +1,82 @@
 {% include 'agent/base.html'%}
 {% block content %}
 <section id="welcome-section" class="container">
-    <div class="row">
-        <!-- <div class="col-md-2"></div> -->
+  <div class="row mt-2">
+    <h5>My Tickets ({{tickets|length }})</h5>
 
-        <table class="table table-responsive mt-2">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Issue</th>
-              <th scope="col">Ticket Type</th>
-              <th scope="col">Ticket Subtype</th>
-              <th scope="col">Agent</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
-              <th scope="col">Re-Assign Ticket(s)</th>
-              <th scope="col">Resolve Ticket(s)</th>
-            </tr>
-          </thead>
-          <tbody>
-              {% for ticket in tickets %}
-            <tr>
-              <th scope="row">{{ticket.id}}</th>
+    <table class="table table-responsive mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Issue</th>
+          <th scope="col">Ticket Type</th>
+          <th scope="col">Agent</th>
+          <th scope="col">Status</th>
+          <th scope="col">Ticket Number</th>
+          <th scope="col">Re-Assign Ticket(s)</th>
+          <th scope="col">Resolve Ticket(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in tickets %}
+        <tr>
+          <th scope="row">{{ticket.id}}</th>
 
-              <td>{{ticket.issue}}</td>
-              <td>{{ticket.ticket_type.name}}</td>
-              <td>{{ticket.ticket_subtype.subtype}}</td>
-              <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.status}}</td>
-              <td>{{ticket.ticket_number}}</td>
-              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
-              <td><a href="{% url 'resolve_ticket' ticket.id %}">Resolve Ticket</a></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+          <td>{{ticket.ticket_type.name}}</td>
+          <td>{{ticket.agent.username}}</td>
+          <td>{{ticket.get_status_display}}</td>
+          <td>{{ticket.ticket_number}}</td>
+          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
+          <td><a href="{% url 'resolve_ticket' ticket.id %}">Resolve Ticket</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
 
+  </div>
+
+  <!-- ==============modals========= -->
+  {% for ticket in tickets  %}
+  <div class="row mt-2">
+
+    <!-- Modal -->
+    <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card card-body">
+              <h6>Ticket Number:{{ticket.ticket_number}}</h6>
+              <p class="card-text">{{ticket.summary}}</p>
+              <li class="list-group">
+              <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+              <li class="list-group-item">Email: {{ticket.owner.email}}</li>
+              <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
+              <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+              <li class="list-group-item">Last Updated: {{ticket.last_updated |date:"D, d M ,Y"}}</li>
+              <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+              <li class="list-group-item">Time Created: {{ticket.last_updated |date:"H:i"}}</li>
+              </li>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
+
+  {% endfor %}
+
 </section>
 {% endblock  %}

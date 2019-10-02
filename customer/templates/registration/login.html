@@ -1,26 +1,62 @@
-{% extends 'base.html'%}
-{% load crispy_forms_tags %}
+
+{% extends 'customer/base1.html'%}
+{% load bootstrap4 %}
 {% block content %}
-<div class="container">
+
+<div class="container ">
+<div class="row">
+  <div class="col-md-">
+
+  </div>
+  <div class="col-md-6">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Log In</legend>
-                    {{form | crispy}}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-primary" type="submit">Login</button>
-                </div>
-            </form>
-            <div class="border-top pt-3">
-                <small class="text-muted">Need An Account? <a href="{% url 'register' %}" class="ml-2">Sign Up
-                        Now</a></small>
+      <div class="col-md-6 mt-5 nosho">
+
+
+
+
+      </div>
+      <div class="col-md-6 mt-5">
+
+        <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
+                <h4 style="font-family: 'Pacifico', cursive; color: #357EC7;size: 20px" class="text-center">Welcome back to tatu connect</h4>
+          <h4 style="font-family: 'Pacifico', cursive;color: #357EC7; size:15px" class="text-center">Login</h4>
+          {% csrf_token %}
+          {% bootstrap_form form layout='inline'%}
+
+
+          <div class="form-group">
+                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Login</button>
             </div>
-        </div>
-        <div class="col-md-2"></div>
+            <small class="text-muted">
+           <a href="{% url 'password_reset' %}">Forgot Password?</a>
+         </small>
+          <!-- <input type="hidden" name="next" value="{{next}}"> -->
+          <div class="row" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
+                <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+              </div>
+
+        </form>
+      </div>
     </div>
+  </div>
+  <div class="col-md-1">
+
 </div>
+</div>
+<style>
+body{background-image: url('https://www.standardmedia.co.ke/images/sunday/adgvkbebmzojob9tovy5d068b47acd99.jpg');
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;}</style>
+
+
+
+
+
+
+
+
 {% endblock content %}

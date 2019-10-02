@@ -19,7 +19,8 @@ urlpatterns = [
     path('ticket_management/create_subtype',views.create_ticket_subtypes,name='create_ticket_subtype'),
     path('logout/',auth_views.LogoutView.as_view(template_name='registration/logout.html')),
     path('login/',auth_views.LoginView.as_view(template_name='registration/login.html'),name='login'),
-    
-    
-]
+    path('assign_ticket/<int:pk>/',views.assign_ticket,name='assign_ticket'),
+    path('admin_profile/',views.admin_profile,name='admin_profile'),
 
+
+]

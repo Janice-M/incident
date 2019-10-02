@@ -1,19 +1,17 @@
 {% extends 'tatuadmin/base.html'%}
 
-{% load crispy_forms_tags %} 
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="float:right; padding-left:4em; margin-top:-35em">
   <div class="row mt-2">
-    <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_department'%}"
-      >Create Department</a
-    >
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_department'%}">Create Department</a>
   </div>
 
-  
+
     <div class="row mt-2">
         <!-- <div class="col-md-2"></div> -->
-      
+
         <h5>All Departments ({{departments|length }})</h5>
         <table class="table table-responsive mt-2">
           <thead class="thead-dark">
@@ -21,7 +19,7 @@
               <th scope="col">#</th>
               <th scope="col">Title</th>
               <th scope="col">Descriptiom</th>
-              <th scope="col">Agent Number</th>
+              <!-- <th scope="col">Agent Number</th> -->
             </tr>
           </thead>
           <tbody>
@@ -30,18 +28,13 @@
               <th scope="row">{{department.id}}</th>
               <td><a href="{% url 'edit_department' department.id %}">{{department.department_name}}</a></td>
               <td>{{department.department_description}}</td>
-              <td>tbd</td>
+              <!-- <td>tbd</td> -->
             </tr>
             {% endfor %}
           </tbody>
         </table>
-      
-    
+
+
     </div>
     <!-- row -->
-
-   
-
-
-
-{% endblock content %}
+{% endblock %}
