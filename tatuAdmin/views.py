@@ -31,7 +31,7 @@ def admin_home(request):
     return render(request,'adminHome.html',{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
 
 @login_required
-def profile(request):
+def admin_profile(request):
     if request.method=='POST':
         usrForm=UserUpdateForm(request.POST,instance=request.user)
         profForm=ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
