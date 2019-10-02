@@ -20,7 +20,7 @@ urlpatterns = [
     path('logout/',auth_views.LogoutView.as_view(template_name='registration/logout.html')),
     path('login/',auth_views.LoginView.as_view(template_name='registration/login.html'),name='login'),
     path('assign_ticket/<int:pk>/',views.assign_ticket,name='assign_ticket'),
-    path('profile/',views.profile,name='profile'),
+    path('admin_profile/',views.admin_profile,name='admin_profile'),
     
     
 ]
