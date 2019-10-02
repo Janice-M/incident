@@ -17,7 +17,11 @@
 
       <ul class="navbar-nav mr-auto">
         {% if user.is_authenticated %}
-        
+        <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;   display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 50%;height: 40px;">
+            <a href="{% url 'admin_profile' %}" class="nav-item nav-link">{{user.username}}</a>
         <a  class="nav-item nav-link" href="{% url 'user_management'%}">User Management</a>
         <a  class="nav-item nav-link" href="{% url 'department_management'%}">Department Management</a>
         <a  class="nav-item nav-link" href="{% url 'ticket_management'%}">Ticket Management</a>
