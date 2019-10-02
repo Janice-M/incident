@@ -29,7 +29,27 @@ def admin_home(request):
     pending_tickets=Create_ticket.get_pending_tickets()
     return render(request,'adminHome.html',{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
 
+@login_required
+def profile(request):
+    if request.method=='POST':
+        usrForm=UserUpdateForm(request.POST,instance=request.user)
+        profForm=ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        if usrForm.is_valid() and profForm.is_valid():
+            usrForm.save()
+            profForm.save()
 
+            messages.success(request,'Your account has been updated!')
+            return redirect('admin_home')
+    else:
+        usrForm=UserUpdateForm(instance=request.user)
+        profForm=ProfileUpdateForm(instance=request.user.profile)
+
+    context={
+        'usrForm':usrForm,
+        'profForm':profForm,
+
+    }
+    return render(request,'tatuadmin/admin_profile.html',context)
 # ###################################### agent management ##########################################################
 @login_required
 def user_management(request):
