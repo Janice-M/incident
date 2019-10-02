@@ -8,7 +8,17 @@ from tatuAdmin import views as tatuAdmin_views
 from agent import views as agent_views
 from .models import Create_ticket
 from .generator import randomStringDigits
+from customer.models import Profile
+from django.core.exceptions import ObjectDoesNotExist
 
+from django.contrib.auth import login,authenticate
+from django.contrib.sites.shortcuts import (get_current_site)
+from django.utils.encoding import force_bytes,force_text
+from django.utils.http import (urlsafe_base64_encode, urlsafe_base64_decode)
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.core.mail import EmailMessage
+from django.http import HttpResponse,Http404,HttpResponseRedirect
 
 
 def register(request):
@@ -20,23 +30,73 @@ def register(request):
         form=UserRegistrationForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            rf=form.save(commit=False)
+            rf.is_active=False
+
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
 
-            createdUser=User.objects.filter(email=useremail).first()
-            createdUser.profile.phone_number=userphonenumber
-            createdUser.save()
+            try:
+                if User.objects.get(email=useremail):
 
-            messages.success(request,f'Account for {username} created!')
-            return redirect('login')
+                    messages.warning(request,f'Email already in use with another account')
+                    return render(request,'registration/registration_form.html',{'form':form})
+
+                elif userphonenumber==Profile.objects.filter(phone_number=userphonenumber).first():
+                    messages.warning(request,f'Phone number already in use with another account')
+                    return render(request,'registration/registration_form.html',{'form':form})
+
+
+            except ObjectDoesNotExist:
+                form.save()
+
+                current_site=get_current_site(request)
+                mail_subject='Activate your Tatu Account.'
+                message=render_to_string('registration/account_email_activate.html',{
+                    'user':rf,
+                    'domain':current_site.domain,
+                    'uid':urlsafe_base64_encode(force_bytes(rf.pk)),
+                    'token':account_activation_token.make_token(rf),
+
+                })
+
+                to_email=useremail
+                email=EmailMessage(mail_subject,message,to=[to_email])
+                email.send()
+
+                createdUser=User.objects.filter(email=useremail).first()
+                createdUser.profile.phone_number=userphonenumber
+                createdUser.profile.is_customer= True
+                createdUser.save()
+
+
+
+                messages.success(request,f'Account for {username} created!Please confirm you email to complete registration')
+                return redirect('login')
 
     else:
         form=UserRegistrationForm()
 
     return render(request,'registration/registration_form.html',{'form':form})
 
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('index')
+
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 
 @login_required
@@ -58,7 +118,7 @@ def index(request):
 
     else :
         tickets=Create_ticket.get_my_tickets(request.user)
-        return render(request,'index.html',{'tickets':tickets})
+        return render(request,'customer/index.html',{'tickets':tickets})
 
 @login_required
 def create_ticket(request):
@@ -78,15 +138,16 @@ def create_ticket(request):
             ctform.ticket_number=str(current_user.id)+val+str(current_user.profile.phone_number)
 
             ctform.save()
+            mssg=f'{request.user.username} ,Thank You for contacting us.A support ticket request has been created and a representative will be getting back to you shortly if necessary.'
 
-
-            messages.success(request,f'Your {issue} has been recieved!')
+            messages.success(request,mssg)
             return redirect('index')
 
     else:
         form=CreateTicketForm()
 
     return render(request,'tickets/createticket.html',{'form':form})
+
 
 @login_required
 def profile(request):
@@ -109,3 +170,25 @@ def profile(request):
 
     }
     return render(request,'registration/profile.html',context)
+
+
+def search_results(request):
+    current_user=request.user
+    if 'ticket' in request.GET and request.GET['ticket']:
+
+        ticket_number=request.GET.get('ticket')
+        ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
+
+        context={
+        'message':f"{ticket_number}",
+        'ticket':ticketi
+        }
+
+        return render(request,'customer/search.html',context)
+
+    else :
+
+        context={
+        'message':f"Incorrect Ticket Number"
+        }
+        return render(request,'customer/search.html',context)

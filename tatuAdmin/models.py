@@ -65,3 +65,11 @@ class Department(models.Model):
     def get_departments(cls):
         departments=cls.objects.all()
         return departments   
+    
+class Role(models.Model):
+    role_name=models.CharField(max_length=15)
+
+    def __str__(self):
+        
+        return f'{self.role_name} Role'
+    

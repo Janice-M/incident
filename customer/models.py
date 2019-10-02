@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from PIL import Image
 from tatuAdmin.models import *
 from django.utils import timezone
+from django.db.models import Q
+
 
 # Create your models here.
 
@@ -15,6 +17,8 @@ class Profile(models.Model):
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
     is_customer = models.BooleanField(default=True,null=True)
+    role = models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=True)
+
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -63,8 +67,8 @@ class Create_ticket(models.Model):
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
     agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent',blank=True)
-    issue = models.CharField(max_length=40)
-    summary = models.TextField(max_length=140,blank=True)
+    issue = models.CharField(max_length=60,blank=False)
+    summary = models.TextField(max_length=120,blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(default=timezone.now)
     ticket_number = models.CharField(max_length=100,blank=True,null=True)
@@ -90,8 +94,20 @@ class Create_ticket(models.Model):
         tickets=cls.objects.filter(status=cls.Closed).all()
         return tickets
 
+    @classmethod
+    def get_pending_tickets(cls):
+
+        tickets=cls.objects.filter(status=cls.Pending).all()
+        return tickets
+
+
 
     @classmethod
     def get_agent_tickets(cls,agent):
         tickets=cls.objects.filter(agent=agent).all()
         return tickets
+
+    @classmethod
+    def search_my_tickets(cls,owner,ticket_number):
+        ticket=cls.objects.filter(owner=owner).filter(ticket_number=ticket_number)
+        return ticket

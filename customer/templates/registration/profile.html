@@ -1,24 +1,52 @@
-{% extends 'base.html'%}
-{% load crispy_forms_tags %}
+
+{% extends 'customer/base.html'%}
+{% load bootstrap4 %}
 {% block content %}
-<div class="container">
+<main>
+<div class="container ">
+<div class="row">
+  <div class="col-md-">
+
+  </div>
+  <div class="col-md-6">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form action="" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Your Profile</legend>
-                    {{usrForm | crispy}}
-                    {{profForm | crispy}}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-primary" type="submit">update profile</button>
-                </div>
-            </form>
+      <div class="col-md-6 mt-5 nosho">
    
-        </div>
-        <div class="col-md-2"></div>
+           
+       
+             
+      </div>
+      <div class="col-md-6 mt-5">
+
+        <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
+
+          <h4 style="font-family: 'fantasy', cursive;color: #b2def2; size:15px" class="text-center">My profile</h4>
+          {% csrf_token %}
+          {% bootstrap_form usrForm layout='inline'%}
+          {% bootstrap_form profForm layout='inline'%}
+       
+       
+         
+          <div class="form-group">
+                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Update profile</button>
+            </div>
+         
+         
+        </form>
+      </div>
     </div>
+  </div>
+  <div class="col-md-1">
 </div>
+</div>
+</main>
+<style>
+body{
+background-color:whitesmoke;}
+main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}</style>
+
+
 {% endblock content %}

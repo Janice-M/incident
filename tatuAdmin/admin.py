@@ -5,5 +5,6 @@ from . models import *
 admin.site.register(TicketSubType)
 admin.site.register(TicketType)
 admin.site.register(Department)
+admin.site.register(Role)
 
 
