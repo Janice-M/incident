@@ -1,7 +1,8 @@
 {% include 'agent/base.html'%}
 {% block content %}
-<main>
-<section id="welcome-section" class="container">
+<!-- <main> -->
+  <body style="margin-bottom: -12em">
+<section id="welcome-section" class="card-content" style="float:right; margin-top:-35em; margin-bottom: 18em">
     <div class="row mt-2">
         <h5>My Tickets ({{tickets|length }})</h5>
 
@@ -40,11 +41,13 @@
 
     </div>
 </section>
-</main>
+</body>
+<!-- </main> -->
 <style>
     /* Style the main content */
     main {
       margin-left: 250px; /* Same as the width of the sidenav */
-      padding: 0px 10px;
+      padding: 0px 0px;
+      padding-top: 0%;
     }</style>
 {% endblock  %}

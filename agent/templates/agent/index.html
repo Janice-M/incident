@@ -1,9 +1,461 @@
 {% extends 'agent/base.html'%}
 {% load bootstrap4 %}
 {% load static %}
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+---- Include the above in your HEAD tag ---------->
 
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" /> --> -->
 
     {% block content %}
-    <!-- Content Wrapper -->
+    <main></main>
+    <section class="container" style="padding-top:-50%; padding-bottom:-80% ">
+            <div class="row">
+
+                <div class="container">
+                    
+                    <div class="row" style="float: right ;width: 50em ;margin-top: 0em">
+                    <div class="col-md-4">
+                      <div class="card-counter primary">
+                        <i class="fa fa-code-fork"></i>
+                        <span class="count-numbers">{{tickets|length }}</span>
+                        <span class="count-name">Open Tickets</span>
+                      </div>
+                    </div>
+                
+                    <div class="col-md-4">
+                      <div class="card-counter danger">
+                        <i class="fas fa-paper-plane"></i>
+                        <span class="count-numbers">{{pending_tickets|length }}</span>
+                        <span class="count-name">Pending Tickets </span>
+                      </div>
+                    </div>
+                
+                    <div class="col-md-4">
+                      <div class="card-counter success">
+                        <i class="fa fa-database"></i>
+                        <span class="count-numbers">{{closed_tickets|length }}</span>
+                        <span class="count-name">Closed Tickets</span>
+                      </div>
+                    </div>
+                
+                
+                    </div>
+                  </div>
+                </div>
+         
+           <!-- ==============modals========= -->
+           {% for ticket in closed_tickets  %}
+           <div class="row mt-2">
+        
+        <!-- Modal -->
+        <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal-dialog" role="document">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               <div class="modal-body">
+                <div class="card card-body">
+                  <h6>Ticket Number:{{ticket.ticket_number}}</h6>
+                  <p class="card-text">{{ticket.summary}}</p>
+                  <li class="list-group">
+                     <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+                     <li class="list-group-item">Email: {{ticket.owner.email}}</li>
+                     <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
+                     <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+                    <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+                    <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+                  </li>
+                </div>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               </div>
+             </div>
+           </div>
+         </div>
+        
+           </div>
+               
+           {% endfor %}
+        
+        
+            <!-- ==============modals========= -->
+            {% for ticket in pending_tickets  %}
+            <div class="row mt-2">
+        
+        <!-- Modal -->
+        <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                 <div class="card card-body">
+                   <h6>Ticket Number:{{ticket.ticket_number}}</h6>
+                   <p class="card-text">{{ticket.summary}}</p>
+                   <li class="list-group">
+                      <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+                      <li class="list-group-item">Email: {{ticket.owner.email}}</li>
+                      <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
+                      <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+                     <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+                     <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+                   </li>
+                 </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+            </div>
+                
+            {% endfor %}
+            <!-- ========================== -->
+        </section>
+        </main>
+        <style>
+            .main-header {
+            display: flex;
+            justify-content: space-between;
+            margin: 0px;
+            padding: 0px;
+            height: 150px; /* Force our height since we don't have actual content yet */
+            background-image: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60');
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: whitesmoke;
+          }
+         
+          .welcome {
+          color: #CCC;
+        }
+        .welcome .content {
+          background-color: #313348;
+          padding: 10px;
+          margin-top: 5px;
+          margin-right: 20px
+        }
+        .welcome h2 {
+          font-family: Calibri;
+          font-weight: 100;
+          margin-top: 0
+        }
+        .welcome p {
+          color: #999;
+        }
+        
+        
+          main {
+          margin-left: 250px; /* Same as the width of the sidenav */
+          padding: 0px 10px;
+        
+        }
+        .card-counter{
+            box-shadow: 2px 2px 10px #DADADA;
+            margin: 5px;
+            padding: 20px 10px;
+            background-color: #fff;
+            height: 100px;
+            border-radius: 5px;
+            transition: .3s linear all;
+          }
+        
+          .card-counter:hover{
+            box-shadow: 4px 4px 20px #DADADA;
+            transition: .3s linear all;
+          }
+        
+          .card-counter.primary{
+            background-color: #007bff;
+            color: #FFF;
+          }
+        
+          .card-counter.danger{
+            background-color: #ef5350;
+            color: #FFF;
+          }  
+        
+          .card-counter.success{
+            background-color: #66bb6a;
+            color: #FFF;
+          }  
+        
+          .card-counter.info{
+            background-color: #26c6da;
+            color: #FFF;
+          }  
+        
+          .card-counter i{
+            font-size: 5em;
+            opacity: 0.2;
+          }
+        
+          .card-counter .count-numbers{
+            position: absolute;
+            right: 35px;
+            top: 20px;
+            font-size: 32px;
+            display: block;
+          }
+        
+          .card-counter .count-name{
+            position: absolute;
+            right: 35px;
+            top: 65px;
+            font-style: italic;
+            text-transform: capitalize;
+            opacity: 0.5;
+            display: block;
+            font-size: 18px;
+          }
+          .container {
+          overflow: hidden;
+        }
+        
+        .filterDiv {
+         
+        
+          color:black;
+         
+         
+          margin: 2px;
+          display: none; /* Hidden by default */
+        }
+        
+        /* The "show" class is added to the filtered elements */
+        .show {
+          display: block;
+        }
+        
+        /* Style the buttons */
+        .btn {
+          border: none;
+          outline: none;
+          padding: 12px 16px;
+        
+          cursor: pointer;
+        }
+        
+        /* Add a light grey background on mouse-over */
+        .btn:hover {
+          background-color: rgb(221, 221, 221);
+        }
+        /* Start charts */
+        .charts {
+          margin-top: 25px;
+          color: #BBB;
+          border-radius: 25px; 
+          
+        }
+        .charts .chart-container {
+          background-color:#357EC7 ;
+          padding: 15px;
+          width: 980px;
+        }
+        .charts .chart-container h3 {
+          margin: 0 0 10px;
+          font-size: 17px;
+        }
+        
+        
+        /* Add a dark background to the active button */
+        .btn.active {
+         
+          color: white;
+        }</style>
+        <main>
+            <section class="charts">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="chart-container">
+                        <h3>Chart</h3>
+                        <div id="myBtnContainer">
+                            <button class="btn btn-success active"onclick="filterSelection('all')"> Show all</button>
+                            <button class="btn btn-primary"onclick="filterSelection('open')"> Open tickets</button>
+                            <button class="btn btn-primary" onclick="filterSelection('closed')"> Closed tickets</button>
+                            <button class="btn btn-primary"onclick="filterSelection('pending')"> Pending Tickets</button>
+                           
+                          </div>
+                          
+                          <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
+                          <div class="container">
+                            <div class="filterDiv open"><div class="row mt-2">  <h5>Open Tickets </h5>
+                            
+                              <table class="table table-responsive mt-2">
+                                
+                                <thead class="thead-dark">
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Issue</th>
+                                    <th scope="col">Ticket Type</th>
+                                    <th scope="col">Date Created</th>
+                                    <th scope="col">Agent</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Ticket Number</th>
+                                    <th scope="col">Take/ Assign Ticket(s)</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ticket in tickets %}
+                                  <tr>
+                                    <th scope="row">{{ticket.id}}</th>
+                      
+                                    <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                                    <td>{{ticket.ticket_type.name}}</td>
+                                    <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                                    <td>{{ticket.agent.username}}</td>
+                                    <td>{{ticket.get_status_display}}</td>
+                                    <td>{{ticket.ticket_number}}</td>
+                                    <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                      </div>
+                      </div> 
+                            <div class="filterDiv closed"> <div class="row mt-2">
+                      
+                                <h5>Closed Tickets </h5>
+                          
+                                  <table class="table table-responsive mt-2">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Issue</th>
+                                        <th scope="col">Ticket Type</th>
+                                        <th scope="col">Date Created</th>
+                                        <th scope="col">Agent</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Ticket Number</th>
+                                        <th scope="col">Take/ Assign Ticket(s)</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for ticket in closed_tickets %}
+                                      <tr>
+                                        <th scope="row">{{ticket.id}}</th>
+                          
+                                        <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                                        <td>{{ticket.ticket_type.name}}</td>
+                                        <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                                        <td>{{ticket.agent.username}}</td>
+                                        <td>{{ticket.get_status_display}}</td>
+                                        <td>{{ticket.ticket_number}}</td>
+                                        <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
+                          </div>
+                        </div>
+                            <div class="filterDiv pending"> <div class="row mt-2">
+                                <h5>Pending Tickets </h5>
+                          
+                                  <table class="table table-responsive mt-2">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Issue</th>
+                                        <th scope="col">Ticket Type</th>
+                                        <th scope="col">Date Created</th>
+                                        <th scope="col">Agent</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Ticket Number</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for ticket in pending_tickets %}
+                                      <tr>
+                                        <th scope="row">{{ticket.id}}</th>
+                          
+                                        <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                                        <td>{{ticket.ticket_type.name}}</td>
+                                        <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                                        <td>{{ticket.agent.username}}</td>
+                                        <td>{{ticket.get_status_display}}</td>
+                                        <td>{{ticket.ticket_number}}</td>
+                                      </tr>
+                          
+                                      {% endfor %}
+                                    </tbody>
+                                  </table></div>
+                           
+                          </div>
+                        </main>
+                        <canvas id="myChart"></canvas>
+                      </div>
+                    </div>
+               
+                  </div>
+                </div>
+              </section>
+         
+          </main>
+            <script>
+            filterSelection("all")
+        function filterSelection(c) {
+          var x, i;
+          x = document.getElementsByClassName("filterDiv");
+          if (c == "all") c = "";
+          // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+          for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+          }
+        }
+        
+        // Show filtered elements
+        function w3AddClass(element, name) {
+          var i, arr1, arr2;
+          arr1 = element.className.split(" ");
+          arr2 = name.split(" ");
+          for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {
+              element.className += " " + arr2[i];
+            }
+          }
+        }
+        
+        // Hide elements that are not selected
+        function w3RemoveClass(element, name) {
+          var i, arr1, arr2;
+          arr1 = element.className.split(" ");
+          arr2 = name.split(" ");
+          for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+              arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+          }
+          element.className = arr1.join(" ");
+        }
+        
+        // Add active class to the current control button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn");
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+          });
+        }</script>
+        
+        
+        
    
 {% endblock %}
