@@ -10,6 +10,7 @@ from django.views.generic import (UpdateView,DeleteView)
 from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 
 
 from django.contrib.auth import login,authenticate
@@ -110,6 +111,7 @@ def create_agent(request):
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.profile.is_staff=True
                 createdUser.profile.is_customer=False
+                createdUser.profile.date_created=timezone.now()
                 createdUser.save()
                 
                 messages.success(request,f'Account created for {username} created!')
