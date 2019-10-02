@@ -1,13 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-secondary sticky-top">
-<<<<<<< HEAD
-        <a class="navbar-brand" href="{% url 'agent_home' %}">
-               Agent of Tatucity
-              </a>
-=======
     <a class="navbar-brand" href="{% url 'agent_home' %}">
         Agent of Tatucity
     </a>
->>>>>>> 57afba36ca41f19d1aa8c0b6441874ada4ef70eb
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,11 +21,7 @@
                 margin-right: auto;
                 border-radius: 50%;height: 40px;">
             <a href="{% url 'profile' %}" class="nav-item nav-link">{{user.username}}</a>
-<<<<<<< HEAD
-                     <a href="{% url 'my_tickets' %}" class="nav-item nav-link">My Ticket(s)</a>
-=======
             <a href="{% url 'my_tickets' %}" class="nav-item nav-link">My Ticket(s)</a>
->>>>>>> 57afba36ca41f19d1aa8c0b6441874ada4ef70eb
             <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
             {% else %}
             <a href="{% url 'login'%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
