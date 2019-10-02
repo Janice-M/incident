@@ -20,7 +20,7 @@
                 margin-left: auto;
                 margin-right: auto;
                 border-radius: 50%;height: 40px;">
-            <a href="{% url 'profile' %}" class="nav-item nav-link">{{user.username}}</a>
+            <a href="{% url 'agent_profile' %}" class="nav-item nav-link">{{user.username}}</a>
             <a href="{% url 'my_tickets' %}" class="nav-item nav-link">My Ticket(s)</a>
             <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
             {% else %}

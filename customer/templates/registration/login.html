@@ -28,7 +28,9 @@
           <div class="form-group">
                 <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Login</button>
             </div>
-          <input type="hidden" name="next" value="{{next}}">
+          <small class="text-muted">
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+          </small>
           <div class="row" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
                 <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
               </div>
