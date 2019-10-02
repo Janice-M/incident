@@ -2,7 +2,37 @@
 {% load bootstrap4 %}
 {% load static %}
 {% block content %}
-<section id="welcome-section" class="container">
+<section class="contanier"  style="float:right; padding-left:12em; margin-top: -30em; margin-left: 12em" >
+<div class="row">
+        <div class="col-md-4">
+          <div class="card-counter primary">
+            <i class="fa fa-code-fork"></i>
+            <span class="count-numbers">{{tickets|length }}</span>
+            <span class="count-name">Open Tickets</span>
+          </div>
+        </div>
+    
+        <div class="col-md-4">
+          <div class="card-counter danger">
+            <i class="fa fa-ticket"></i>
+            <span class="count-numbers">{{pending_tickets|length }}</span>
+            <span class="count-name">Pending Tickets </span>
+          </div>
+        </div>
+    
+        <div class="col-md-4">
+          <div class="card-counter success">
+            <i class="fa fa-database"></i>
+            <span class="count-numbers">{{closed_tickets|length }}</span>
+            <span class="count-name">Closed Tickets</span>
+          </div>
+        </div>
+    </div>
+</section>
+<section id="welcome-section" class="container" style="float:right; padding-left:12em; margin-top: -25em" >
+       
+            
+                
   <div class="row mt-2">
     <h5>Open Tickets ({{tickets|length }})</h5>
 
@@ -230,4 +260,6 @@
   {% endfor %}
   <!-- ========================== -->
 </section>
+<style>
+</style>
 {% endblock  %}
