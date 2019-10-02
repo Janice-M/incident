@@ -76,6 +76,7 @@ def create_agent(request):
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
+            userpass=form.cleaned_data.get('password1')
             
             try:
                 if User.objects.get(email=useremail):
@@ -98,8 +99,9 @@ def create_agent(request):
                     'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
                     'token':account_activation_token.make_token(agent_form),
-                    'password':form.cleaned_data.get('password'),
-                    'email':form.cleaned_data.get('email')
+                    'password':userpass,
+                    'email':form.cleaned_data.get('email'),
+                    'username':username,
 
                 })
 
@@ -137,7 +139,7 @@ def edit_agent(request,pk):
             else:
                 agent.is_active=True
                 profile.save()  
-                  
+                
             usrform.save()
             messages.success(request,f'Account Updated for Agent {agent.username}')
             return redirect('user_management')
@@ -196,11 +198,10 @@ def edit_department(request,pk):
 # ###################################### ticket management ##########################################################
 @login_required
 def ticket_management(request):
-
+    # render ticket types
     tickets=TicketType.get_ticket_types()
-    all_tickets=Create_ticket.get_tickets()
 
-    return render(request,'ticket/ticketManagement.html',{'tickets':tickets,'all_tickets':all_tickets})     
+    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
 
 
 @login_required
