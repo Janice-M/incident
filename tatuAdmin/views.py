@@ -30,6 +30,16 @@ def admin_home(request):
     closed_tickets=Create_ticket.get_closed_tickets()
     pending_tickets=Create_ticket.get_pending_tickets()
     return render(request,'adminHome.html',{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+##################Customized foe the display of tables #########
+
+@login_required
+def tables(request):
+    # tickets = Create_ticket.get_tickets()
+    closed_tickets=Create_ticket.get_closed_tickets()
+    pending_tickets=Create_ticket.get_pending_tickets()
+    return render(request,'tables.html',{ 'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+
+
 
 @login_required
 def admin_profile(request):
