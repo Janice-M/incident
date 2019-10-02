@@ -108,6 +108,15 @@
             <a class="nav-link" href="tables.html">
               <i class="fas fa-fw fa-table"></i>
               <span>Tables</span></a>
+
+          <div class="admin_profile" >
+            <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;   display: block;
+               margin-left: auto;
+               margin-right: auto;
+               border-radius: 50%;height: 40px;">
+             <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="">{{user.username}}</a>
+
+          </div>
           </li>
           <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
           {% else %}
