@@ -1,204 +1,147 @@
+<!-- <nav class="navbar navbar-expand-md navbar-light bg-secondary sticky-top">
+    <a class="navbar-brand " href="{% url 'admin_home'%}">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        Tatu Admin
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'admin_home' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
 
 
-
-<aside class="side-nav" id="show-side-navigation1">
-    <i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1"></i>
-    <div class="heading">
+      <ul class="navbar-nav mr-auto">
         {% if user.is_authenticated %}
-    
-        <img src="{{user.profile.profile_photo.url}}">
-      <div class="info">
-       
-         <h3><a href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>{{user.username}}</a></h3>
-        
-      </div>
+
+        <a  class="nav-item nav-link" href="{% url 'user_management'%}">User Management</a>
+        <a  class="nav-item nav-link" href="{% url 'department_management'%}">Department Management</a>
+        <a  class="nav-item nav-link" href="{% url 'ticket_management'%}">Ticket Management</a>
+
+        <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
+        {% endif %}
+
+      </ul>
     </div>
-   
-    <ul class="categories">
-      <li> <a href="{% url 'index' %}"> <i class="fa fa-dashboard fa-1x mr-2"></i>Home</a>
-       
-      </li>
-      <li> <a href="{% url 'logout' %}" ><i class="fa fa-sign-out"></i> Logout</a>
-      </li>
-      <li><a href="{% url 'my_tickets' %}"><i class="fa fa-ticket"></i> My Tickets</a>
-     
-      </li>
-      {% else %}
+    </nav> -->
 
-      <li>  <a href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i> Login</a>
-       
-      </li>
-      <li> <a href="{% url 'register' %}"><i class="fa fa-fw fa-envelope"></i> Register</a>
-      
-      </li>
-      {% endif %}
-      
-  </aside>
-<style>
- 
-/* Style sidebar links */
-.sidebar a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: whitesmoke;
-  display: block;
-}
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="margin-top:-2%; margin-bottom: -2%">
 
-/* Style links on mouse-over */
-.sidebar a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-left: 5px solid white;
-    color: white;
-    font-weight: bolder;
-    padding-left: 35px;
-}
-
-/* Style the main content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  padding: 0px 10px;
-}
-
-/* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
-/* Start side navigation bar  */
-
-.side-nav {
-  float: left;
-  height: 100%;
-  width: 250px;
-  background-color: #252636;
-  color: #CCC;
-  -webkit-transform: translateX(0);
-  -moz-transform: translateX(0);
-  transform: translateX(0);
-  -webkit-transition: all .3s ease-in-out;
-  -moz-transition: all .3s ease-in-out;
-  transition: .3s;
-  overflow-x: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  z-index: 9999999
-}
-.side-nav .close-aside {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  cursor: pointer;
-  color: #EEE;
-}
-.side-nav .heading {
-  background-color: #252636;
-  padding: 15px 15px 15px 30px;
-  overflow: hidden;
-  border-bottom: 1px solid #2a2b3c
-}
-.side-nav .heading > img {
-  border-radius: 50%;
-  float: left;
-  width: 50%;
-}
-.side-nav .info {
-  float: left;
-  width: 69%;
-  margin-left: 10%;
-}
-.side-nav .heading .info > h3 {margin: 0 0 5px}
-.side-nav .heading .info > h3 > a {
-  color: #EEE;
-  font-weight: 100;
-  margin-top: 4px;
-  display: block;
-  text-decoration: none;
-  font-size: 18px;
-}
-.side-nav .heading .info > h3 > a:hover {
-  color: #FFF;
-}
-.side-nav .heading .info > p {
-  color: #BBB;
-  font-size: 13px;
-}
-
-
-.side-nav .categories > li {
-  padding: 17px 40px 17px 30px;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-  cursor: pointer;
-}
-.side-nav .categories > li > a {
-  color: #AAA;
-  text-decoration: none;
-}
-/* Start num: there are three options primary, danger and success like Bootstrap */
-.side-nav .categories > li > a > .num {
-  line-height: 0;
-  border-radius: 3px;
-  font-size: 14px;
-  color: #FFF;
-  padding: 0px 5px
-}
-
-.side-nav .categories > li > a:hover {
-  color: #FFF
-}
-.side-nav .categories > li > i {
-  font-size: 18px;
-  margin-right: 5px
-}
-.side-nav .categories > li > a:after {
-  content: "\f053";
-  font-family: fontAwesome;
-  font-size: 11px;
-  line-height: 1.8;
-  float: right;
-  color: #AAA;
-  -webkit-transition: all .3s ease-in-out;
-  -moz-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
-}
-.side-nav .categories .opend > a:after {
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  transform: rotate(-90deg);
-}
-/* End categories */
-/* Start dropdown menu */
-.side-nav .categories .side-nav-dropdown {
-  padding-top: 10px;
-  padding-left: 30px;
-  list-style: none;
-  display: none;
-}
-.side-nav .categories .side-nav-dropdown > li > a {
-  color: #AAA;
-  text-decoration: none;
-  padding: 7px 0;
-  display: block;
-}
-.side-nav .categories p {
-  margin-left: 30px;
-  color: #535465;
-  margin-top: 10px;
-}
-
-/* End dropdown menu */
-
-.show-side-nav {
-  -webkit-transform: translateX(-290px);
-  -moz-transform: translateX(-290px);
-  transform: translateX(-290px);
-}
-
-
-</style>
-
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+          <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">Tatu Agent <sup>2</sup></div>
+        </a>
+  
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+  
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+  
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+  
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Interface
+        </div>
+  
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item active">
+          <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Components</span>
+          </a>
+          <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Custom Components:</h6>
+              <a class="collapse-item" href="buttons.html">Buttons</a>
+              <a class="collapse-item active" href="cards.html">Cards</a>
+            </div>
+          </div>
+        </li>
+  
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Utilities</span>
+          </a>
+          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Custom Utilities:</h6>
+              <a class="collapse-item" href="utilities-color.html">Colors</a>
+              <a class="collapse-item" href="utilities-border.html">Borders</a>
+              <a class="collapse-item" href="utilities-animation.html">Animations</a>
+              <a class="collapse-item" href="utilities-other.html">Other</a>
+            </div>
+          </div>
+        </li>
+  
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+  
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Addons
+        </div>
+  
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+          </a>
+          <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Login Screens:</h6>
+              <a class="collapse-item" href="login.html">Login</a>
+              <a class="collapse-item" href="register.html">Register</a>
+              <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+              <div class="collapse-divider"></div>
+              <h6 class="collapse-header">Other Pages:</h6>
+              <a class="collapse-item" href="404.html">404 Page</a>
+              <a class="collapse-item" href="blank.html">Blank Page</a>
+            </div>
+          </div>
+        </li>
+  
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+          <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span></a>
+        </li>
+  
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+          <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+        </li>
+  
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+  
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+  
+      </ul>
+      <!-- End of Sidebar -->
+  
