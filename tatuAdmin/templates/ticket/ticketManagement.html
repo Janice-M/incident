@@ -44,41 +44,7 @@
     <!-- row -->
 
 
-<div class="row mt-2">
-    <h5>Open Tickets ({{all_tickets |length }})</h5>
-    <table class="table table-responsive mt-2">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Owner</th>
-            <th scope="col">Issue</th>
-            <th scope="col">Ticket Type</th>
-            <th scope="col">Ticket Subtype</th>
-            <th scope="col">Agent</th>
-            <th scope="col">Status</th>
-            <th scope="col">Ticket Number</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for ticket in all_tickets %}
-          <tr>
-            <th scope="row">{{ticket.id}}</th>
-            <td>{{ticket.owner.username}}</td>
-            <td>{{ticket.issue}}</td>
-            <td>{{ticket.ticket_type.name}}</td>
-            <td>{{ticket.ticket_subtype.subtype}}</td>
-            <td>{{ticket.agent.username}}</td>
-            <td>{{ticket.get_status_display}}</td>
-            <td>{{ticket.ticket_number}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    
-  
 
-</div>
-<!-- row -->
 </div>
 
 {% endblock content %}
