@@ -20,6 +20,7 @@ from django.template.loader import render_to_string
 from customer.tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.http import HttpResponse,Http404,HttpResponseRedirect
+from customer.forms import UserUpdateForm,ProfileUpdateForm
 
 # Create your views here.
 @login_required
