@@ -198,9 +198,8 @@ def edit_department(request,pk):
 # ###################################### ticket management ##########################################################
 @login_required
 def ticket_management(request):
-
+    # render ticket types
     tickets=TicketType.get_ticket_types()
-    
 
     return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
 
