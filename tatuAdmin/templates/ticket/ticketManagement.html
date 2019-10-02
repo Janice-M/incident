@@ -32,7 +32,7 @@
                 <th scope="row">{{ticket.id}}</th>
                 <td><a href="{% url 'edit_ticket' ticket.id %}">{{ticket.name}}</a></td>
                 <td>{{ticket.priority}}</td>
-                <td><a class="btn btn-outline-danger"  href="{% url 'delete_ticket' ticket.id %}">Yes</a></td>
+                <td><a class="btn btn-outline-primary"  href="{% url 'delete_ticket' ticket.id %}">Yes</a></td>
               </tr>
               {% endfor %}
             </tbody>
