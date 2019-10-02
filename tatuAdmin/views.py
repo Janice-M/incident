@@ -137,7 +137,7 @@ def edit_agent(request,pk):
             else:
                 agent.is_active=True
                 profile.save()  
-                  
+                
             usrform.save()
             messages.success(request,f'Account Updated for Agent {agent.username}')
             return redirect('user_management')
@@ -198,9 +198,9 @@ def edit_department(request,pk):
 def ticket_management(request):
 
     tickets=TicketType.get_ticket_types()
-    all_tickets=Create_ticket.get_tickets()
+    
 
-    return render(request,'ticket/ticketManagement.html',{'tickets':tickets,'all_tickets':all_tickets})     
+    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
 
 
 @login_required
