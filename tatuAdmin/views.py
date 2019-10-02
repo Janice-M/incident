@@ -21,7 +21,7 @@ def admin_home(request):
 def user_management(request):
     profiles=Profile.get_agents()
 
-    return render(request,'agent/agentManagement.html',{'profiles':profiles}) 
+    return render(request,'agent/agentManagement.html',{'profiles':profiles})
 
 @login_required
 def create_agent(request):
@@ -48,7 +48,7 @@ def create_agent(request):
     else:
 
         form=AgentCreationForm()
-    return render(request,'agent/createAgent.html',{'form':form})  
+    return render(request,'agent/createAgent.html',{'form':form})
 
 @login_required
 def edit_agent(request,pk):
@@ -63,7 +63,7 @@ def edit_agent(request,pk):
     else:
 
         form=AgentEditForm(instance=agent.profile)
-    return render(request,'agent/editAgent.html',{'form':form}) 
+    return render(request,'agent/editAgent.html',{'form':form})
 
 
 # ###################################### department management ##########################################################
@@ -71,9 +71,9 @@ def edit_agent(request,pk):
 def department_management(request):
 
     departments=Department.get_departments()
-    
 
-    return render(request,'department/departmentmanagement.html',{'departments':departments}) 
+
+    return render(request,'department/departmentmanagement.html',{'departments':departments})
 
 
 @login_required
@@ -107,7 +107,7 @@ def edit_department(request,pk):
     else:
 
         form=DepartmentEditForm(instance=department)
-    return render(request,'department/editDepartment.html',{'form':form}) 
+    return render(request,'department/editDepartment.html',{'form':form})
 
 
 
@@ -118,7 +118,7 @@ def ticket_management(request):
     tickets=TicketType.get_ticket_types()
     all_tickets=Create_ticket.get_tickets()
 
-    return render(request,'ticket/ticketManagement.html',{'tickets':tickets,'all_tickets':all_tickets})     
+    return render(request,'ticket/ticketManagement.html',{'tickets':tickets,'all_tickets':all_tickets})
 
 
 @login_required
@@ -150,7 +150,7 @@ def create_ticket(request):
         tform=CreateTicketTypeForm(request.POST)
         tformsub=CreateTicketSubtype(request.POST)
 
-    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub}) 
+    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub})
 
 
 @login_required
@@ -166,7 +166,7 @@ def edit_ticket(request,pk):
     else:
 
         form=EditTicketTypeForm(instance=ticket)
-    return render(request,'ticket/editTicket.html',{'form':form}) 
+    return render(request,'ticket/editTicket.html',{'form':form})
 
 
 class TicketDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
@@ -174,13 +174,13 @@ class TicketDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     class view method to delete a ticket
         declare the model to be affected
         declare the template to be used
-       
+
     '''
     model=TicketType
     template_name='ticket/ticketConfirmDelete.html'
     success_url='/'
     success_message = "Ticket was deleted successfully"
-  
+
 
 # ###################################### ticket subtypes ##########################################################
 @login_required
@@ -188,7 +188,7 @@ def create_ticket_subtypes(request):
 
     if request.method=='POST':
         subtypesform=CreateMoreTicketSubtype(request.POST)
-     
+
         if subtypesform.is_valid():
 
             subtypesform.save()
@@ -198,5 +198,5 @@ def create_ticket_subtypes(request):
             return redirect('ticket_management')
     else:
         subtypesform=CreateMoreTicketSubtype(request.POST)
-    
-    return render(request,'ticket/createSubtype.html',{'form':subtypesform})   
+
+    return render(request,'ticket/createSubtype.html',{'form':subtypesform})
