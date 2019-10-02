@@ -250,6 +250,22 @@
 .btn:hover {
   background-color: rgb(221, 221, 221);
 }
+/* Start charts */
+.charts {
+  margin-top: 25px;
+  color: #BBB;
+  
+}
+.charts .chart-container {
+  background-color: #313348;
+  padding: 15px;
+  width: 980px;
+}
+.charts .chart-container h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
 
 /* Add a dark background to the active button */
 .btn.active {
@@ -257,117 +273,132 @@
   color: white;
 }</style>
 <main>
-  <div id="myBtnContainer">
-      <button class="btn btn-success active"onclick="filterSelection('all')"> Show all</button>
-      <button class="btn btn-primary"onclick="filterSelection('open')"> Open tickets</button>
-      <button class="btn btn-primary" onclick="filterSelection('closed')"> Closed tickets</button>
-      <button class="btn btn-primary"onclick="filterSelection('pending')"> Pending Tickets</button>
-     
-    </div>
-    
-    <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
-    <div class="container">
-      <div class="filterDiv open"><div class="row mt-2">  <h5>Open Tickets </h5>
-      
-        <table class="table table-responsive mt-2">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Issue</th>
-              <th scope="col">Ticket Type</th>
-              <th scope="col">Date Created</th>
-              <th scope="col">Agent</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
-              <th scope="col">Take/ Assign Ticket(s)</th>
-            </tr>
-          </thead>
-          <tbody>
-              {% for ticket in tickets %}
-            <tr>
-              <th scope="row">{{ticket.id}}</th>
-
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-              <td>{{ticket.ticket_type.name}}</td>
-              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-              <td>{{ticket.agent.username}}</td>
-              <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
-              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-</div>
-</div> 
-      <div class="filterDiv closed"> <div class="row mt-2">
-
-          <h5>Closed Tickets </h5>
-    
-            <table class="table table-responsive mt-2">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Issue</th>
-                  <th scope="col">Ticket Type</th>
-                  <th scope="col">Date Created</th>
-                  <th scope="col">Agent</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Ticket Number</th>
-                  <th scope="col">Take/ Assign Ticket(s)</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {% for ticket in closed_tickets %}
-                <tr>
-                  <th scope="row">{{ticket.id}}</th>
-    
-                  <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-                  <td>{{ticket.ticket_type.name}}</td>
-                  <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-                  <td>{{ticket.agent.username}}</td>
-                  <td>{{ticket.get_status_display}}</td>
-                  <td>{{ticket.ticket_number}}</td>
-                  <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-    </div>
-  </div>
-      <div class="filterDiv pending"> <div class="row mt-2">
-          <h5>Pending Tickets </h5>
-    
-            <table class="table table-responsive mt-2">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Issue</th>
-                  <th scope="col">Ticket Type</th>
-                  <th scope="col">Date Created</th>
-                  <th scope="col">Agent</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Ticket Number</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {% for ticket in pending_tickets %}
-                <tr>
-                  <th scope="row">{{ticket.id}}</th>
-    
-                  <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-                  <td>{{ticket.ticket_type.name}}</td>
-                  <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-                  <td>{{ticket.agent.username}}</td>
-                  <td>{{ticket.get_status_display}}</td>
-                  <td>{{ticket.ticket_number}}</td>
-                </tr>
-    
-                {% endfor %}
-              </tbody>
-            </table></div>
-     
-    </div>
+    <section class="charts">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="chart-container">
+                <h3>Chart</h3>
+                <div id="myBtnContainer">
+                    <button class="btn btn-success active"onclick="filterSelection('all')"> Show all</button>
+                    <button class="btn btn-primary"onclick="filterSelection('open')"> Open tickets</button>
+                    <button class="btn btn-primary" onclick="filterSelection('closed')"> Closed tickets</button>
+                    <button class="btn btn-primary"onclick="filterSelection('pending')"> Pending Tickets</button>
+                   
+                  </div>
+                  
+                  <!-- The filterable elements. Note that some have multiple class names (this can be used if they belong to multiple categories) -->
+                  <div class="container">
+                    <div class="filterDiv open"><div class="row mt-2">  <h5>Open Tickets </h5>
+                    
+                      <table class="table table-responsive mt-2">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Issue</th>
+                            <th scope="col">Ticket Type</th>
+                            <th scope="col">Date Created</th>
+                            <th scope="col">Agent</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ticket Number</th>
+                            <th scope="col">Take/ Assign Ticket(s)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in tickets %}
+                          <tr>
+                            <th scope="row">{{ticket.id}}</th>
+              
+                            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                            <td>{{ticket.ticket_type.name}}</td>
+                            <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                            <td>{{ticket.agent.username}}</td>
+                            <td>{{ticket.get_status_display}}</td>
+                            <td>{{ticket.ticket_number}}</td>
+                            <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+              </div>
+              </div> 
+                    <div class="filterDiv closed"> <div class="row mt-2">
+              
+                        <h5>Closed Tickets </h5>
+                  
+                          <table class="table table-responsive mt-2">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Issue</th>
+                                <th scope="col">Ticket Type</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Agent</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Ticket Number</th>
+                                <th scope="col">Take/ Assign Ticket(s)</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in closed_tickets %}
+                              <tr>
+                                <th scope="row">{{ticket.id}}</th>
+                  
+                                <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                                <td>{{ticket.ticket_type.name}}</td>
+                                <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                                <td>{{ticket.agent.username}}</td>
+                                <td>{{ticket.get_status_display}}</td>
+                                <td>{{ticket.ticket_number}}</td>
+                                <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                  </div>
+                </div>
+                    <div class="filterDiv pending"> <div class="row mt-2">
+                        <h5>Pending Tickets </h5>
+                  
+                          <table class="table table-responsive mt-2">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Issue</th>
+                                <th scope="col">Ticket Type</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Agent</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Ticket Number</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in pending_tickets %}
+                              <tr>
+                                <th scope="row">{{ticket.id}}</th>
+                  
+                                <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                                <td>{{ticket.ticket_type.name}}</td>
+                                <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                                <td>{{ticket.agent.username}}</td>
+                                <td>{{ticket.get_status_display}}</td>
+                                <td>{{ticket.ticket_number}}</td>
+                              </tr>
+                  
+                              {% endfor %}
+                            </tbody>
+                          </table></div>
+                   
+                  </div>
+                </main>
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+       
+          </div>
+        </div>
+      </section>
+ 
   </main>
     <script>
     filterSelection("all")
