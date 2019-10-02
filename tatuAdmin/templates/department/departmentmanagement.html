@@ -11,3 +11,32 @@
 
   <div class="row mt-2">
     <!-- <div class="col-md-2"></div> -->
+    <h5>All Departments ({{departments|length }})</h5>
+    <table class="table table-responsive mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for department in departments %}
+        <tr>
+          <th scope="row">{{department.id}}</th>
+          <td><a href="{% url 'edit_department' department.id %}">{{department.department_name}}</a></td>
+          <td>{{department.department_description}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+  </div>
+  <!-- row -->
+
+
+
+
+
+  {% endblock content %}
