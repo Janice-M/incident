@@ -1,13 +1,13 @@
 {% extends 'customer/base1.html'%}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container">
-    <div class="row mt-2">
+<div class="container" style="content-align:center;color:white;padding-top:8em;">
+    <div class="row mt-2 card-body card-fluid" style="padding-top:8em; background-color:lightblue;text-align:center">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h5>You have been logged out! </h5>
-            <div class="border-top pt-3">
-                <a href="{% url 'login' %}" class="ml-2">Log In Again</a>
+            <h3> <strong>You have been logged out! </strong></h3>
+            <div class="border-top pt-3 btn btn-primary">
+                <a href="{% url 'login' %}" class="ml-2" style="color:white!important">Log In</a>
             </div>
         </div>
         <div class="col-md-2"></div>
@@ -18,6 +18,6 @@
         -webkit-background-size: cover;
           -moz-background-size: cover;
           -o-background-size: cover;
-          background-size: cover; 
+          background-size: cover;
           background-repeat: no-repeat;}</style>
 {% endblock content %}

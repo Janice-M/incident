@@ -1,47 +1,5 @@
-<!-- <nav class="navbar navbar-expand-md navbar-light bg-secondary sticky-top">
-    <a class="navbar-brand " href="{% url 'admin_home'%}">
-
-        Tatu Admin
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'admin_home' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-
-
-      <ul class="navbar-nav mr-auto">
-        {% if user.is_authenticated %}
-<<<<<<< HEAD
-
-=======
-        <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;   display: block;
-                margin-left: auto;
-                margin-right: auto;
-                border-radius: 50%;height: 40px;">
-            <a href="{% url 'admin_profile' %}" class="nav-item nav-link">{{user.username}}</a>
->>>>>>> 57afba36ca41f19d1aa8c0b6441874ada4ef70eb
-        <a  class="nav-item nav-link" href="{% url 'user_management'%}">User Management</a>
-        <a  class="nav-item nav-link" href="{% url 'department_management'%}">Department Management</a>
-        <a  class="nav-item nav-link" href="{% url 'ticket_management'%}">Ticket Management</a>
-
-        <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
-        {% else %}
-        <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
-        {% endif %}
-
-      </ul>
-    </div>
-    </nav> -->
-
-
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="height:auto; padding-bottom:-4em" id="wrapper">
 
           <!-- Sidebar - Brand -->
           <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'admin_home'%}">
@@ -105,29 +63,30 @@
 
           <!-- Nav Item - Tables -->
           <li class="nav-item">
-            <a class="nav-link" href="tables.html">
+            <a class="nav-link" href="{% url 'tables' %}">
               <i class="fas fa-fw fa-table"></i>
               <span>Tables</span></a>
 
+
+          </li>
           <div class="admin_profile" >
-            <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;   display: block;
+            <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
                margin-left: auto;
                margin-right: auto;
-               border-radius: 50%;height: 40px;">
-             <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="">{{user.username}}</a>
+               border-radius: 50%;height: 40px; content-align:center;">
+             <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">{{user.username}}</a>
+             <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
+             {% else %}
+             <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
 
           </div>
-          </li>
-          <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
-          {% else %}
-          <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
 
         {% endif %}
           <!-- Divider -->
           <hr class="sidebar-divider d-none d-md-block">
 
           <!-- Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline">
+          <div class="text-center d-none d-md-inline" style="padding-left:3em">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
           </div>
 

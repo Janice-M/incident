@@ -65,7 +65,6 @@ def take_or_assign_ticket(request, pk):
     return render(request,'agent/take_or_assign.html',{'form':form})
 
 
-
 @login_required
 def my_tickets(request):
     '''
