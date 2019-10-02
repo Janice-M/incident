@@ -18,7 +18,7 @@ class Profile(models.Model):
     is_staff = models.BooleanField(default=False,null=True)
     is_customer = models.BooleanField(default=True,null=True)
     role = models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    
 
     def __str__(self):
         return f'{self.user.username} Profile'
