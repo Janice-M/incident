@@ -2,21 +2,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- The sidebar -->
-<div class="sidebar">
-
+<div class="sidebar" style="width:8em; justify-content:space-between">
+<div class="" style="color:white!important">
+  <p><strong>Tatu Customer <sup>3</sup></strong></p>
+</div>
         {% if user.is_authenticated %}
 
-        <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40%;   display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 25px;height: 40%;">
-        <a href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>{{user.username}}</a>
         <a href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home</a>
-  <a href="{% url 'createticket' %}"><i class="fa fa-plus"></i></i> Create Ticket</a>
+  <a href="{% url 'createticket' %}"><i class="fa fa-plus"></i> Create Ticket</a>
+<div class="">
+
+</div>
+          <img src="{{user.profile.profile_photo.url}}" alt="" style="width:53px;display: block;
+             margin-left: auto;
+             margin-right: auto;
+             border-radius: 50%;height: 53px; content-align:center;">
+          <a href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>{{user.username}}</a>
   <a href="{% url 'logout' %}" ><i class="fa fa-sign-out"></i> Logout</a>
-  <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
-    </form>
+
 
   {% else %}
 
@@ -26,12 +29,13 @@
   {% endif %}
 </div>
 <style>
-    img {
-    margin-top: 30px;
+    /* img {
+    margin-top: 3px;
     padding: 3px;
 
-    border-radius: 25px;
-}
+    border-radius:50%;
+
+} */
     .sidebar {
   height: 100%;
   width: 200px;
