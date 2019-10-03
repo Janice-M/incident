@@ -1,33 +1,99 @@
-<nav class="navbar navbar-expand-md navbar-light bg-secondary sticky-top">
-    <a class="navbar-brand" href="{% url 'agent_home' %}">
-        Agent of Tatucity
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'agent_home' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home<span
-                        class="sr-only">(current)</span></a>
-            </li>
-        </ul>
-        <ul class="navbar-nav mr-auto">
 
-            {% if user.is_authenticated %}
-            <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;   display: block;
-                margin-left: auto;
-                margin-right: auto;
-                border-radius: 50%;height: 40px;">
-            <a href="{% url 'profile' %}" class="nav-item nav-link">{{user.username}}</a>
-            <a href="{% url 'my_tickets' %}" class="nav-item nav-link">My Ticket(s)</a>
-            <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
-            {% else %}
-            <a href="{% url 'login'%}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"  style="position: fixed; margin-bottom: -7%;margin-top: -2em">
 
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
+          <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+          </div>
+          <div class="sidebar-brand-text mx-3">Tatu Connect </div>
+        </a>
+        
+        <a class="nav-link" >
+            <img src="{{user.profile.profile_photo.url}}" style="width:4em;   display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 50%;height: 4em;"></a>
 
-            {% endif %}
-        </ul>
-    </div>
-</nav>
+        <div style="color: white;"class="text-center">Welcome,{{user.username}}</div>
+      
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+       
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+        {% if user.is_authenticated %}
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+  
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Tickets
+        </div>
+  
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">
+              <i class="fa fa-fw fa-user"></i>
+              <span>Agent Profle</span></a>
+          </li>
+  
+  
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'my_tickets' %}">
+              <i class="fas fa-paper-plane"></i>
+              <span>My Tickets</span></a>
+          </li>
+  
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+  
+        <!-- Heading -->
+        <div class="sidebar-heading">
+         Logout
+        </div>
+  
+        <!-- Nav Item - Pages Collapse Menu -->
+    
+       
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">
+              <i class="fas fa-sign-in-alt"></i>
+              <span>Login</span></a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">
+              <i class="fas fa-thumbs-up"></i>
+              <span>Register</span></a>
+          </li>
+          {% endif %}
+        <!-- Nav Item - Charts -->
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span></a>
+        </li>
+ 
+       
+        <!-- Nav Item - Tables -->
+        
+  
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+  
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+  
+      </ul>
+      <!-- End of Sidebar -->
+  
