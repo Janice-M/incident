@@ -1,11 +1,12 @@
 {% include 'agent/base.html'%}
 {% block content %}
-<section id="welcome-section" class="container" style="float:right; padding-left:4em; margin-top:-38em;">
+<section id="welcome-section" class="container" style="float:right; padding-left:4em; ">
   <div class="row mt-2">
     <h5>Open Tickets ({{tickets|length }})</h5>
 
     <table class="table table-responsive mt-2">
-      <thead class="thead-light">
+      <thead class="thead-primary" style="background-color: #357EC7
+;color:black;">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Issue</th>
@@ -41,7 +42,8 @@
     <h5>Closed Tickets ({{closed_tickets|length }})</h5>
 
     <table class="table table-responsive mt-2">
-      <thead class="thead-light">
+      <thead class="thead-primary" style="background-color: #357EC7
+;color:black;">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Issue</th>
@@ -78,7 +80,8 @@
     <h5>Pending Tickets ({{pending_tickets|length }})</h5>
 
     <table class="table table-responsive mt-2">
-      <thead class="thead-light">
+      <thead class="thead-primary" style="background-color: #357EC7
+;color:black;">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Issue</th>
