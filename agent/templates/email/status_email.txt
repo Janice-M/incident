@@ -1,0 +1,2 @@
+Dear Customer,{{name}}
+Your Ticket Number {{ticket_number}} status has changed to {{ticket_status}}

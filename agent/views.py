@@ -7,6 +7,7 @@ from customer.models import Create_ticket
 from .forms import *
 from django.utils import timezone
 from customer.forms import UserUpdateForm,ProfileUpdateForm
+from .status_email import send_status_email
 # Create your views here.
 
 
@@ -97,6 +98,8 @@ def resolve_ticket(request,pk):
                 resolve_form.agent=None
                 resolve_form.save()
 
+                send_status_email(ticket.owner.username,ticket.owner.email,ticket.ticket_number,ticket.get_status_display)
+
                 messages.success(request,f'Ticket {resolve_form.issue} has change from pending to Open !')
                 return redirect('my_tickets')
 
@@ -105,6 +108,8 @@ def resolve_ticket(request,pk):
                 resolve_form.is_taken=False
                 resolve_form.agent=request.user
                 resolve_form.save()
+
+                send_status_email(ticket.owner.username,ticket.owner.email,ticket.ticket_number,ticket.status)
 
                 messages.success(request,f'Ticket {resolve_form.issue} has change from pending to Closed !')
                 return redirect('my_tickets')

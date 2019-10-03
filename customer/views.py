@@ -176,6 +176,7 @@ def search_results(request):
     current_user=request.user
     if 'ticket' in request.GET and request.GET['ticket']:
 
+
         ticket_number=request.GET.get('ticket')
         ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
 
@@ -189,6 +190,6 @@ def search_results(request):
     else :
 
         context={
-        'message':f"Incorrect Ticket Number"
+        'message':"Incorrect Ticket Number",
         }
-        return render(request,'customer/search.html',context) 
+    return render(request,'customer/search.html',context) 
