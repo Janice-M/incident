@@ -189,6 +189,6 @@ def search_results(request):
     else :
 
         context={
-        'message':f"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again. "
+        'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
         }
-        return render(request,'customer/search.html',context)
+    return render(request,'customer/search.html',context)
