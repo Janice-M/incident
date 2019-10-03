@@ -179,7 +179,7 @@ def create_department(request):
         if form.is_valid():
             form.save()
 
-            department=form.cleaned_data.get('department')
+            department=form.cleaned_data.get('department_name')
             messages.success(request,f'{department} created successfully')
             return redirect('department_management')
     else:
