@@ -7,15 +7,18 @@ from customer.models import Create_ticket
 from .forms import *
 from django.utils import timezone
 from customer.forms import UserUpdateForm,ProfileUpdateForm
+from .status_email import send_status_email
 # Create your views here.
 
 
 @login_required
 def agent_home(request):
+    current_user=request.user
     tickets = Create_ticket.get_tickets()
     closed_tickets=Create_ticket.get_closed_tickets()
     pending_tickets=Create_ticket.get_pending_tickets()
-    return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+    my_tickets=Create_ticket.get_agent_tickets(current_user)
+    return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets,'my_tickets':my_tickets})
 
 def profile(request):
     if request.method=='POST':
@@ -77,6 +80,7 @@ def my_tickets(request):
     return render(request,'agent/my_tickets.html',{'tickets':tickets})
 
 
+
 @login_required
 def resolve_ticket(request,pk):
     '''
@@ -96,6 +100,8 @@ def resolve_ticket(request,pk):
                 resolve_form.agent=None
                 resolve_form.save()
 
+                send_status_email(ticket.owner.username,ticket.owner.email,ticket.ticket_number,ticket.get_status_display)
+
                 messages.success(request,f'Ticket {resolve_form.issue} has change from pending to Open !')
                 return redirect('my_tickets')
 
@@ -104,6 +110,8 @@ def resolve_ticket(request,pk):
                 resolve_form.is_taken=False
                 resolve_form.agent=request.user
                 resolve_form.save()
+
+                send_status_email(ticket.owner.username,ticket.owner.email,ticket.ticket_number,ticket.status)
 
                 messages.success(request,f'Ticket {resolve_form.issue} has change from pending to Closed !')
                 return redirect('my_tickets')
