@@ -3,12 +3,13 @@
 <!-- <!DOCTYPE html> -->
 
   {% block content %}
-<section class="container" style="float:right; padding-left:4em; margin-top:-40em">
+<section class="container" style="float:right; padding-left:4em; margin-top:2em">
   <div class="row mt-2">
     <h5>Closed Tickets ({{closed_tickets|length }})</h5>
 
       <table class="table table-responsive mt-2">
-        <thead class="thead-light">
+        <thead class="" style="background-color: #357EC7
+;color:black;">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Issue</th>
@@ -44,7 +45,8 @@
     <h5>Pending Tickets ({{pending_tickets|length }})</h5>
 
       <table class="table table-responsive mt-2" style="width:auto">
-        <thead class="thead-light">
+        <thead class="" style="background-color: #357EC7
+;color:black;">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Issue</th>
