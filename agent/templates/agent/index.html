@@ -1,6 +1,114 @@
 {% include 'agent/base.html'%}
 {% block content %}
 <section id="welcome-section" class="container" style="float:right; padding-left:4em; ">
+
+  <!-- ############# Open Tickets ############### -->
+    <section id="welcome-section" class="container" style="float:right; padding-left:4em; margin-top:2em">
+      <section class="row">
+             <div class="col-xl-3 col-md-6 mb-4">
+               <div class="card border-left-primary shadow h-100 py-2">
+                 <div class="card-body">
+                   <div class="row no-gutters align-items-center">
+                     <div class="col mr-2">
+                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Open Tickets</div>
+                       <div class="row no-gutters align-items-center">
+                         <div class="col-auto">
+                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{tickets|length }}</div>
+                         </div>
+                         <div class="col">
+                           <div class="progress progress-sm mr-2">
+                             <div class="progress-bar bg-info" role="progressbar" style="width: {{tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                     <div class="col-auto">
+                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+  <!-- ################End Open Tickets -->
+             <!-- ################Pending Tickets #################### -->
+             <div class="col-xl-3 col-md-6 mb-4">
+               <div class="card border-left-success shadow h-100 py-2">
+                 <div class="card-body">
+                   <div class="row no-gutters align-items-center">
+                     <div class="col mr-2">
+                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pending Tickets </div>
+                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{pending_tickets|length }}</div>
+                       <div class="col">
+                         <div class="progress progress-sm mr-2">
+                           <div class="progress-bar bg-info" role="progressbar" style="width: {{pending_tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                         </div>
+                       </div>
+                     </div>
+
+                     <div class="col-auto">
+                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                     </div>
+
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+             <!-- ###############End Pending Tickets ###################-->
+
+             <!-- #####################Begin Closed Tickes ###################33 -->
+             <div class="col-xl-3 col-md-6 mb-4">
+               <div class="card border-left-info shadow h-100 py-2">
+                 <div class="card-body">
+                   <div class="row no-gutters align-items-center">
+                     <div class="col mr-2">
+                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Closed Tickets</div>
+                       <div class="row no-gutters align-items-center">
+                         <div class="col-auto">
+                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{closed_tickets|length }}</div>
+                         </div>
+                         <div class="col">
+                           <div class="progress progress-sm mr-2">
+                             <div class="progress-bar bg-info" role="progressbar" style="width: {{pending_tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                     <div class="col-auto">
+                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+  <!-- ##########################End Closed Ticket ########################## -->
+
+               <!-- #####################Begin MY Tickes ###################33 -->
+               <div class="col-xl-3 col-md-6 mb-4">
+                 <div class="card border-left-info shadow h-100 py-2">
+                   <div class="card-body">
+                     <div class="row no-gutters align-items-center">
+                       <div class="col mr-2">
+                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">My Tickets</div>
+                         <div class="row no-gutters align-items-center">
+                           <div class="col-auto">
+                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ my_tickets|length }}</div>
+                           </div>
+                           <div class="col">
+                             <div class="progress progress-sm mr-2">
+                               <div class="progress-bar bg-info" role="progressbar" style="width: {{my_tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="col-auto">
+                         <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+    <!-- ##########################End My Ticket ########################## -->
   <div class="row mt-2">
     <h5>Open Tickets ({{tickets|length }})</h5>
 
