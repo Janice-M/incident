@@ -2,28 +2,12 @@
 {% block content %}
 <main>
 
-<section id="welcome-section" class="container" style="padding-top:2em">
-  <div class="row">
-  <div class="col-5">
-          <h4 style="font-family: 'fantasy', cursive;color: #357EC7; size:15px" class="text-center">My Tickets ({{tickets|length }})</h4>
-  </div>
-  <div class="col-1">
-
-  </div>
-  <div class="col-2">
-
-  </div>
-  <div class="col-4">
-    <span style="float:right; display:block;">  <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
-              </form></span>
-  </div>
-  </div>
-
+<section id="welcome-section" class="container">
     <div class="row mt-2">
 
+      <h4 style="font-family: 'fantasy', cursive;color: #357EC7; size:15px" class="text-center">My Tickets ({{tickets|length }})</h4>
         <table class="table table-primary">
-          <thead class="thead-primary">
+          <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Title</th>
@@ -74,7 +58,7 @@
          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
