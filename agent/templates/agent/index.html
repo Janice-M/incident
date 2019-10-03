@@ -10,7 +10,7 @@
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">OPen Tickets</div>
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Open Tickets</div>
                   <div class="row no-gutters align-items-center">
                     <div class="col-auto">
                       <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{tickets|length }}</div>
@@ -88,7 +88,7 @@
             
                 
   <div class="row mt-2">
-    <h5>Open Tickets ({{tickets|length }})</h5>
+    <h5>Open Tickets</h5>
 
     <table class="table table-primary"style="color:black">  
         <thead class="thead" style="background-color: #357EC7;color:black;">
@@ -124,10 +124,10 @@
   </div>
 
   <div class="row mt-2">
-    <h5>Closed Tickets ({{closed_tickets|length }})</h5>
+    <h5>Closed Tickets</h5>
 
-    <table class="table table-responsive mt-2">
-      <thead class="thead-dark">
+    <table class="table table-primary"style="color:black">  
+        <thead class="thead" style="background-color: #357EC7;color:black;">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Issue</th>
@@ -161,10 +161,10 @@
 
 
   <div class="row mt-2">
-    <h5>Pending Tickets ({{pending_tickets|length }})</h5>
+    <h5>Pending Tickets</h5>
 
-    <table class="table table-responsive mt-2">
-      <thead class="thead-dark">
+    <table class="table table-primary"style="color:black">  
+        <thead class="thead" style="background-color: #357EC7;color:black;">
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Issue</th>
@@ -262,7 +262,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
