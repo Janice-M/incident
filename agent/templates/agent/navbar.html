@@ -69,12 +69,12 @@
 
 
   </li> -->
-  <div class="admin_profile" >
+  <div class="agent_profile" >
     <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
        margin-left: auto;
        margin-right: auto;
        border-radius: 50%;height: 40px; content-align:center;">
-     <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">{{user.username}}</a>
+     <a href="{% url 'agent_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">{{user.username}}</a>
      <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
      {% else %}
      <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
