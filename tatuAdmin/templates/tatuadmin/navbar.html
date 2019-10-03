@@ -1,5 +1,5 @@
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="height:auto; padding-bottom:-4em" id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position:fixed; padding-bottom:-4em" id="wrapper">
 {% if user.is_authenticated %}
           <!-- Sidebar - Brand -->
           <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'admin_home'%}">
@@ -76,12 +76,7 @@
 
           </li>
           <div class="admin_profile" >
-            <!-- <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
-               margin-left: auto;
-               margin-right: auto;
-               border-radius: 50%;height: 40px; content-align:center;">
-             <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">{{user.username}}</a> -->
-             <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>
+             <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
              {% else %}
              <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
 
