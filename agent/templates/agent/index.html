@@ -2,34 +2,88 @@
 {% load bootstrap4 %}
 {% load static %}
 {% block content %}
-<section class="contanier"  style="float:right; padding-left:12em; margin-top: -30em; margin-left: 12em" >
-<div class="row">
-        <div class="col-md-4">
-          <div class="card-counter primary">
-            <i class="fa fa-code-fork"></i>
-            <span class="count-numbers">{{tickets|length }}</span>
-            <span class="count-name">Open Tickets</span>
+<section class="contanier-fluid"  style="float:right; padding-left:12em; margin-top: -30em; justify-content: space-between; width: 100%" >
+
+  <div class="row" style="justify-items:space-around">
+      <div class="col-xl-3 col-md-6 mb-4 col-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">OPen Tickets</div>
+                  <div class="row no-gutters align-items-center">
+                    <div class="col-auto">
+                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{tickets|length }}</div>
+                    </div>
+                    <div class="col">
+                      <div class="progress progress-sm mr-2">
+                        <div class="progress-bar bg-info" role="progressbar" style="width:{{tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-    
-        <div class="col-md-4">
-          <div class="card-counter danger">
-            <i class="fa fa-ticket"></i>
-            <span class="count-numbers">{{pending_tickets|length }}</span>
-            <span class="count-name">Pending Tickets </span>
+
+        <div class="col-xl-3 col-md-6 mb-4 col-4">
+            <div class="card border-left-success shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pending Ticket(s)</div>
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-auto">
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{pending_tickets|length }}</div>
+                      </div>
+                      <div class="col">
+                        <div class="progress progress-sm mr-2">
+                          <div class="progress-bar bg-info" role="progressbar" style="width:{{pending_tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-    
-        <div class="col-md-4">
-          <div class="card-counter success">
-            <i class="fa fa-database"></i>
-            <span class="count-numbers">{{closed_tickets|length }}</span>
-            <span class="count-name">Closed Tickets</span>
-          </div>
-        </div>
-    </div>
-</section>
-<section id="welcome-section" class="container" style="float:right; padding-left:12em; margin-top: -25em" >
+
+          <div class="col-xl-3 col-md-6 mb-4 col-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Closed Ticket(s)</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{closed_tickets|length }}</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-info" role="progressbar" style="width:{{closed_tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+ </div>
+<!-- 
+<section id="welcome-section" class="container" style="float:right; padding-left:12em; margin-top: -25em" > -->
        
             
                 
@@ -260,6 +314,8 @@
   {% endfor %}
   <!-- ========================== -->
 </section>
+<!-- </section> -->
+
 <style>
 </style>
 {% endblock  %}
