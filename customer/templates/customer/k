@@ -2,7 +2,7 @@
 {% block content %}
 <main>
   
-<section id="welcome-section" class="container"style="float:right; padding-left:5em; margin-top: -3em; margin-left: 12em">
+<section id="welcome-section" class="container"style="float:right; padding-left:5em; margin-top: -35em; margin-left: 12em">
     <div class="row mt-2">
 
       <h4 style="font-family: 'fantasy', cursive;color: #357EC7; size:15px" class="text-center">My Tickets ({{tickets|length }})</h4>
