@@ -33,17 +33,20 @@
         <li class="nav-item">
             <a class="nav-link" href="{% url 'profile' %}">
               <i class="fa fa-fw fa-user"></i>
-              <span>Agent Profle</span></a>
+              <span>Customer Profle</span></a>
           </li>
-  
-          <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
+
+          <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_results' %}">
+              <div class="search">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket"><i class="fa fa-search"></i>
+            </div>
           </form>
+        
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link" href="{% url 'createticket' %}">
               <i class="fas fa-paper-plane"></i>
-              <span>My Tickets</span></a>
+              <span>Create Tickets</span></a>
           </li>
   
         <!-- Divider -->
@@ -76,6 +79,9 @@
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span></a>
         </li>
+       
+  
+       
         <a class="nav-link" >
         <img src="{{user.profile.profile_photo.url}}" style="width:4em;   display: block;
         margin-left: auto;
@@ -97,3 +103,28 @@
       <!-- End of Sidebar -->
   
 </div>
+<style>
+/* Start search */
+ .search {
+  text-align: center;
+  padding: 15px 30px;
+  margin: 15px 0;
+  position: relative;
+}
+ .search > input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #23262d;
+  padding: 7px 0 7px;
+  color: #DDD
+}
+ .search > input ~ i {
+  position: absolute;
+  top: 22px;
+  right: 40px;
+  display: block;
+  color: #2b2f3a;
+  font-size: 19px;
+}
+/* End search */</style>
