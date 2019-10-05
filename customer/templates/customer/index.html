@@ -1,12 +1,36 @@
 {% include 'customer/base.html'%}
 {% block content %}
 <main>
-  
+
 <section id="welcome-section" class="container">
+  <div class="row">
+<div class="col-lg-5 col-sm-2">
+  <h4 style="font-family: 'fantasy', cursive;color: #357EC7; size:15px" class="text-center">My Tickets ({{tickets|length }})</h4>
+
+</div>
+<div class="col-lg-2 col-sm-2">
+
+</div>
+<div class="col-lg-1 col-sm-1">
+
+</div>
+<div class="col-lg-4 col-sm-2">
+
+                <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_results' %}">
+
+                    <div class="search">
+
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket"><i class="fa fa-search"></i>
+
+                  </div>
+
+                </form>
+</div>
+  </div>
+
     <div class="row mt-2">
 
-      <h4 style="font-family: 'fantasy', cursive;color: #357EC7; size:15px" class="text-center">My Tickets ({{tickets|length }})</h4>
-        <table class="table table-primary">  
+        <table class="table table-primary">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
@@ -21,7 +45,7 @@
               {% for ticket in tickets %}
             <tr>
               <th scope="row">{{ticket.id}}</th>
-           
+
               <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
               <td>{{ticket.date_created }}</td>
               <td>{{ticket.last_updated }}</td>
@@ -31,8 +55,8 @@
             {% endfor %}
           </tbody>
         </table>
-      
-    
+
+
     </div>
     {% for ticket in tickets  %}
     <div class="row mt-2">
@@ -65,7 +89,7 @@
   </div>
 
     </div>
-        
+
     {% endfor %}
 </section>
 </main>

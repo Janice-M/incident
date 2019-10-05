@@ -13,10 +13,12 @@ from .status_email import send_status_email
 
 @login_required
 def agent_home(request):
+    current_user=request.user
     tickets = Create_ticket.get_tickets()
     closed_tickets=Create_ticket.get_closed_tickets()
     pending_tickets=Create_ticket.get_pending_tickets()
-    return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+    my_tickets=Create_ticket.get_agent_tickets(current_user)
+    return render(request, 'agent/index.html' ,{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets,'my_tickets':my_tickets})
 
 def profile(request):
     if request.method=='POST':
@@ -66,7 +68,6 @@ def take_or_assign_ticket(request, pk):
     return render(request,'agent/take_or_assign.html',{'form':form})
 
 
-
 @login_required
 def my_tickets(request):
     '''
@@ -77,6 +78,7 @@ def my_tickets(request):
     tickets=Create_ticket.get_agent_tickets(request.user)
 
     return render(request,'agent/my_tickets.html',{'tickets':tickets})
+
 
 
 @login_required
@@ -92,7 +94,7 @@ def resolve_ticket(request,pk):
         if form.is_valid():
             resolve_form=form.save(commit=False)
             if resolve_form.status==Create_ticket.Open:
-            
+
                 resolve_form.is_taken=False
                 resolve_form.last_updated=timezone.now()
                 resolve_form.agent=None

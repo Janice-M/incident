@@ -21,6 +21,7 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 
 
+
 def register(request):
 # Create your views here.
     '''
@@ -36,7 +37,7 @@ def register(request):
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
-            
+
             try:
                 if User.objects.get(email=useremail):
 
@@ -44,13 +45,14 @@ def register(request):
                     return render(request,'registration/registration_form.html',{'form':form})
 
                 elif userphonenumber==Profile.objects.filter(phone_number=userphonenumber).first():
+
                     messages.warning(request,f'Phone number already in use with another account')
                     return render(request,'registration/registration_form.html',{'form':form})
 
 
             except ObjectDoesNotExist:
                 form.save()
-                
+
                 current_site=get_current_site(request)
                 mail_subject='Activate your Tatu Account.'
                 message=render_to_string('registration/account_email_activate.html',{
@@ -65,13 +67,14 @@ def register(request):
                 email=EmailMessage(mail_subject,message,to=[to_email])
                 email.send()
 
+                # user.refresh_from_db() 
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.profile.is_customer= True
                 createdUser.save()
-                
-                
-                
+
+
+
                 messages.success(request,f'Account for {username} created!Please confirm you email to complete registration')
                 return redirect('login')
 
@@ -94,10 +97,10 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         return redirect('index')
-        
+
     else:
         return HttpResponse('Activation link is invalid!')
-        
+
 
 @login_required
 def index(request):
@@ -186,10 +189,10 @@ def search_results(request):
         }
 
         return render(request,'customer/search.html',context)
-                
+
     else :
 
         context={
-        'message':"Incorrect Ticket Number",
+        'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
         }
-    return render(request,'customer/search.html',context) 
+    return render(request,'customer/search.html',context)

@@ -30,6 +30,16 @@ def admin_home(request):
     closed_tickets=Create_ticket.get_closed_tickets()
     pending_tickets=Create_ticket.get_pending_tickets()
     return render(request,'adminHome.html',{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+##################Customized foe the display of tables #########
+
+@login_required
+def tables(request):
+    # tickets = Create_ticket.get_tickets()
+    closed_tickets=Create_ticket.get_closed_tickets()
+    pending_tickets=Create_ticket.get_pending_tickets()
+    return render(request,'tables.html',{ 'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+
+
 
 @login_required
 def admin_profile(request):
@@ -57,7 +67,7 @@ def admin_profile(request):
 def user_management(request):
     profiles=Profile.get_agents()
 
-    return render(request,'agent/agentManagement.html',{'profiles':profiles}) 
+    return render(request,'agent/agentManagement.html',{'profiles':profiles})
 
 @login_required
 def create_agent(request):
@@ -71,12 +81,13 @@ def create_agent(request):
         if form.is_valid():
             agent_form=form.save(commit=False)
             agent_form.is_active=False
-            
-						
+
+
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
-            
+            userpass=form.cleaned_data.get('password1')
+
             try:
                 if User.objects.get(email=useremail):
 
@@ -90,7 +101,7 @@ def create_agent(request):
 
             except ObjectDoesNotExist:
                 form.save()
-                
+
                 current_site=get_current_site(request)
                 mail_subject='Activate your Agent Account.'
                 message=render_to_string('agent/account_email_activate.html',{
@@ -98,8 +109,9 @@ def create_agent(request):
                     'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
                     'token':account_activation_token.make_token(agent_form),
-                    'password':form.cleaned_data.get('password'),
-                    'email':form.cleaned_data.get('email')
+                    'password':userpass,
+                    'email':form.cleaned_data.get('email'),
+                    'username':username,
 
                 })
 
@@ -113,7 +125,7 @@ def create_agent(request):
                 createdUser.profile.is_customer=False
                 createdUser.profile.date_created=timezone.now()
                 createdUser.save()
-                
+
                 messages.success(request,f'Account created for {username} created!')
                 return redirect('user_management')
 
@@ -136,8 +148,8 @@ def edit_agent(request,pk):
                 profile.save()
             else:
                 agent.is_active=True
-                profile.save()  
-                
+                profile.save()
+
             usrform.save()
             messages.success(request,f'Account Updated for Agent {agent.username}')
             return redirect('user_management')
@@ -145,7 +157,7 @@ def edit_agent(request,pk):
 
         form=AgentProfileEditForm(instance=agent.profile)
         usrform=AgentUpdateForm(instance=agent)
-    return render(request,'agent/editAgent.html',{'form':form,'usrform':usrform}) 
+    return render(request,'agent/editAgent.html',{'form':form,'usrform':usrform})
 
 
 # ###################################### department management ##########################################################
@@ -153,9 +165,9 @@ def edit_agent(request,pk):
 def department_management(request):
 
     departments=Department.get_departments()
-    
 
-    return render(request,'department/departmentmanagement.html',{'departments':departments}) 
+
+    return render(request,'department/departmentmanagement.html',{'departments':departments})
 
 
 @login_required
@@ -167,7 +179,7 @@ def create_department(request):
         if form.is_valid():
             form.save()
 
-            department=form.cleaned_data.get('department')
+            department=form.cleaned_data.get('department_name')
             messages.success(request,f'{department} created successfully')
             return redirect('department_management')
     else:
@@ -189,18 +201,17 @@ def edit_department(request,pk):
     else:
 
         form=DepartmentEditForm(instance=department)
-    return render(request,'department/editDepartment.html',{'form':form}) 
+    return render(request,'department/editDepartment.html',{'form':form})
 
 
 
 # ###################################### ticket management ##########################################################
 @login_required
 def ticket_management(request):
-
+    # render ticket types
     tickets=TicketType.get_ticket_types()
-    
 
-    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
+    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})
 
 
 @login_required
@@ -232,7 +243,7 @@ def create_ticket(request):
         tform=CreateTicketTypeForm(request.POST)
         tformsub=CreateTicketSubtype(request.POST)
 
-    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub}) 
+    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub})
 
 @login_required
 def assign_ticket(request, pk):
@@ -273,7 +284,7 @@ def edit_ticket(request,pk):
     else:
 
         form=EditTicketTypeForm(instance=ticket)
-    return render(request,'ticket/editTicket.html',{'form':form}) 
+    return render(request,'ticket/editTicket.html',{'form':form})
 
 
 class TicketDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
@@ -281,13 +292,13 @@ class TicketDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     class view method to delete a ticket
         declare the model to be affected
         declare the template to be used
-       
+
     '''
     model=TicketType
     template_name='ticket/ticketConfirmDelete.html'
     success_url='/'
     success_message = "Ticket was deleted successfully"
-  
+
 
 # ###################################### ticket subtypes ##########################################################
 @login_required
@@ -295,7 +306,7 @@ def create_ticket_subtypes(request):
 
     if request.method=='POST':
         subtypesform=CreateMoreTicketSubtype(request.POST)
-     
+
         if subtypesform.is_valid():
 
             subtypesform.save()
@@ -305,5 +316,5 @@ def create_ticket_subtypes(request):
             return redirect('ticket_management')
     else:
         subtypesform=CreateMoreTicketSubtype(request.POST)
-    
-    return render(request,'ticket/createSubtype.html',{'form':subtypesform})   
+
+    return render(request,'ticket/createSubtype.html',{'form':subtypesform})

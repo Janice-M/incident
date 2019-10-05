@@ -18,7 +18,7 @@ class Profile(models.Model):
     is_staff = models.BooleanField(default=False,null=True)
     is_customer = models.BooleanField(default=True,null=True)
     role = models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=True)
-    
+
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -99,13 +99,13 @@ class Create_ticket(models.Model):
 
         tickets=cls.objects.filter(status=cls.Pending).all()
         return tickets
-        
-    
+
+
 
     @classmethod
     def get_agent_tickets(cls,agent):
         tickets=cls.objects.filter(agent=agent).all()
-        return tickets    
+        return tickets
 
     @classmethod
     def search_my_tickets(cls,owner,ticket_number):
