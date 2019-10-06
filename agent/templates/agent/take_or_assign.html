@@ -5,7 +5,7 @@
     <div class="row" >
       <div class="col">
 
-
+      </div>
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <form action="" method="POST">
@@ -20,47 +20,7 @@
             </form>
 
         </div>
-        </div>
-        <div class="col">
-          {% for ticket in pending_tickets  %}
-          <div class="row mt-2">
-
-            <!-- Modal -->
-            <div id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
-              aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="card card-body">
-                      <h6>Ticket Number:{{ticket.ticket_number}}</h6>
-                      <p class="card-text">{{ticket.summary}}</p>
-                      <li class="list-group">
-                      <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
-                      <li class="list-group-item">Email: {{ticket.owner.email}}</li>
-                      <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
-                      <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
-                      <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
-                      <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-                      </li>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {% endfor %}
-        </div>
+        <div class="col-md-2"></div>
     </div>
 </div>
 {% endblock content %}
