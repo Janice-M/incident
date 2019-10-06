@@ -24,6 +24,7 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from customer.forms import UserUpdateForm,ProfileUpdateForm
 from django.views import View
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 # Create your views here.
@@ -65,7 +66,9 @@ def admin_profile(request):
 
     }
     return render(request,'tatuadmin/admin_profile.html',context)
+
 # ###################################### agent management ##########################################################
+
 @login_required
 def user_management(request):
     profiles=Profile.get_agents()
