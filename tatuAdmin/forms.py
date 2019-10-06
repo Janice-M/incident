@@ -20,12 +20,12 @@ class AgentCreationForm(UserCreationForm):
     email=forms.EmailField()
     phonenumber=forms.CharField(max_length=16)
     role=forms.ChoiceField(choices=roles,required=True)
-    password1=None
+    password1=forms.CharField(widget=forms.HiddenInput())
     password2=None
 
     class Meta:
         model=User
-        fields=['username','email','phonenumber','role']
+        fields=['username','email','phonenumber','role','password1']
 
     # def __init__(self, *args, **kwargs):
     #     super(AgentCreationForm, self).__init__(*args, **kwargs)
@@ -36,14 +36,14 @@ class AgentCreationForm(UserCreationForm):
     #     del self.fields['password1']
     #     del self.fields['password2']
     
-    def save(self, commit=True):
+    # def save(self, commit=True):
 
-        user =super(UserCreationForm, self).save(commit=False)
-        user.set_password("march2013")
+    #     user =super(UserCreationForm, self).save(commit=False)
+    #     user.set_password(self.cleaned_data["password1"])
         
-        if commit:
-            user.save()
-        return user    
+    #     if commit:
+    #         user.save()
+    #     return user    
         
        
 

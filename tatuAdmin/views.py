@@ -82,17 +82,20 @@ def create_agent(request):
     view function for creating an agent
     '''
     if request.method=='POST':
-        form=AgentCreationForm(request.POST)
+        data=request.POST.copy()
+        data['password1']=get_random_string(20)
+
+        form=AgentCreationForm(data)
 
         if form.is_valid():
             agent_form=form.save(commit=False)
             agent_form.is_active=False
-            agent_form.set_password(get_random_string(10))
-
+            
 
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
+            userpass=form.cleaned_data.get('password1')
             
 
             try:
@@ -116,7 +119,7 @@ def create_agent(request):
                     'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
                     'token':account_activation_token.make_token(agent_form),
-                    'password':get_random_string(),
+                    'password':userpass,
                     'email':form.cleaned_data.get('email'),
                     'username':username,
 
@@ -149,10 +152,11 @@ class Activate(View):
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
+
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
         if user is not None and account_activation_token.check_token(user, token):
-            # activate user and login:
+        
             user.is_active = True
             user.save()
             login(request, user)
@@ -163,13 +167,13 @@ class Activate(View):
         else:
             return HttpResponse('Activation link is invalid!')
 
-    def post(self, request):
-        form = PasswordChangeForm(request.user, request.POST)
+    def post(self, request,*args,**kwargs):
+        form = PasswordChangeForm(request.user,request.POST)
         if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user) # Important, to update the session with the new password
+            form.save()
+            update_session_auth_hash(request, form.user) # Important, to update the session with the new password
             messages.success('Password changed successfully')
-            return redirect('login')
+        return redirect('login')
 
 
 
