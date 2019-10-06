@@ -14,7 +14,7 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 
 
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,update_session_auth_hash
 from django.contrib.sites.shortcuts import (get_current_site)
 from django.utils.encoding import force_bytes,force_text
 from django.utils.http import (urlsafe_base64_encode, urlsafe_base64_decode)
@@ -23,6 +23,8 @@ from customer.tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from customer.forms import UserUpdateForm,ProfileUpdateForm
+from django.views import View
+
 
 # Create your views here.
 @login_required
@@ -135,6 +137,38 @@ def create_agent(request):
         form=AgentCreationForm()
 
     return render(request,'agent/createAgent.html',{'form':form})
+
+class Activate(View):
+    '''
+    cbv to activate an agent and prompt for a passoword reset
+    '''
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+        if user is not None and account_activation_token.check_token(user, token):
+            # activate user and login:
+            user.is_active = True
+            user.save()
+            login(request, user)
+
+            form = PasswordChangeForm(request.user)
+            return render(request, 'activation.html', {'form': form})
+
+        else:
+            return HttpResponse('Activation link is invalid!')
+
+    def post(self, request):
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user) # Important, to update the session with the new password
+            messages.success('Password changed successfully')
+            return redirect('login')
+
+
 
 @login_required
 def edit_agent(request,pk):
