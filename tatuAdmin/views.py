@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 
 
 from django.contrib.auth import login,authenticate
@@ -81,12 +82,13 @@ def create_agent(request):
         if form.is_valid():
             agent_form=form.save(commit=False)
             agent_form.is_active=False
+            agent_form.set_password(get_random_string(10))
 
 
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
-            userpass=form.cleaned_data.get('password1')
+            
 
             try:
                 if User.objects.get(email=useremail):
@@ -94,13 +96,13 @@ def create_agent(request):
                     messages.warning(request,f'Email already in use with another account')
                     return render(request,'agent/createAgent.html',{'form':form})
 
-                elif userphonenumber==Profile.objects.filter(phone_number=userphonenumber).first():
+                elif Profile.objects.filter(phone_number=userphonenumber).exists():
                     messages.warning(request,f'Phone number already in use with another account')
                     return render(request,'agent/createAgent',{'form':form})
 
 
             except ObjectDoesNotExist:
-                form.save()
+                agent_form.save()
 
                 current_site=get_current_site(request)
                 mail_subject='Activate your Agent Account.'
@@ -109,7 +111,7 @@ def create_agent(request):
                     'domain':current_site.domain,
                     'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
                     'token':account_activation_token.make_token(agent_form),
-                    'password':userpass,
+                    'password':get_random_string(),
                     'email':form.cleaned_data.get('email'),
                     'username':username,
 

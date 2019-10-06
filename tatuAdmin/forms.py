@@ -5,15 +5,47 @@ from phonenumber_field.formfields import PhoneNumberField
 from django.db import models
 from .models import *
 from customer.models import *
+from django.utils.crypto import get_random_string
 
 
 class AgentCreationForm(UserCreationForm):
+    Admin = 0
+    Agent= 1
+
+    roles=(
+        (Admin,'1.Administrator'),
+        (Agent,'2.Agent'),
+    )
+
     email=forms.EmailField()
     phonenumber=forms.CharField(max_length=16)
+    role=forms.ChoiceField(choices=roles,required=True)
+    password1=None
+    password2=None
 
     class Meta:
         model=User
-        fields=['username','email','phonenumber','password1','password2']
+        fields=['username','email','phonenumber','role']
+
+    # def __init__(self, *args, **kwargs):
+    #     super(AgentCreationForm, self).__init__(*args, **kwargs)
+    #     self.fields['password1'].required = False
+    #     self.fields['password2'].required = False
+    #     # If one field gets autocompleted but not the other, our 'neither
+    #     # password or both password' validation will be triggered.
+    #     del self.fields['password1']
+    #     del self.fields['password2']
+    
+    def save(self, commit=True):
+
+        user =super(UserCreationForm, self).save(commit=False)
+        user.set_password("march2013")
+        
+        if commit:
+            user.save()
+        return user    
+        
+       
 
 
 class AgentProfileEditForm(forms.ModelForm):

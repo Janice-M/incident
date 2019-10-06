@@ -44,10 +44,10 @@ def register(request):
                     messages.warning(request,f'Email already in use with another account')
                     return render(request,'registration/registration_form.html',{'form':form})
 
-                elif userphonenumber==Profile.objects.filter(phone_number=userphonenumber).first():
+                # elif Profile.objects.get(phone_number=userphonenumber):
 
-                    messages.warning(request,f'Phone number already in use with another account')
-                    return render(request,'registration/registration_form.html',{'form':form})
+                #     messages.warning(request,f'Phone number already in use with another account')
+                #     return render(request,'registration/registration_form.html',{'form':form})
 
 
             except ObjectDoesNotExist:

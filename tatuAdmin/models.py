@@ -67,8 +67,8 @@ class Department(models.Model):
         return departments
 
 class Role(models.Model):
-    role_name=models.CharField(max_length=15)
 
+    role_name=models.CharField(blank=True,null=True,max_length=10)
     def __str__(self):
 
         return f'{self.role_name} Role'
