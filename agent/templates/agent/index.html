@@ -3,22 +3,41 @@
 {% block content %}
 <style media="screen">
   body {
-  padding : 10px ;
+    padding : 10px ;
 
+  }
+th{
+  color:white;
 }
+  #exTab1 .tab-content {
+    color : black;
+    background-color: #fff;
+    padding : 5px 15px;
+  }
 
-#exTab1 .tab-content {
-  color : white;
-  background-color: #fff;
-  padding : 5px 15px;
-}
+  #exTab2 h3 {
+    color : black;
+    background-color: #fff;
+    padding : 5px 15px;
+  }
 
-/* remove border radius for the tab */
+  /* remove border radius for the tab */
 
-#exTab1 .nav-pills > li > a {
-  border-radius: 0;
-}
-}
+  #exTab1 .nav-pills > li > a {
+    border-radius: 0;
+  }
+
+  /* change border radius for the tab , apply corners on top*/
+
+  #exTab3 .nav-pills > li > a {
+    border-radius: 4px 4px 0 0 ;
+  }
+
+  #exTab3 .tab-content {
+    color : black;
+    background-color: #fff;
+    padding : 5px 15px;
+  }
 </style>
 <section id="welcome-section" class="container" style="float:right; padding-left:2em; ">
 
@@ -129,8 +148,123 @@
                  </div>
                </div>
     <!-- ##########################End My Ticket ########################## -->
-    <div id="exTab1" class="container" style="content-align:center; background-color:transparent">
-<ul  class="nav nav-pills" style="background-color:transparent">
+
+    <div id="exTab1" class="container">
+    <ul  class="nav nav-pills">
+    			<li class="active">
+            <a  href="#1a" data-toggle="tab">Open Tickets ({{tickets|length }})</a>
+    			</li>
+    			<li><a href="#2a" data-toggle="tab">Closed Tickets ({{closed_tickets|length }})</a>
+    			</li>
+    			<li><a href="#3a" data-toggle="tab">Pending Tickets ({{pending_tickets|length }})</a>
+    			</li>
+      		<li><a href="#4a" data-toggle="tab"></a>
+    			</li>
+    		</ul>
+
+    			<div class="tab-content clearfix">
+    			  <div class="tab-pane active" id="1a">
+              <table class="table table-responsive mt-2">
+                <thead class="thead" style="background-color: #357EC7
+          ;color:black;">
+                  <tr>
+                    <th scope="col" style="color:white">ID</th>
+                    <th scope="col">Issue</th>
+                    <th scope="col">Ticket Type</th>
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Agent</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Ticket Number</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ticket in tickets %}
+                  <tr>
+                    <th scope="row">{{ticket.id}}</th>
+
+                    <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                    <td>{{ticket.ticket_type.name}}</td>
+                    <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                    <td>{{ticket.agent.username}}</td>
+                    <td>{{ticket.get_status_display}}</td>
+                    <td>{{ticket.ticket_number}}</td>
+                    <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Action</a> </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+    				</div>
+    				<div class="tab-pane" id="2a">
+              <table class="table table-responsive mt-2"style="width:100em;">
+                <thead class="thead-primary" style="background-color: #357EC7
+              ;color:black;">
+                  <tr>
+                    <th scope="col" style="width:7.2em">ID</th>
+                    <th scope="col" style="width:7.2em">Issue</th>
+                    <th scope="col" style="width:7.2em">Ticket Type</th>
+                    <th scope="col" style="width:7.2em">Date Created</th>
+                    <th scope="col" style="width:7.2em">Agent</th>
+                    <th scope="col" style="width:7.2em">Status</th>
+                    <th scope="col" style="width:7.2em">Ticket Number</th>
+                    <th scope="col" style="width:7.2em">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ticket in closed_tickets %}
+                  <tr>
+                    <th scope="row">{{ticket.id}}</th>
+
+                    <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                    <td>{{ticket.ticket_type.name}}</td>
+                    <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                    <td>{{ticket.agent.username}}</td>
+                    <td>{{ticket.get_status_display}}</td>
+                    <td>{{ticket.ticket_number}}</td>
+                    <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Action</a> </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+    				</div>
+            <div class="tab-pane" id="3a">
+              <table class="table table-responsive mt-2">
+                <thead class="thead-primary" style="background-color: #357EC7
+              ;color:black;">
+                  <tr>
+                    <th scope="col" style="width:7.2em">ID</th>
+                    <th scope="col" style="width:7.2em">Issue</th>
+                    <th scope="col" style="width:7.2em">Ticket Type</th>
+                    <th scope="col" style="width:7.2em">Date Created</th>
+                    <th scope="col" style="width:7.2em">Agent</th>
+                    <th scope="col" style="width:7.2em">Status</th>
+                    <th scope="col" style="width:7.2em">Ticket Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ticket in pending_tickets %}
+                  <tr>
+                    <th scope="row">{{ticket.id}}</th>
+
+                    <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                    <td>{{ticket.ticket_type.name}}</td>
+                    <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                    <td>{{ticket.agent.username}}</td>
+                    <td>{{ticket.get_status_display}}</td>
+                    <td>{{ticket.ticket_number}}</td>
+                  </tr>
+
+                  {% endfor %}
+                </tbody>
+              </table>
+    				</div>
+              <div class="tab-pane" id="4a">
+              <!-- <h3>We use css to change the background color of the content to be equal to the tab</h3> -->
+    				</div>
+    			</div>
+      </div>
+<!-- <div id="exTab1" class="container" style="content-align:center; background-color:transparent">
+    <ul  class="nav nav-pills" style="background-color:transparent">
 			<li class="active card-header" style="width:19.1em">
         <a  href="#1a" data-toggle="tab">Open Tickets ({{tickets|length }})</a>
 			</li>
@@ -237,7 +371,7 @@
           </table>
 				</div>
 			</div>
-  </div>
+  </div> -->
 
   <!-- ==============modals========= -->
   {% for ticket in tickets  %}
@@ -265,7 +399,7 @@
               <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
               <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
               <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
+
             </div>
           </div>
           <div class="modal-footer">
@@ -305,7 +439,7 @@
               <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
               <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
               <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
+
             </div>
           </div>
           <div class="modal-footer">
@@ -346,7 +480,7 @@
               <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
               <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
               <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
+
             </div>
           </div>
           <div class="modal-footer">
