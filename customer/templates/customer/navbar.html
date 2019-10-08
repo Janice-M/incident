@@ -1,84 +1,82 @@
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ##################################################################33 -->
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="height:auto; padding-bottom:-4em; position:fixed">
 
-<!-- The sidebar -->
-<div class="sidebar">
-   
-        {% if user.is_authenticated %}
-    
-        <img src="{{user.profile.profile_photo.url}}" alt=""style="width:40%;   display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 25px;height: 40%;">
-        <a href="{% url 'profile' %}" ><i class="fa fa-fw fa-user"></i>{{user.username}}</a>
-        <a href="{% url 'index' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home</a>
-  <a href="{% url 'createticket' %}"><i class="fa fa-plus"></i></i> Create Ticket</a>
-  <a href="{% url 'logout' %}" ><i class="fa fa-sign-out"></i> Logout</a>
-  <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results' %}">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
-    </form>
- 
-  {% else %}
-
-  <a href="{% url 'login' %}"><i class="fa fa-fw fa-user"></i> Login</a>
-
-  <a href="{% url 'register' %}"><i class="fa fa-fw fa-envelope"></i> Register</a>
-  {% endif %}
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-laugh-wink"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">Tatu Customer <sup>3</sup></div>
+  </a>
+{% if user.is_authenticated %}
+<div class="customer_profile">
+  <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
+     margin-left: auto;
+     margin-right: auto;
+     border-radius: 50%;height: 40px; content-align:center;">
+   <a href="{% url 'profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a>
 </div>
-<style>
-    img {
-    margin-top: 30px;
-    padding: 3px;
-   
-    border-radius: 25px;
-}
-    .sidebar {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background: #357EC7;
-    /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
-    /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
-    /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
-    /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#357EC7,  #5DA6EF, #7BC4FF);
-  overflow-x: hidden;
-  padding-top: 50px;
-}
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
 
-/* Style sidebar links */
-.sidebar a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: whitesmoke;
-  display: block;
-}
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
 
-/* Style links on mouse-over */
-.sidebar a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-left: 5px solid white;
-    color: white;
-    font-weight: bolder;
-    padding-left: 35px;
-}
+    <a class="nav-link" href="{% url 'index' %}">
 
-/* Style the main content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  padding: 0px 10px;
-}
+      <i class="fas fa-fw fa-tachometer-alt"></i>
 
-/* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
-</style>
+      <span>Dashboard</span></a>
+
+  </li>
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+        <li class="nav-item">
+
+            <a class="nav-link" href="{% url 'createticket' %}">
+
+              <i class="fas fa-paper-plane"></i>
+
+              <span>Create Tickets</span></a>
+
+          </li>
+
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Interface
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+
+  <div class="customer_profile" >
+    <!-- <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
+       margin-left: auto;
+       margin-right: auto;
+       border-radius: 50%;height: 40px; content-align:center;">
+     <a href="{% url 'agent_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a> -->
+     <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
+     {% else %}
+     <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
+
+  </div>
+
+{% endif %}
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline" style="padding-left:3em">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+
+</ul>
+<!-- End of Sidebar -->
+
+
+<!-- /Here we begin the new navbaR -->
+
+<!-- @@####################################################################### -->

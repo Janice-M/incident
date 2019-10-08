@@ -13,12 +13,12 @@ class Profile(models.Model):
     '''
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     profile_photo=models.ImageField(upload_to='profile_pics',default='default_profile.png',blank=True)
-    phone_number=models.CharField(blank=False,null=True,max_length=16)
+    phone_number=models.CharField(unique=True,blank=False,null=True,max_length=16)
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
     is_customer = models.BooleanField(default=True,null=True)
     role = models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=True)
-    
+
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -57,9 +57,9 @@ class Create_ticket(models.Model):
     Closed = 2
 
     Statuses=(
-       (Open,'0. Open'),
-       (Pending,'1. Pending'),
-       (Closed,'2. Closed'),
+       (Open,'Open'),
+       (Pending,'Pending'),
+       (Closed,'Closed'),
 
    )
     owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
@@ -73,6 +73,7 @@ class Create_ticket(models.Model):
     last_updated = models.DateTimeField(default=timezone.now)
     ticket_number = models.CharField(max_length=100,blank=True,null=True)
     is_taken = models.BooleanField(default=False,null=True)
+    department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
 
     def __str__(self):
         return f'{self.owner.username}{self.issue}'
@@ -99,12 +100,15 @@ class Create_ticket(models.Model):
 
         tickets=cls.objects.filter(status=cls.Pending).all()
         return tickets
-        
-    
 
     @classmethod
     def get_agent_tickets(cls,agent):
         tickets=cls.objects.filter(agent=agent).all()
+        return tickets
+
+    @classmethod
+    def get_tickets_by_department(cls,department):
+        tickets=cls.objects.filter(status=cls.Open).filter(department=department).all()
         return tickets    
 
     @classmethod

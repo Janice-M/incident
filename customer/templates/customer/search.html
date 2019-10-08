@@ -1,13 +1,13 @@
-{%extends 'customer/base.html'%} 
+{%extends 'customer/base.html'%}
 {% block content %}
-<main>
+<main style="padding-left:8em; padding-top:8em; text-align:center">
 <div class="container">
 
   <div class="row mt-2">
     {% if ticket %}
-      <h5 class="title">Found {{ ticket|length }} of ticket number {{message}}</h5>
+      <p class="title">Found {{ ticket|length }} of ticket number {{message}}</p>
     {% else %}
-      <h5 class="title"> {{message}}</h5>
+      <h5 class="title"><strong>Ticket number {{message}} does not exist</strong> </h5>
     {% endif %}
   </div>
 
@@ -16,9 +16,9 @@
 
         <section id="welcome-section" class="container">
             <div class="row mt-2">
-         
+
                 <table class="table table-responsive mt-2">
-                    <thead class="thead-dark">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
@@ -32,7 +32,7 @@
                         {% for ticket in ticket %}
                         <tr>
                             <th scope="row">{{ticket.id}}</th>
-                            
+
                             <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
                             <td>{{ticket.date_created }}</td>
                             <td>{{ticket.last_updated }}</td>
@@ -42,8 +42,8 @@
                 {% endfor %}
             </tbody>
         </table>
-        
-        
+
+
     </div>
 
     {% for ticket in ticket  %}
@@ -77,7 +77,7 @@
   </div>
 
     </div>
-        
+
     {% endfor %}
 </section>
 </main>
