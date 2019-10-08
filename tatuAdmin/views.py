@@ -319,7 +319,7 @@ def assign_ticket(request, pk):
     else:
         form=AssignForm(instance=ticket)
 
-    return render(request,'agent/assign_ticket.html',{'form':form})
+    return render(request,'agent/assign_ticket.html',{'form':form,'ticket':ticket})
 
 @login_required
 def edit_ticket(request,pk):

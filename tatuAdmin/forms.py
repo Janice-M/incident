@@ -107,5 +107,5 @@ class AssignForm(forms.ModelForm):
     
     class Meta:
         model=Create_ticket
-        fields=['ticket_type','agent','department']
+        fields=['agent','department']
 
