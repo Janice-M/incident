@@ -76,8 +76,9 @@ def my_tickets(request):
 
     current_user=request.user
     tickets=Create_ticket.get_agent_tickets(request.user)
+    department_tickets=Create_ticket.get_tickets_by_department(current_user.profile.department)
 
-    return render(request,'agent/my_tickets.html',{'tickets':tickets})
+    return render(request,'agent/my_tickets.html',{'tickets':tickets,'department_tickets':department_tickets})
 
 
 
