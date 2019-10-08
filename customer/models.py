@@ -112,6 +112,6 @@ class Create_ticket(models.Model):
         return tickets    
 
     @classmethod
-    def search_my_tickets(cls,owner,ticket_number):
-        ticket=cls.objects.filter(owner=owner).filter(ticket_number=ticket_number)
+    def search_my_tickets(cls,owner,search_term):
+        ticket=cls.objects.filter(owner=owner).filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term) )
         return ticket

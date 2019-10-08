@@ -180,11 +180,11 @@ def search_results(request):
     if 'ticket' in request.GET and request.GET['ticket']:
 
 
-        ticket_number=request.GET.get('ticket')
-        ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
+        search_term=request.GET.get('ticket')
+        ticketi=Create_ticket.search_my_tickets(current_user,search_term)
 
         context={
-        'message':f"{ticket_number}",
+        'message':f"{search_term}",
         'ticket':ticketi
         }
 
