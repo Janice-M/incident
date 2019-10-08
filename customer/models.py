@@ -73,6 +73,7 @@ class Create_ticket(models.Model):
     last_updated = models.DateTimeField(default=timezone.now)
     ticket_number = models.CharField(max_length=100,blank=True,null=True)
     is_taken = models.BooleanField(default=False,null=True)
+    department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
 
     def __str__(self):
         return f'{self.owner.username}{self.issue}'

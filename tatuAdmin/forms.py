@@ -20,12 +20,11 @@ class AgentCreationForm(UserCreationForm):
     email=forms.EmailField()
     phonenumber=forms.CharField(max_length=16)
     role=forms.ChoiceField(choices=roles,required=True)
-    password1=forms.CharField(widget=forms.HiddenInput())
-    password2=None
+ 
 
     class Meta:
         model=User
-        fields=['username','email','phonenumber','role','password1']
+        fields=['username','email','phonenumber','role','password1','password2']
 
     # def __init__(self, *args, **kwargs):
     #     super(AgentCreationForm, self).__init__(*args, **kwargs)
