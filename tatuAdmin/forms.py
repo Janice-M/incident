@@ -103,9 +103,9 @@ class CreateMoreTicketSubtype(forms.ModelForm):
 
 class AssignForm(forms.ModelForm):
     u=User.objects.filter(profile__is_customer=False).all()
-    agent=forms.ModelChoiceField(queryset=u, empty_label="(Nothing)")
+    agent=forms.ModelChoiceField(queryset=u, empty_label="(Nothing)",required=False)
     
     class Meta:
         model=Create_ticket
-        fields=['ticket_type','agent']
+        fields=['ticket_type','agent','department']
 

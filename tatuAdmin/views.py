@@ -300,13 +300,20 @@ def assign_ticket(request, pk):
 
         if form.is_valid():
             take_form=form.save(commit=False)
-            take_form.status=Create_ticket.Pending
-            take_form.last_updated=timezone.now()
-            take_form.is_taken=True
-            take_form.save()
+            if take_form.agent:
 
+                take_form.status=Create_ticket.Pending
+                take_form.last_updated=timezone.now()
+                take_form.is_taken=True
+                take_form.save()
+                messages.success(request,f'Ticket {take_form.status} has changed from open to pending!')
 
-            messages.success(request,f'Ticket {take_form.status} has changed from open to pending!')
+            elif take_form.department:
+                take_form.last_updated=timezone.now()
+                take_form.is_taken=False
+                take_form.save()
+                messages.success(request,f'Ticket has been assigned to {take_form.department}!')
+           
             return redirect('admin_home')
 
     else:
