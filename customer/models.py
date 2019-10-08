@@ -101,12 +101,16 @@ class Create_ticket(models.Model):
         tickets=cls.objects.filter(status=cls.Pending).all()
         return tickets
 
-
-
     @classmethod
     def get_agent_tickets(cls,agent):
         tickets=cls.objects.filter(agent=agent).all()
         return tickets
+
+    @classmethod
+    def get_tickets_by_department(cls,department):
+
+        tickets=cls.objects.filter(status=cls.Pending).filter(department=department).all()
+        return tickets    
 
     @classmethod
     def search_my_tickets(cls,owner,ticket_number):
