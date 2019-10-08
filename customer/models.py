@@ -57,9 +57,9 @@ class Create_ticket(models.Model):
     Closed = 2
 
     Statuses=(
-       (Open,'0. Open'),
-       (Pending,'1. Pending'),
-       (Closed,'2. Closed'),
+       (Open,'Open'),
+       (Pending,'Pending'),
+       (Closed,'Closed'),
 
    )
     owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
@@ -108,8 +108,7 @@ class Create_ticket(models.Model):
 
     @classmethod
     def get_tickets_by_department(cls,department):
-
-        tickets=cls.objects.filter(status=cls.Pending).filter(department=department).all()
+        tickets=cls.objects.filter(status=cls.Open).filter(department=department).all()
         return tickets    
 
     @classmethod
