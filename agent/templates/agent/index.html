@@ -1,9 +1,7 @@
 {% include 'agent/base.html'%}
-
-{% block content %}
 <style media="screen">
   body {
-    padding : 10px ;
+    /* padding : 10px ; */
 
   }
 th{
@@ -21,7 +19,7 @@ th{
     padding : 5px 15px;
   }
 
-  /* remove border radius for the tab */
+  remove border radius for the tab
 
   #exTab1 .nav-pills > li > a {
     border-radius: 0;
@@ -36,9 +34,11 @@ th{
   #exTab3 .tab-content {
     color : black;
     background-color: #fff;
-    padding : 5px 15px;
+    /* padding : 5px 15px; */
   }
 </style>
+{% block content %}
+
 <section id="welcome-section" class="container" style="float:right; padding-left:2em; ">
   <section style="padding-top:2em">
     <div class="row">
@@ -171,13 +171,13 @@ th{
     <!-- ##########################End My Ticket ########################## -->
 
     <div id="exTab1" class="container">
-    <ul  class="nav nav-pills">
-    			<li class="active">
+    <ul  class="nav nav-pills" style="padding-left:15px">
+    			<li class="active card-header" style="padding-left:8em">
             <a  href="#1a" data-toggle="tab">Open Tickets ({{tickets|length }})</a>
     			</li>
-    			<li><a href="#2a" data-toggle="tab">Closed Tickets ({{closed_tickets|length }})</a>
+    			<li class="card-header" style="padding-left:8em"><a href="#2a" data-toggle="tab">Closed Tickets ({{closed_tickets|length }})</a>
     			</li>
-    			<li><a href="#3a" data-toggle="tab">Pending Tickets ({{pending_tickets|length }})</a>
+    			<li class="card-header" style="padding-left:8em"><a href="#3a" data-toggle="tab">Pending Tickets ({{pending_tickets|length }})</a>
     			</li>
       		<li><a href="#4a" data-toggle="tab"></a>
     			</li>
@@ -189,7 +189,7 @@ th{
                 <thead class="thead" style="background-color: #357EC7
           ;color:black;">
                   <tr>
-                    <!-- <th scope="col" style="color:white">ID</th> -->
+                    <th scope="col" style="color:white"></th>
                     <th scope="col">Issue</th>
                     <th scope="col">Ticket Type</th>
                     <th scope="col">Date Created</th>
@@ -202,7 +202,7 @@ th{
                 <tbody>
                   {% for ticket in tickets %}
                   <tr>
-                    <!-- <th scope="row">{{ticket.id}}</th> -->
+                      <th scope="row" style="width:7.2em"></th>
 
                     <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
                     <td>{{ticket.ticket_type.name}}</td>
@@ -221,7 +221,7 @@ th{
                 <thead class="thead-primary" style="background-color: #357EC7
               ;color:black;">
                   <tr>
-                    <!-- <th scope="col" style="width:7.2em">ID</th> -->
+                    <th scope="col" style="width:7.2em"></th>
                     <th scope="col" style="width:7.2em">Issue</th>
                     <th scope="col" style="width:7.2em">Ticket Type</th>
                     <th scope="col" style="width:7.2em">Date Created</th>
@@ -234,7 +234,7 @@ th{
                 <tbody>
                   {% for ticket in closed_tickets %}
                   <tr>
-                    <!-- <th scope="row">{{ticket.id}}</th> -->
+                    <th scope="row" style="width:2em"></th>
 
                     <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
                     <td>{{ticket.ticket_type.name}}</td>
@@ -253,7 +253,7 @@ th{
                 <thead class="thead-primary" style="background-color: #357EC7
               ;color:black;">
                   <tr>
-                    <th scope="col" style="width:7.2em">ID</th>
+                    <th scope="col" style="width:7.2em"></th>
                     <th scope="col" style="width:7.2em">Issue</th>
                     <th scope="col" style="width:7.2em">Ticket Type</th>
                     <th scope="col" style="width:7.2em">Date Created</th>
@@ -265,7 +265,7 @@ th{
                 <tbody>
                   {% for ticket in pending_tickets %}
                   <tr>
-                    <th scope="row">{{ticket.id}}</th>
+                    <th scope="row"></th>
 
                     <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
                     <td>{{ticket.ticket_type.name}}</td>
