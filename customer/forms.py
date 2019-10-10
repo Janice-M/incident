@@ -31,5 +31,5 @@ class ProfileUpdateForm(forms.ModelForm):
 class CreateTicketForm(forms.ModelForm):
     class Meta:
         model=Create_ticket
-        fields=['ticket_type','issue','summary','ticket_subtype']
-        # fields.l    
+        fields=['issue','ticket_type','summary','ticket_subtype']
+        # fields.l
