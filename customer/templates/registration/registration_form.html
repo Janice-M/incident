@@ -1,6 +1,7 @@
 
 {% extends 'customer/base1.html'%}
 {% load bootstrap4 %}
+{% load static %}
 {% block content %}
 
 <div class="container ">
@@ -11,7 +12,7 @@
   <div class="col-md-6">
     <div class="row">
 
-      <div class="col-md-6 mt-5">
+      <div class="col-md-8 mt-5">
 
 
         <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
@@ -43,11 +44,12 @@
 </div>
 </div>
 <style>
-body{background-image: url('https://www.standardmedia.co.ke/images/sunday/adgvkbebmzojob9tovy5d068b47acd99.jpg');
+body{background-image: url("{% static 'img/TatuC0.jpg' %}");
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; }</style>
+  background-size: cover;
+height:automatic; }</style>
 
 
 
