@@ -48,7 +48,7 @@ color:white;
         <thead class="" style="background-color: #357EC7
 ;color:black;">
           <tr>
-            <th scope="col">#</th>
+            <!-- <th scope="col">#</th> -->
             <th scope="col">Issue</th>
             <th scope="col">Ticket Type</th>
             <th scope="col">Date Created</th>
@@ -60,7 +60,7 @@ color:white;
         <tbody>
             {% for ticket in closed_tickets %}
           <tr>
-            <th scope="row">{{ticket.id}}</th>
+            <!-- <th scope="row">{{ticket.id}}</th> -->
 
             <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
             <td>{{ticket.ticket_type.name}}</td>
@@ -80,12 +80,12 @@ color:white;
 
   <div class="row mt-2">
     <h5>In progress Tickets ({{pending_tickets|length }})</h5>
-
-      <table class="table table-responsive mt-2" style="width:auto">
+<br>
+      <table class="table table-responsive mt-2">
         <thead class="" style="background-color: #357EC7
 ;color:black;">
           <tr>
-            <th scope="col">#</th>
+            <!-- <th scope="col">#</th> -->
             <th scope="col">Issue</th>
             <th scope="col">Ticket Type</th>
             <th scope="col">Date Created</th>
@@ -99,7 +99,7 @@ color:white;
         <tbody>
             {% for ticket in pending_tickets %}
           <tr>
-            <th scope="row">{{ticket.id}}</th>
+            <!-- <th scope="row">{{ticket.id}}</th> -->
 
             <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
             <td>{{ticket.ticket_type.name}}</td>
