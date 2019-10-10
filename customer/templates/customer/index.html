@@ -32,8 +32,8 @@
 
         <table class="table table-primary">
           <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
+            <tr style="background-color:#357EC7">
+              <!-- <th scope="col">#</th> -->
               <th scope="col">Title</th>
               <th scope="col">Date Created</th>
               <th scope="col">Last Updated</th>
@@ -44,7 +44,7 @@
           <tbody>
               {% for ticket in tickets %}
             <tr>
-              <th scope="row">{{ticket.id}}</th>
+              <!-- <th scope="row">{{ticket.id}}</th> -->
 
               <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
               <td>{{ticket.date_created }}</td>
