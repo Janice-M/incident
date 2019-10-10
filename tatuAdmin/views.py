@@ -318,3 +318,24 @@ def create_ticket_subtypes(request):
         subtypesform=CreateMoreTicketSubtype(request.POST)
 
     return render(request,'ticket/createSubtype.html',{'form':subtypesform})
+
+def search_results(request):
+    current_user=request.user
+    if 'ticket' in request.GET and request.GET['ticket']:
+
+        ticket_number=request.GET.get('ticket')
+        ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
+
+        context={
+        'message':f"{ticket_number}",
+        'ticket':ticketi
+        }
+
+        return render(request,'customer/search.html',context)
+
+    else :
+
+        context={
+        'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
+        }
+    return render(request,'tatuadmin/search.html',context)
