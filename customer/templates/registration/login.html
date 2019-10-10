@@ -1,6 +1,7 @@
 
 {% extends 'customer/base1.html'%}
 {% load bootstrap4 %}
+{% load static %}
 {% block content %}
 
 <div class="container ">
@@ -45,11 +46,12 @@
 </div>
 </div>
 <style>
-body{background-image: url('https://www.standardmedia.co.ke/images/sunday/adgvkbebmzojob9tovy5d068b47acd99.jpg');
+body{background-image: url("{% static 'img/TatuC0.jpg' %}");
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height:auto;
   background-repeat: no-repeat;}</style>
 
 
