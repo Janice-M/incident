@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 from agent import views as agent_views
 from .models import Create_ticket
+from tatuAdmin.models import *
 from .generator import randomStringDigits
 from customer.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
@@ -150,6 +151,11 @@ def create_ticket(request):
         form=CreateTicketForm()
 
     return render(request,'tickets/createticket.html',{'form':form})
+
+def load_sub_types(request):
+    type_id=request.GET.get('ticket_type')
+    subtypes=TicketType.objects.filter(id=type_id).all()
+    return render(request,'tickets/subtypes_dropdown_list.html',{'subtypes':subtypes})
 
 
 @login_required
