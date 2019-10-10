@@ -31,7 +31,14 @@ class ProfileUpdateForm(forms.ModelForm):
 class CreateTicketForm(forms.ModelForm):
     class Meta:
         model=Create_ticket
-        fields=['issue','summary','ticket_type','ticket_subtype']    
+        fields=['issue','summary','ticket_type','ticket_subtype'] 
+
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['ticket_subtype'].queryset=TicketSubType.objects.none()
+
+
+
 
 
 
