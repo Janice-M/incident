@@ -154,7 +154,7 @@ def create_ticket(request):
 
 def load_sub_types(request):
     type_id=request.GET.get('ticket_type')
-    subtypes=TicketType.objects.filter(id=type_id).all()
+    subtypes=TicketSubType.objects.filter(ticket=type_id).all()
     return render(request,'tickets/subtypes_dropdown_list.html',{'subtypes':subtypes})
 
 
