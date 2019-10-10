@@ -15,36 +15,15 @@
     {% block styles %}
         {% bootstrap_css%}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<<<<<<< HEAD
-        <link rel="stylesheet" href="{% static 'css/sb-admin-2.css'%}">
-        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-​             <!-- Custom fonts for this template-->
-=======
         <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css'%}">
->>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
         <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
         <!-- Custom styles for this template-->
-<<<<<<< HEAD
-        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-                <!-- Custom styles for this template-->
-                <link href="{% static  'css/sb-admin-2.css' %}" rel="stylesheet">
-​
-    {% endblock styles %}
-</head>
-<body>
-
-    {% include 'customer/navbar.html'%}
-    <div class="container">
-​    {% block content %}
-=======
         <link href="{% static  'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
         {% endblock styles %}
     </head>
->>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
 
         <div class="row">
             <div class="col-md-2"></div>
@@ -65,28 +44,6 @@
             </div>
             <div class="col-md-2"></div>
         </div>
-<<<<<<< HEAD
-​
-
-​
-​
-
-​
-    {% endblock content %}
-</div>
-    {% block scripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js ' %}"></script>
-    ​       
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-=======
         {% block content %}
         {% endblock content %}
         {% block scripts %}
@@ -104,7 +61,6 @@
         <script src="{% static 'js/tatuadmin.js'%}"></script>
         {% endblock scripts %}
     </body>
->>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
 
     <!-- Custom scripts for all pages-->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
