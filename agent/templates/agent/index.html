@@ -168,7 +168,7 @@ th{
                 <thead class="thead" style="background-color: #357EC7
           ;color:black;">
                   <tr>
-                    <th scope="col" style="color:white">ID</th>
+                    <!-- <th scope="col" style="color:white">ID</th> -->
                     <th scope="col">Issue</th>
                     <th scope="col">Ticket Type</th>
                     <th scope="col">Date Created</th>
@@ -181,7 +181,7 @@ th{
                 <tbody>
                   {% for ticket in tickets %}
                   <tr>
-                    <th scope="row">{{ticket.id}}</th>
+                    <!-- <th scope="row">{{ticket.id}}</th> -->
 
                     <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
                     <td>{{ticket.ticket_type.name}}</td>
@@ -189,7 +189,7 @@ th{
                     <td>{{ticket.agent.username}}</td>
                     <td>{{ticket.get_status_display}}</td>
                     <td>{{ticket.ticket_number}}</td>
-                    <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Action</a> </td>
+                    <td><button type="button" name="button" class="btn btn-primary outline" style="color:white; background-color:#4e73df;"><a href="{% url 'take_or_assign_ticket' ticket.id %}" style="color:white; background-color:#4e73df;">Action</a> </button></td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -200,7 +200,7 @@ th{
                 <thead class="thead-primary" style="background-color: #357EC7
               ;color:black;">
                   <tr>
-                    <th scope="col" style="width:7.2em">ID</th>
+                    <!-- <th scope="col" style="width:7.2em">ID</th> -->
                     <th scope="col" style="width:7.2em">Issue</th>
                     <th scope="col" style="width:7.2em">Ticket Type</th>
                     <th scope="col" style="width:7.2em">Date Created</th>
@@ -213,7 +213,7 @@ th{
                 <tbody>
                   {% for ticket in closed_tickets %}
                   <tr>
-                    <th scope="row">{{ticket.id}}</th>
+                    <!-- <th scope="row">{{ticket.id}}</th> -->
 
                     <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
                     <td>{{ticket.ticket_type.name}}</td>
