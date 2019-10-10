@@ -5,10 +5,10 @@
     <h5>My Tickets ({{tickets|length }})</h5>
 
     <table class="table table-responsive mt-2">
-      <thead class="thead-light" style="background-color: #357EC7
+      <thead class="" style="background-color: #357EC7
 ;color:black;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"></th>
           <th scope="col">Issue</th>
           <th scope="col">Ticket Type</th>
           <th scope="col">Agent</th>
@@ -21,7 +21,7 @@
       <tbody>
         {% for ticket in tickets %}
         <tr>
-          <th scope="row">{{ticket.id}}</th>
+          <th scope="row"> <b></b></th>
 
           <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
           <td>{{ticket.ticket_type.name}}</td>
@@ -40,10 +40,10 @@
 
   <!-- ==============modals========= -->
   {% for ticket in tickets  %}
-  <div class="row mt-2">
+  <div class="row mt-2" id="{{ticket.id}} {{ticket.owner.username}}" >
 
     <!-- Modal -->
-    <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
+    <div class="modal fade" id="{{ticket.id}} {{ticket.owner.username}}" tabindex="-1" role="dialog"
       aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
