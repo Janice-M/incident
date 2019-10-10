@@ -6,3 +6,4 @@ customer/migrations/
 agent/migrations/
 tatuAdmin/migrations/
 virtual/
+chat/migrations/

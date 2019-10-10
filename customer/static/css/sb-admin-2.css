@@ -9338,7 +9338,10 @@ button.bg-dark:focus {
   font-weight: 300 !important;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
 .font-weight-lighter {
   font-weight: lighter !important;
 }
@@ -9899,7 +9902,11 @@ a:focus {
 }
 
 .sidebar .nav-item.dropdown .dropdown-toggle::after,
+<<<<<<< HEAD
    .nav-item.dropdown .dropdown-toggle::after {
+=======
+.topbar .nav-item.dropdown .dropdown-toggle::after {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   width: 1rem;
   text-align: center;
   float: right;
@@ -9911,17 +9918,29 @@ a:focus {
 }
 
 .sidebar .nav-item.dropdown.show .dropdown-toggle::after,
+<<<<<<< HEAD
    .nav-item.dropdown.show .dropdown-toggle::after {
+=======
+.topbar .nav-item.dropdown.show .dropdown-toggle::after {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   content: '\f107';
 }
 
 .sidebar .nav-item .nav-link,
+<<<<<<< HEAD
    .nav-item .nav-link {
+=======
+.topbar .nav-item .nav-link {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   position: relative;
 }
 
 .sidebar .nav-item .nav-link .badge-counter,
+<<<<<<< HEAD
    .nav-item .nav-link .badge-counter {
+=======
+.topbar .nav-item .nav-link .badge-counter {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   position: absolute;
   transform: scale(0.7);
   transform-origin: top right;
@@ -9930,6 +9949,7 @@ a:focus {
 }
 
 .sidebar .nav-item .nav-link .img-profile,
+<<<<<<< HEAD
    .nav-item .nav-link .img-profile {
   height: 4rem;
   width: 2rem;
@@ -9956,24 +9976,62 @@ a:focus {
 }
 
    .navbar-search input {
+=======
+.topbar .nav-item .nav-link .img-profile {
+  height: 2rem;
+  width: 2rem;
+}
+
+.topbar {
+  height: 4.375rem;
+}
+
+.topbar #sidebarToggleTop {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.topbar #sidebarToggleTop:hover {
+  background-color: #eaecf4;
+}
+
+.topbar #sidebarToggleTop:active {
+  background-color: #dddfeb;
+}
+
+.topbar .navbar-search {
+  width: 25rem;
+}
+
+.topbar .navbar-search input {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   font-size: 0.85rem;
   height: auto;
 }
 
+<<<<<<< HEAD
      -divider {
+=======
+.topbar .topbar-divider {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   width: 0;
   border-right: 1px solid #e3e6f0;
   height: calc(4.375rem - 2rem);
   margin: auto 1rem;
 }
 
+<<<<<<< HEAD
 .nav-item .nav-link {
+=======
+.topbar .nav-item .nav-link {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   height: 4.375rem;
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
 }
 
+<<<<<<< HEAD
 .nav-item .nav-link:focus {
   outline: none;
 }
@@ -9987,17 +10045,40 @@ a:focus {
 }
 
 .dropdown .dropdown-menu {
+=======
+.topbar .nav-item .nav-link:focus {
+  outline: none;
+}
+
+.topbar .nav-item:focus {
+  outline: none;
+}
+
+.topbar .dropdown {
+  position: static;
+}
+
+.topbar .dropdown .dropdown-menu {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   width: calc(100% - 1.5rem);
   right: 0.75rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list {
+=======
+.topbar .dropdown-list {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   padding: 0;
   border: none;
   overflow: hidden;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-header {
+=======
+.topbar .dropdown-list .dropdown-header {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   background-color: #4e73df;
   border: 1px solid #4e73df;
   padding-top: 0.75rem;
@@ -10005,7 +10086,11 @@ a:focus {
   color: #fff;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item {
+=======
+.topbar .dropdown-list .dropdown-item {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   white-space: normal;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -10015,18 +10100,30 @@ a:focus {
   line-height: 1.3rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .dropdown-list-image {
+=======
+.topbar .dropdown-list .dropdown-item .dropdown-list-image {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   position: relative;
   height: 2.5rem;
   width: 2.5rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .dropdown-list-image img {
+=======
+.topbar .dropdown-list .dropdown-item .dropdown-list-image img {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   height: 2.5rem;
   width: 2.5rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .dropdown-list-image .status-indicator {
+=======
+.topbar .dropdown-list .dropdown-item .dropdown-list-image .status-indicator {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   background-color: #eaecf4;
   height: 0.75rem;
   width: 0.75rem;
@@ -10037,16 +10134,25 @@ a:focus {
   border: 0.125rem solid #fff;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .text-truncate {
   max-width: 10rem;
 }
 
 .dropdown-list .dropdown-item:active {
+=======
+.topbar .dropdown-list .dropdown-item .text-truncate {
+  max-width: 10rem;
+}
+
+.topbar .dropdown-list .dropdown-item:active {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   background-color: #eaecf4;
   color: #3a3b45;
 }
 
 @media (min-width: 576px) {
+<<<<<<< HEAD
      .dropdown {
     position: relative;
   }
@@ -10058,10 +10164,24 @@ a:focus {
     width: 20rem !important;
   }
      .dropdown-list .dropdown-item .text-truncate {
+=======
+  .topbar .dropdown {
+    position: relative;
+  }
+  .topbar .dropdown .dropdown-menu {
+    width: auto;
+    right: 0;
+  }
+  .topbar .dropdown-list {
+    width: 20rem !important;
+  }
+  .topbar .dropdown-list .dropdown-item .text-truncate {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
     max-width: 13.375rem;
   }
 }
 
+<<<<<<< HEAD
   .navbar-light .navbar-nav .nav-item .nav-link {
   color: #d1d3e2;
 }
@@ -10071,13 +10191,27 @@ a:focus {
 }
 
   .navbar-light .navbar-nav .nav-item .nav-link:active {
+=======
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+  color: #d1d3e2;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
+  color: #b7b9cc;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link:active {
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
   color: #858796;
 }
 
 .sidebar {
   width: 6.5rem;
   min-height: 100vh;
+<<<<<<< HEAD
   height: 100%
+=======
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
 }
 
 .sidebar .nav-item {

@@ -2,6 +2,7 @@
 {% extends 'agent/base.html'%}
 {% load bootstrap4 %}
 {% block content %}
+<<<<<<< HEAD
 <main>
 <div class="container "style="float:right; padding-left:0em; margin-top: -1em; margin-left: 12em">
 <div class="row">
@@ -34,6 +35,26 @@
          
         </form>
       </div>
+=======
+<div class="container" style="float:right; padding-left:4em; margin-top:4em">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Your Agent Profile</legend>
+                    {{usrForm | crispy}}
+                    {{profForm | crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-primary" type="submit">update Agent profile</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-2"></div>
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
     </div>
   </div>
   <div class="col-md-1">

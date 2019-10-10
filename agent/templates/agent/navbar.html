@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"  style="position: fixed; margin-bottom: -7%;margin-top: -2em">
@@ -97,3 +98,75 @@
       </ul>
       <!-- End of Sidebar -->
   
+=======
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="height:auto; padding-bottom:-4em; position:fixed">
+
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'agent_home' %}">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-laugh-wink"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">Tatu Agent <sup>3</sup></div>
+  </a>
+{% if user.is_authenticated %}
+<div class="agent_profile">
+  <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
+     margin-left: auto;
+     margin-right: auto;
+     border-radius: 50%;height: 40px; content-align:center;">
+   <a href="{% url 'agent_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a>
+</div>
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'agent_home'%}">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Interface
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item active">
+    <a class="nav-link" href="{% url 'my_tickets' %}" >
+      <i class="fas fa-fw fa-cog"></i>
+      <span>My Tickets</span>
+    </a>
+  </li>
+
+  <div class="agent_profile" >
+    <!-- <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
+       margin-left: auto;
+       margin-right: auto;
+       border-radius: 50%;height: 40px; content-align:center;">
+     <a href="{% url 'agent_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a> -->
+     <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
+     {% else %}
+     <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
+
+  </div>
+
+{% endif %}
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline" style="padding-left:3em">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+
+</ul>
+<!-- End of Sidebar -->
+
+
+<!-- /Here we begin the new navbaR -->
+>>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b

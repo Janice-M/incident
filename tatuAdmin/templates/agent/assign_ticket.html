@@ -5,16 +5,32 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Assign Ticket to agent</legend>
-                    {{form | crispy}}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-primary" type="submit">Assign</button>
+            <div class="card">
+                <div class="card-header">
+                    <p>Assign Ticket to Agent/Department</p>
+                 
                 </div>
-            </form>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+                        <li class="list-group-item">Issue: {{ticket.issue}}</li>
+                        <li class="list-group-item">Summary: {{ticket.summary}}</li>
+                        <li class="list-group-item">Ticket Number: {{ticket.ticket_number}}</li>
+                    </ul>
+                    <form action="" method="POST">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4"></legend>
+                                {{form | crispy}}
+                            </fieldset>
+                            <div class="form-group">
+                                <button class="btn btn-outline-primary" type="submit">Assign</button>
+                                <a class="btn btn-outline-info" href="{% url 'admin_home' %}">Cancel</a>
+                            </div>
+                        </form>
+                </div>
+            </div>
+            
 
         </div>
         <div class="col-md-2"></div>

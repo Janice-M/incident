@@ -2,319 +2,359 @@
 {% load bootstrap4 %}
 {% load static %}
 {% block content %}
-<section class="contanier-fluid"  style="float:right; padding-left:0em; margin-top: -1em; margin-left: 12em">
-  <div class="row" style="justify-items:space-around">
-      <div class="col-xl-3 col-md-6 mb-4 col-4">
-          <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Open Tickets</div>
-                  <div class="row no-gutters align-items-center">
-                    <div class="col-auto">
-                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{tickets|length }}</div>
-                    </div>
-                    <div class="col">
-                      <div class="progress progress-sm mr-2">
-                        <div class="progress-bar bg-info" role="progressbar" style="width:{{tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-auto">
-                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<section id="welcome-section" class="container" style="float:right; padding-left:4em; ">
 
-        <div class="col-xl-3 col-md-6 mb-4 col-4">
-            <div class="card border-left-success shadow h-100 py-2">
-              <div class="card-body">
+  <!-- ############# Open Tickets ############### -->
+  <section id="welcome-section" class="container" style="float:right; padding-left:4em; margin-top:2em">
+    <section class="row">
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Open Tickets</div>
                 <div class="row no-gutters align-items-center">
-                  <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pending Ticket(s)</div>
-                    <div class="row no-gutters align-items-center">
-                      <div class="col-auto">
-                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{pending_tickets|length }}</div>
-                      </div>
-                      <div class="col">
-                        <div class="progress progress-sm mr-2">
-                          <div class="progress-bar bg-info" role="progressbar" style="width:{{pending_tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="col-auto">
-                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{tickets|length }}</div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-md-6 mb-4 col-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Closed Ticket(s)</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{closed_tickets|length }}</div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width:{{closed_tickets|length }}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                  <div class="col">
+                    <div class="progress progress-sm mr-2">
+                      <div class="progress-bar bg-info" role="progressbar" style="width: {{tickets|length }}%"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="col-auto">
+                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              </div>
             </div>
-
-
- </div>
-<!-- 
-<section id="welcome-section" class="container" style="float:right; padding-left:12em; margin-top: -25em" > -->
-       
-            
-                
-  <div class="table-responsive-xl w-auto">
-    <h5>Open Tickets</h5>
-
-    <table class="table table-primary"style="color:black">  
-        <thead class="thead" style="background-color: #357EC7;color:black;">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Issue</th>
-          <th scope="col">Ticket Type</th>
-          <th scope="col">Date Created</th>
-          <th scope="col">Agent</th>
-          <th scope="col">Status</th>
-          <th scope="col">Ticket Number</th>
-          <th scope="col">Take/ Assign Ticket(s)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in tickets %}
-        <tr>
-          <th scope="row">{{ticket.id}}</th>
-
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-          <td>{{ticket.ticket_type.name}}</td>
-          <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-          <td>{{ticket.agent.username}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket.ticket_number}}</td>
-          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-
-  </div>
-
-  <div class="row mt-2">
-    <h5>Closed Tickets</h5>
-
-    <table class="table table-primary"style="color:black">  
-        <thead class="thead" style="background-color: #357EC7;color:black;">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Issue</th>
-          <th scope="col">Ticket Type</th>
-          <th scope="col">Date Created</th>
-          <th scope="col">Agent</th>
-          <th scope="col">Status</th>
-          <th scope="col">Ticket Number</th>
-          <th scope="col">Take/ Assign Ticket(s)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in closed_tickets %}
-        <tr>
-          <th scope="row">{{ticket.id}}</th>
-
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-          <td>{{ticket.ticket_type.name}}</td>
-          <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-          <td>{{ticket.agent.username}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket.ticket_number}}</td>
-          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-
-  </div>
-
-
-  <div class="row mt-2">
-    <h5>Pending Tickets</h5>
-
-    <table class="table table-primary"style="color:black">  
-        <thead class="thead" style="background-color: #357EC7;color:black;">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Issue</th>
-          <th scope="col">Ticket Type</th>
-          <th scope="col">Date Created</th>
-          <th scope="col">Agent</th>
-          <th scope="col">Status</th>
-          <th scope="col">Ticket Number</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in pending_tickets %}
-        <tr>
-          <th scope="row">{{ticket.id}}</th>
-
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-          <td>{{ticket.ticket_type.name}}</td>
-          <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-          <td>{{ticket.agent.username}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket.ticket_number}}</td>
-        </tr>
-
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <!-- ==============modals========= -->
-  {% for ticket in tickets  %}
-  <div class="row mt-2">
-
-    <!-- Modal -->
-    <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="card card-body">
-              <h6>Ticket Number:{{ticket.ticket_number}}</h6>
-              <p class="card-text">{{ticket.summary}}</p>
-              <li class="list-group">
-              <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
-              <li class="list-group-item">Email: {{ticket.owner.email}}</li>
-              <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
-              <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
-              <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
-              <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-    </div>
+      <!-- ################End Open Tickets -->
+      <!-- ################Pending Tickets #################### -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pending Tickets </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{pending_tickets|length }}</div>
+                <div class="col">
+                  <div class="progress progress-sm mr-2">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{pending_tickets|length }}%"
+                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
 
-  </div>
+              <div class="col-auto">
+                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+              </div>
 
-  {% endfor %}
-
-  <!-- ==============modals========= -->
-  {% for ticket in closed_tickets  %}
-  <div class="row mt-2">
-
-    <!-- Modal -->
-    <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="card card-body">
-              <h6>Ticket Number:{{ticket.ticket_number}}</h6>
-              <p class="card-text">{{ticket.summary}}</p>
-              <li class="list-group">
-              <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
-              <li class="list-group-item">Email: {{ticket.owner.email}}</li>
-              <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
-              <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
-              <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
-              <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-    </div>
 
-  </div>
+      <!-- ###############End Pending Tickets ###################-->
 
-  {% endfor %}
-
-
-  <!-- ==============modals========= -->
-  {% for ticket in pending_tickets  %}
-  <div class="row mt-2">
-
-    <!-- Modal -->
-    <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
-      aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="card card-body">
-              <h6>Ticket Number:{{ticket.ticket_number}}</h6>
-              <p class="card-text">{{ticket.summary}}</p>
-              <li class="list-group">
-              <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
-              <li class="list-group-item">Email: {{ticket.owner.email}}</li>
-              <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
-              <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
-              <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
-              <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
+      <!-- #####################Begin Closed Tickes ###################33 -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Closed Tickets</div>
+                <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{closed_tickets|length }}</div>
+                  </div>
+                  <div class="col">
+                    <div class="progress progress-sm mr-2">
+                      <div class="progress-bar bg-info" role="progressbar" style="width: {{pending_tickets|length }}%"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-    </div>
+      <!-- ##########################End Closed Ticket ########################## -->
 
-  </div>
+      <!-- #####################Begin MY Tickes ###################33 -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">My Tickets</div>
+                <div class="row no-gutters align-items-center">
+                  <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ my_tickets|length }}</div>
+                  </div>
+                  <div class="col">
+                    <div class="progress progress-sm mr-2">
+                      <div class="progress-bar bg-info" role="progressbar" style="width: {{my_tickets|length }}%"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ##########################End My Ticket ########################## -->
+      <div class="row mt-2">
+        <h5>Open Tickets ({{tickets|length }})</h5>
 
-  {% endfor %}
-  <!-- ========================== -->
-</section>
-<!-- </section> -->
+        <table class="table table-responsive mt-2">
+          <thead class="thead-primary" style="background-color: #357EC7
+;color:black;">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Issue</th>
+              <th scope="col">Ticket Type</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Agent</th>
+              <th scope="col">Status</th>
+              <th scope="col">Ticket Number</th>
+              <th scope="col">Take/ Assign Ticket(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ticket in tickets %}
+            <tr>
+              <th scope="row">{{ticket.id}}</th>
 
-<style>
-</style>
-{% endblock  %}
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+              <td>{{ticket.ticket_type.name}}</td>
+              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+              <td>{{ticket.agent.username}}</td>
+              <td>{{ticket.get_status_display}}</td>
+              <td>{{ticket.ticket_number}}</td>
+              <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+      </div>
+
+      <div class="row mt-2">
+        <h5>Closed Tickets</h5>
+
+        <<<<<<< HEAD <table class="table table-primary" style="color:black">
+          <thead class="thead" style="background-color: #357EC7;color:black;">
+            =======
+            <table class="table table-responsive mt-2">
+              <thead class="thead-primary" style="background-color: #357EC7
+;color:black;">
+                >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Issue</th>
+                  <th scope="col">Ticket Type</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Agent</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Ticket Number</th>
+                  <th scope="col">Take/ Assign Ticket(s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ticket in closed_tickets %}
+                <tr>
+                  <th scope="row">{{ticket.id}}</th>
+
+                  <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                  <td>{{ticket.ticket_type.name}}</td>
+                  <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                  <td>{{ticket.agent.username}}</td>
+                  <td>{{ticket.get_status_display}}</td>
+                  <td>{{ticket.ticket_number}}</td>
+                  <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Take/ Assign Ticket(s)</a> </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+
+      </div>
+
+
+      <div class="row mt-2">
+        <h5>Pending Tickets</h5>
+
+        <<<<<<< HEAD <table class="table table-primary" style="color:black">
+          <thead class="thead" style="background-color: #357EC7;color:black;">
+            =======
+            <table class="table table-responsive mt-2">
+              <thead class="thead-primary" style="background-color: #357EC7
+;color:black;">
+                >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Issue</th>
+                  <th scope="col">Ticket Type</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Agent</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Ticket Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ticket in pending_tickets %}
+                <tr>
+                  <th scope="row">{{ticket.id}}</th>
+
+                  <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                  <td>{{ticket.ticket_type.name}}</td>
+                  <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                  <td>{{ticket.agent.username}}</td>
+                  <td>{{ticket.get_status_display}}</td>
+                  <td>{{ticket.ticket_number}}</td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+      </div>
+      <!-- ==============modals========= -->
+      {% for ticket in tickets  %}
+      <div class="row mt-2">
+
+        <!-- Modal -->
+        <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="card card-body">
+                  <h6>Ticket Number:{{ticket.ticket_number}}</h6>
+                  <p class="card-text">{{ticket.summary}}</p>
+                  <li class="list-group">
+                  <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+                  <li class="list-group-item">Email: {{ticket.owner.email}}</li>
+                  <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
+                  <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+                  <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+                  <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+                  </li>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {% endfor %}
+
+      <!-- ==============modals========= -->
+      {% for ticket in closed_tickets  %}
+      <div class="row mt-2">
+
+        <!-- Modal -->
+        <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="card card-body">
+                  <h6>Ticket Number:{{ticket.ticket_number}}</h6>
+                  <p class="card-text">{{ticket.summary}}</p>
+                  <li class="list-group">
+                  <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+                  <li class="list-group-item">Email: {{ticket.owner.email}}</li>
+                  <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
+                  <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+                  <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+                  <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+                  </li>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {% endfor %}
+
+
+      <!-- ==============modals========= -->
+      {% for ticket in pending_tickets  %}
+      <div class="row mt-2">
+
+        <!-- Modal -->
+        <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="card card-body">
+                  <h6>Ticket Number:{{ticket.ticket_number}}</h6>
+                  <p class="card-text">{{ticket.summary}}</p>
+                  <li class="list-group">
+                  <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+                  <li class="list-group-item">Email: {{ticket.owner.email}}</li>
+                  <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
+                  <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+                  <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+                  <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+                  </li>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {% endfor %}
+      <!-- ========================== -->
+    </section>
+    <!-- </section> -->
+
+    <style>
+    </style>
+    {% endblock  %}
