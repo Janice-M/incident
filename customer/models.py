@@ -55,11 +55,13 @@ class Create_ticket(models.Model):
     Open = 0
     Pending = 1
     Closed = 2
+    Overdue = 3
 
     Statuses=(
        (Open,'0. Open'),
        (Pending,'1. Pending'),
        (Closed,'2. Closed'),
+       (Overdue, '3.Overdue'),
 
    )
     owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')

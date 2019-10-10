@@ -1,7 +1,44 @@
 {% extends 'tatuadmin/base.html'%}
 {% load static %}
 <!-- <!DOCTYPE html> -->
+<style media="screen">
+body {
+  padding : 10px ;
 
+}
+th{
+color:white;
+}
+#exTab1 .tab-content {
+  color : black;
+  background-color: #fff;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : black;
+  background-color: #fff;
+  padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+#exTab3 .tab-content {
+  color : black;
+  background-color: #fff;
+  padding : 5px 15px;
+}
+</style>
   {% block content %}
 <section class="container" style="float:right; padding-left:4em; margin-top:2em">
   <div class="row mt-2">
@@ -42,7 +79,7 @@
 
 
   <div class="row mt-2">
-    <h5>Pending Tickets ({{pending_tickets|length }})</h5>
+    <h5>In progress Tickets ({{pending_tickets|length }})</h5>
 
       <table class="table table-responsive mt-2" style="width:auto">
         <thead class="" style="background-color: #357EC7
