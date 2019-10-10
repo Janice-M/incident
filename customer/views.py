@@ -109,11 +109,11 @@ def index(request):
 
     if current_user.is_superuser==True:
 
-        print(current_user.is_superuser,"yeeeeeeeeeeeeeeeeeeah")
+        print(current_user.is_superuser,"yeah")
         return redirect(tatuAdmin_views.admin_home)
 
     elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
-        print(current_user.is_superuser,"ageeeeeeeeeeeeeeeeeeeeeeeeeeent")
+        print(current_user.is_superuser,"agent")
         return redirect(agent_views.agent_home)
 
     else :
@@ -172,11 +172,12 @@ def profile(request):
     return render(request,'registration/profile.html',context)
 
 
-def search_results(request):
+def search_issues(request):
     current_user=request.user
     if 'ticket' in request.GET and request.GET['ticket']:
 
         ticket_number=request.GET.get('ticket')
+        issue=request.GET.get('ticket')
         ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
 
         context={

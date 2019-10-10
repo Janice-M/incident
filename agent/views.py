@@ -124,12 +124,13 @@ def resolve_ticket(request,pk):
 
 
 
-def search_results(request):
+def search_result(request):
     current_user=request.user
     if 'ticket' in request.GET and request.GET['ticket']:
 
         ticket_number=request.GET.get('ticket')
-        ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
+        issue=request.GET.get('ticket')
+        ticketi=Create_ticket.search_my_tickets(current_user,ticket_number,issue)
 
         context={
         'message':f"{ticket_number}",

@@ -110,6 +110,6 @@ class Create_ticket(models.Model):
         return tickets
 
     @classmethod
-    def search_my_tickets(cls,owner,ticket_number):
-        ticket=cls.objects.filter(owner=owner).filter(ticket_number=ticket_number)
+    def search_my_tickets(cls,owner,ticket_number,issue):
+        ticket=cls.objects.filter(owner=owner).filter(issue=issue)
         return ticket

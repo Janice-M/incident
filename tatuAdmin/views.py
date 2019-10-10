@@ -324,6 +324,7 @@ def search_results(request):
     if 'ticket' in request.GET and request.GET['ticket']:
 
         ticket_number=request.GET.get('ticket')
+        issue=request.GET.get('ticket')
         ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
 
         context={
@@ -331,7 +332,7 @@ def search_results(request):
         'ticket':ticketi
         }
 
-        return render(request,'customer/search.html',context)
+        return render(request,'tatuadmin/search.html',context)
 
     else :
 
