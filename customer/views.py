@@ -135,7 +135,7 @@ def create_ticket(request):
             ctform.owner=current_user
             issue=form.cleaned_data.get('issue')
             val=randomStringDigits()
-            ctform.ticket_number=str(current_user.id)+val+str(current_user.profile.phone_number)
+            ctform.ticket_number=str(current_user.id)+val
 
             ctform.save()
             mssg=f'{request.user.username} ,Thank You for contacting us.A support ticket request has been created and a representative will be getting back to you shortly if necessary.'
