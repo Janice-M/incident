@@ -59,7 +59,7 @@ class Create_ticket(models.Model):
 
     Statuses=(
        (Open,'0. Open'),
-       (Pending,'1. Pending'),
+       (Pending,'1. In Progress'),
        (Closed,'2. Closed'),
        (Overdue, '3.Overdue'),
 
