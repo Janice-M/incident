@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 from customer.models import Create_ticket
+from tatuAdmin.models import *
+from customer.generator import randomStringDigits
 from .forms import *
 from django.utils import timezone
 from customer.forms import UserUpdateForm,ProfileUpdateForm
@@ -162,4 +164,4 @@ def create_ticket_for_customer(request):
     else:
         form=CreateTicketForCustomerForm()
 
-    return render(request,'tickets/create_ticket_for_customer.html',{'form':form})
+    return render(request,'agent/create_ticket_for_customer.html',{'form':form})

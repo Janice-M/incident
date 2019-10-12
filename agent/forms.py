@@ -18,7 +18,7 @@ class ResolveTicketForm(forms.ModelForm):
 
 class CreateTicketForCustomerForm(forms.ModelForm):
     customers=User.objects.filter(profile__is_customer=True).all()
-    customer=forms.ModelChoiceField(queryset=customer, empty_label="(Nothing)",required=True)
+    customer=forms.ModelChoiceField(queryset=customers, empty_label="(Nothing)",required=True)
     class Meta:
         model=Create_ticket
         fields=['ticket_subtype','summary','customer'] 
