@@ -144,7 +144,6 @@ def create_ticket(request):
             ctform.ticket_type=ticket_type
             print(ticket_type,type(ticket_type),"subtypeeeeeeeeeeeeeeeeeeeee")
             
-
             ctform.status=Create_ticket.Open
             ctform.owner=current_user
             issue=form.cleaned_data.get('issue')
