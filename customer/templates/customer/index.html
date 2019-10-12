@@ -46,9 +46,9 @@
             <tr>
               <th scope="row">{{ticket.id}}</th>
 
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-              <td>{{ticket.date_created }}</td>
-              <td>{{ticket.last_updated }}</td>
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
+              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+              <td>{{ticket.last_updated |date:"D, d M ,Y" }}</td>
               <td>{{ticket.get_status_display}}</td>
               <td>{{ticket.ticket_number}}</td>
             </tr>
