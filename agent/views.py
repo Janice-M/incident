@@ -122,3 +122,42 @@ def resolve_ticket(request,pk):
         form=ResolveTicketForm(instance=ticket)
 
     return render(request,'agent/resolve_ticket.html',{'form':form})
+
+
+
+@login_required
+def create_ticket(request):
+    '''
+    view function for creating a ticket for a customer
+    '''
+    current_user=request.user
+    if request.method=='POST':
+        form=CreateTicketForm(request.POST)
+
+        if form.is_valid():
+            ctform=form.save(commit=False)
+
+            # <class 'tatuAdmin.models.TicketSubType'>
+            subtype=form.cleaned_data.get('ticket_subtype')
+
+            #subtype.subtype is the the str name for the subtype.Here we are fetching the ticket type
+            ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
+            ctform.ticket_type=ticket_type
+            
+            
+            ctform.status=Create_ticket.Open
+            ctform.owner=current_user
+    
+            val=randomStringDigits()
+            ctform.ticket_number=str(current_user.id)+val
+
+            ctform.save()
+            mssg=f'{request.user.username} ,Thank You for contacting us.A support ticket request has been created and a representative will be getting back to you shortly if necessary.'
+
+            messages.success(request,mssg)
+            return redirect('index')
+
+    else:
+        form=CreateTicketForm()
+
+    return render(request,'tickets/createticket.html',{'form':form})
