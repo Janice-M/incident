@@ -162,4 +162,4 @@ def create_ticket_for_customer(request):
     else:
         form=CreateTicketForCustomerForm()
 
-    return render(request,'tickets/createticket_for_customer.html',{'form':form})
+    return render(request,'tickets/create_ticket_for_customer.html',{'form':form})
