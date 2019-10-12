@@ -126,13 +126,13 @@ def resolve_ticket(request,pk):
 
 
 @login_required
-def create_ticket(request):
+def create_ticket_for_customer(request):
     '''
     view function for creating a ticket for a customer
     '''
     current_user=request.user
     if request.method=='POST':
-        form=CreateTicketForm(request.POST)
+        form=CreateTicketForCustomerForm(request.POST)
 
         if form.is_valid():
             ctform=form.save(commit=False)
@@ -144,20 +144,22 @@ def create_ticket(request):
             ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
             ctform.ticket_type=ticket_type
             
-            
+            owner_class=form.cleaned_data.get('customer')
+            customer=User.objects.filter(username=owner_class.username).first()
+            ctform.owner=customer
+
             ctform.status=Create_ticket.Open
-            ctform.owner=current_user
     
             val=randomStringDigits()
             ctform.ticket_number=str(current_user.id)+val
 
             ctform.save()
-            mssg=f'{request.user.username} ,Thank You for contacting us.A support ticket request has been created and a representative will be getting back to you shortly if necessary.'
+            mssg=f'Ticket created for customer {customer.username}'
 
             messages.success(request,mssg)
-            return redirect('index')
+            return redirect('agent_home')
 
     else:
-        form=CreateTicketForm()
+        form=CreateTicketForCustomerForm()
 
-    return render(request,'tickets/createticket.html',{'form':form})
+    return render(request,'tickets/createticket_for_customer.html',{'form':form})
