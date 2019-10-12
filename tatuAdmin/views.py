@@ -144,6 +144,7 @@ def create_agent(request):
 
                 agent_form.is_active=False
                 agent_form.is_superuser=True
+                agent_form.is_staff=True
                 username=form.cleaned_data.get('username')
                 useremail=form.cleaned_data.get('email')
                 userphonenumber=form.cleaned_data.get('phonenumber')
