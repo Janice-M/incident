@@ -66,7 +66,7 @@ class Create_ticket(models.Model):
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
     agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent',blank=True)
-    issue = models.CharField(max_length=60,blank=False)
+    issue = models.CharField(max_length=60,blank=True,null=True)
     summary = models.TextField(max_length=120,blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(default=timezone.now)

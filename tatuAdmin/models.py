@@ -50,7 +50,7 @@ class TicketSubType(models.Model):
     ticket=models.ForeignKey(TicketType,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
-        return f'{self.subtype} Subtype'
+        return f'{self.subtype}'
 
 
 
