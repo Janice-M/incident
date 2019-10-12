@@ -25,7 +25,7 @@ class Profile(models.Model):
 
     @classmethod
     def get_agents(cls):
-        agents=cls.objects.filter(is_customer=False).all()
+        agents=cls.objects.filter(is_customer=False).filter(user__is_superuser=False).all()
         return agents
 
     @classmethod
