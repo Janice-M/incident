@@ -8,7 +8,7 @@ class Take_or_Assign_Form(forms.ModelForm):
 
     class Meta:
         model=Create_ticket
-        fields=['ticket_type','agent']
+        fields=['agent']
 
 
 class ResolveTicketForm(forms.ModelForm):

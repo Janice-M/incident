@@ -65,7 +65,7 @@ def take_or_assign_ticket(request, pk):
     else:
         form=Take_or_Assign_Form(instance=ticket)
 
-    return render(request,'agent/take_or_assign.html',{'form':form})
+    return render(request,'agent/take_or_assign.html',{'form':form,'ticket':ticket})
 
 
 @login_required
