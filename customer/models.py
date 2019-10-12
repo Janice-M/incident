@@ -63,7 +63,7 @@ class Create_ticket(models.Model):
 
    )
     owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
-    ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE)
+    ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE,null=True)
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
     agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent',blank=True)

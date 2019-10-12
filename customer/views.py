@@ -135,6 +135,16 @@ def create_ticket(request):
 
         if form.is_valid():
             ctform=form.save(commit=False)
+
+            # <class 'tatuAdmin.models.TicketSubType'>
+            subtype=form.cleaned_data.get('ticket_subtype')
+
+            #subtype.subtype is the the str name for the subtype.Here we are fetching the ticket type
+            ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
+            ctform.ticket_type=ticket_type
+            print(ticket_type,type(ticket_type),"subtypeeeeeeeeeeeeeeeeeeeee")
+            
+
             ctform.status=Create_ticket.Open
             ctform.owner=current_user
             issue=form.cleaned_data.get('issue')

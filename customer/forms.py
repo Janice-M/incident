@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
+from tatuAdmin.models import *
 
 class UserRegistrationForm(UserCreationForm):
     email=forms.EmailField()
@@ -31,11 +32,24 @@ class ProfileUpdateForm(forms.ModelForm):
 class CreateTicketForm(forms.ModelForm):
     class Meta:
         model=Create_ticket
-        fields=['issue','summary','ticket_type','ticket_subtype'] 
+        fields=['issue','summary','ticket_subtype'] 
 
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
-        self.fields['ticket_subtype'].queryset=TicketSubType.objects.none()
+    # def __init__(self,*args,**kwargs):
+    #     super().__init__(*args,**kwargs)
+    #     self.fields['ticket_subtype'].queryset=TicketSubType.objects.none()
+        
+    #     if 'ticket_type_id' in self.data:
+    #         try:
+    #             type_id=int(self.data.get('ticket_type_id'))
+    #             self.fields['ticket_subtype']=TicketSubType.objects.filter(ticket=type_id).all()
+    #         except (ValueError,TypeError):
+    #             pass
+    #     elif self.instance.pk:
+    #         type_id=int(self.data.get('ticket_type_id'))
+    #         self.fields['ticket_subtype'].queryset=TicketSubType.objects.filter(ticket=type_id).all() 
+
+
+   
 
 
 
