@@ -14,21 +14,18 @@
 
 
 
-        </div>
-        <div class="col-md-6 mt-5">
+      </div>
+      <div class="col-md-6 mt-5">
 
-          <form class="text-center border border-light p-5" action="" method="post"
-            style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
-            <h4 style="font-family: 'fantasy', cursive; color: #357EC7;size: 20px" class="text-center">Welcome back to
-              tatu connect</h4>
-            <h4 style="font-family: 'fantacy', cursive;color: #357EC7; size:15px" class="text-center">Login</h4>
-            {% csrf_token %}
-            {% bootstrap_form form layout='inline'%}
+        <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
+                <h4 style="font-family: 'fantasy', cursive; color: #357EC7;size: 20px" class="text-center">Welcome back to tatu connect</h4>
+          <h4 style="font-family: 'fantacy', cursive;color: #357EC7; size:15px" class="text-center">Login</h4>
+          {% csrf_token %}
+          {% bootstrap_form form layout='inline'%}
 
 
-            <div class="form-group">
-              <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect"
-                type="submit">Login</button>
+          <div class="form-group">
+                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Login</button>
             </div>
             <small class="text-muted">
               <a href="{% url 'password_reset' %}">Forgot Password?</a>

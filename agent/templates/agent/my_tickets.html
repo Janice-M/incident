@@ -1,20 +1,12 @@
 {% include 'agent/base.html'%}
 {% block content %}
-<<<<<<< HEAD
-<section id="welcome-section" class="container"style="float:right; padding-left:8em; margin-top: -1em; margin-left: 1em">
-  <div class="row mt-2">
-    <h5>My Tickets ({{tickets|length }})</h5>
-    <table class="table table-primary"style="color:black">  
-        <thead class="thead" style="background-color: #357EC7;color:black;">
-=======
 <section id="welcome-section" class="container" style="float:right; padding-left:4em; ">
   <div class="row mt-2">
     <h5>My Tickets ({{tickets|length }})</h5>
-
+​
     <table class="table table-responsive mt-2">
       <thead class="thead-light" style="background-color: #357EC7
 ;color:black;">
->>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
         <tr>
           <th scope="col">ID</th>
           <th scope="col">Title</th>
@@ -29,7 +21,7 @@
         {% for ticket in tickets %}
         <tr>
           <th scope="row">{{ticket.id}}</th>
-
+​
           <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.agent.username}}</td>
           <td>{{ticket.get_status_display}}</td>
@@ -40,10 +32,10 @@
         {% endfor %}
       </tbody>
     </table>
-
-
+​
+​
   </div>
-
+​
   <div class="row mt-2">
       <h5>Department Tickets ({{department_tickets|length }})</h5>
   
@@ -80,17 +72,12 @@
   
   
     </div>
-
+​
   <!-- ==============modals========= -->
-
+​
 </section>
-</body>
-<!-- </main> -->
-<style>
-    /* Style the main content */
-    main {
-      margin-left: 250px; /* Same as the width of the sidenav */
-      padding: 0px 0px;
-      padding-top: 0%;
-    }</style>
 {% endblock  %}
+Collapse
+
+
+

@@ -9341,7 +9341,11 @@ button.bg-dark:focus {
 <<<<<<< HEAD
 
 =======
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
 .font-weight-lighter {
   font-weight: lighter !important;
 }
@@ -9906,7 +9910,11 @@ a:focus {
    .nav-item.dropdown .dropdown-toggle::after {
 =======
 .topbar .nav-item.dropdown .dropdown-toggle::after {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   width: 1rem;
   text-align: center;
   float: right;
@@ -9922,7 +9930,11 @@ a:focus {
    .nav-item.dropdown.show .dropdown-toggle::after {
 =======
 .topbar .nav-item.dropdown.show .dropdown-toggle::after {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   content: '\f107';
 }
 
@@ -9931,7 +9943,11 @@ a:focus {
    .nav-item .nav-link {
 =======
 .topbar .nav-item .nav-link {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   position: relative;
 }
 
@@ -9940,7 +9956,11 @@ a:focus {
    .nav-item .nav-link .badge-counter {
 =======
 .topbar .nav-item .nav-link .badge-counter {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   position: absolute;
   transform: scale(0.7);
   transform-origin: top right;
@@ -10004,7 +10024,11 @@ a:focus {
 }
 
 .topbar .navbar-search input {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   font-size: 0.85rem;
   height: auto;
 }
@@ -10013,7 +10037,11 @@ a:focus {
      -divider {
 =======
 .topbar .topbar-divider {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   width: 0;
   border-right: 1px solid #e3e6f0;
   height: calc(4.375rem - 2rem);
@@ -10024,7 +10052,11 @@ a:focus {
 .nav-item .nav-link {
 =======
 .topbar .nav-item .nav-link {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   height: 4.375rem;
   display: flex;
   align-items: center;
@@ -10059,7 +10091,11 @@ a:focus {
 }
 
 .topbar .dropdown .dropdown-menu {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   width: calc(100% - 1.5rem);
   right: 0.75rem;
 }
@@ -10068,7 +10104,11 @@ a:focus {
 .dropdown-list {
 =======
 .topbar .dropdown-list {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   padding: 0;
   border: none;
   overflow: hidden;
@@ -10078,7 +10118,11 @@ a:focus {
 .dropdown-list .dropdown-header {
 =======
 .topbar .dropdown-list .dropdown-header {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   background-color: #4e73df;
   border: 1px solid #4e73df;
   padding-top: 0.75rem;
@@ -10090,7 +10134,11 @@ a:focus {
 .dropdown-list .dropdown-item {
 =======
 .topbar .dropdown-list .dropdown-item {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   white-space: normal;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -10104,7 +10152,11 @@ a:focus {
 .dropdown-list .dropdown-item .dropdown-list-image {
 =======
 .topbar .dropdown-list .dropdown-item .dropdown-list-image {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   position: relative;
   height: 2.5rem;
   width: 2.5rem;
@@ -10114,7 +10166,11 @@ a:focus {
 .dropdown-list .dropdown-item .dropdown-list-image img {
 =======
 .topbar .dropdown-list .dropdown-item .dropdown-list-image img {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   height: 2.5rem;
   width: 2.5rem;
 }
@@ -10123,7 +10179,11 @@ a:focus {
 .dropdown-list .dropdown-item .dropdown-list-image .status-indicator {
 =======
 .topbar .dropdown-list .dropdown-item .dropdown-list-image .status-indicator {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   background-color: #eaecf4;
   height: 0.75rem;
   width: 0.75rem;
@@ -10146,7 +10206,11 @@ a:focus {
 }
 
 .topbar .dropdown-list .dropdown-item:active {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   background-color: #eaecf4;
   color: #3a3b45;
 }
@@ -10176,7 +10240,11 @@ a:focus {
     width: 20rem !important;
   }
   .topbar .dropdown-list .dropdown-item .text-truncate {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
     max-width: 13.375rem;
   }
 }
@@ -10201,7 +10269,11 @@ a:focus {
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link:active {
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
   color: #858796;
 }
 
@@ -10211,7 +10283,11 @@ a:focus {
 <<<<<<< HEAD
   height: 100%
 =======
+<<<<<<< HEAD
 >>>>>>> b2732fd849e1c1326f1b9d27a8723b73dc9fd83b
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
+>>>>>>> grey
 }
 
 .sidebar .nav-item {
