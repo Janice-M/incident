@@ -9338,7 +9338,10 @@ button.bg-dark:focus {
   font-weight: 300 !important;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
 .font-weight-lighter {
   font-weight: lighter !important;
 }
@@ -9899,7 +9902,11 @@ a:focus {
 }
 
 .sidebar .nav-item.dropdown .dropdown-toggle::after,
+<<<<<<< HEAD
    .nav-item.dropdown .dropdown-toggle::after {
+=======
+.topbar .nav-item.dropdown .dropdown-toggle::after {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   width: 1rem;
   text-align: center;
   float: right;
@@ -9911,17 +9918,29 @@ a:focus {
 }
 
 .sidebar .nav-item.dropdown.show .dropdown-toggle::after,
+<<<<<<< HEAD
    .nav-item.dropdown.show .dropdown-toggle::after {
+=======
+.topbar .nav-item.dropdown.show .dropdown-toggle::after {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   content: '\f107';
 }
 
 .sidebar .nav-item .nav-link,
+<<<<<<< HEAD
    .nav-item .nav-link {
+=======
+.topbar .nav-item .nav-link {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   position: relative;
 }
 
 .sidebar .nav-item .nav-link .badge-counter,
+<<<<<<< HEAD
    .nav-item .nav-link .badge-counter {
+=======
+.topbar .nav-item .nav-link .badge-counter {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   position: absolute;
   transform: scale(0.7);
   transform-origin: top right;
@@ -9930,6 +9949,7 @@ a:focus {
 }
 
 .sidebar .nav-item .nav-link .img-profile,
+<<<<<<< HEAD
    .nav-item .nav-link .img-profile {
   height: 4rem;
   width: 2rem;
@@ -9956,24 +9976,62 @@ a:focus {
 }
 
    .navbar-search input {
+=======
+.topbar .nav-item .nav-link .img-profile {
+  height: 2rem;
+  width: 2rem;
+}
+
+.topbar {
+  height: 4.375rem;
+}
+
+.topbar #sidebarToggleTop {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.topbar #sidebarToggleTop:hover {
+  background-color: #eaecf4;
+}
+
+.topbar #sidebarToggleTop:active {
+  background-color: #dddfeb;
+}
+
+.topbar .navbar-search {
+  width: 25rem;
+}
+
+.topbar .navbar-search input {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   font-size: 0.85rem;
   height: auto;
 }
 
+<<<<<<< HEAD
      -divider {
+=======
+.topbar .topbar-divider {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   width: 0;
   border-right: 1px solid #e3e6f0;
   height: calc(4.375rem - 2rem);
   margin: auto 1rem;
 }
 
+<<<<<<< HEAD
 .nav-item .nav-link {
+=======
+.topbar .nav-item .nav-link {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   height: 4.375rem;
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
 }
 
+<<<<<<< HEAD
 .nav-item .nav-link:focus {
   outline: none;
 }
@@ -9987,17 +10045,40 @@ a:focus {
 }
 
 .dropdown .dropdown-menu {
+=======
+.topbar .nav-item .nav-link:focus {
+  outline: none;
+}
+
+.topbar .nav-item:focus {
+  outline: none;
+}
+
+.topbar .dropdown {
+  position: static;
+}
+
+.topbar .dropdown .dropdown-menu {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   width: calc(100% - 1.5rem);
   right: 0.75rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list {
+=======
+.topbar .dropdown-list {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   padding: 0;
   border: none;
   overflow: hidden;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-header {
+=======
+.topbar .dropdown-list .dropdown-header {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   background-color: #4e73df;
   border: 1px solid #4e73df;
   padding-top: 0.75rem;
@@ -10005,7 +10086,11 @@ a:focus {
   color: #fff;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item {
+=======
+.topbar .dropdown-list .dropdown-item {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   white-space: normal;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -10015,18 +10100,30 @@ a:focus {
   line-height: 1.3rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .dropdown-list-image {
+=======
+.topbar .dropdown-list .dropdown-item .dropdown-list-image {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   position: relative;
   height: 2.5rem;
   width: 2.5rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .dropdown-list-image img {
+=======
+.topbar .dropdown-list .dropdown-item .dropdown-list-image img {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   height: 2.5rem;
   width: 2.5rem;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .dropdown-list-image .status-indicator {
+=======
+.topbar .dropdown-list .dropdown-item .dropdown-list-image .status-indicator {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   background-color: #eaecf4;
   height: 0.75rem;
   width: 0.75rem;
@@ -10037,16 +10134,25 @@ a:focus {
   border: 0.125rem solid #fff;
 }
 
+<<<<<<< HEAD
 .dropdown-list .dropdown-item .text-truncate {
   max-width: 10rem;
 }
 
 .dropdown-list .dropdown-item:active {
+=======
+.topbar .dropdown-list .dropdown-item .text-truncate {
+  max-width: 10rem;
+}
+
+.topbar .dropdown-list .dropdown-item:active {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   background-color: #eaecf4;
   color: #3a3b45;
 }
 
 @media (min-width: 576px) {
+<<<<<<< HEAD
      .dropdown {
     position: relative;
   }
@@ -10058,10 +10164,24 @@ a:focus {
     width: 20rem !important;
   }
      .dropdown-list .dropdown-item .text-truncate {
+=======
+  .topbar .dropdown {
+    position: relative;
+  }
+  .topbar .dropdown .dropdown-menu {
+    width: auto;
+    right: 0;
+  }
+  .topbar .dropdown-list {
+    width: 20rem !important;
+  }
+  .topbar .dropdown-list .dropdown-item .text-truncate {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
     max-width: 13.375rem;
   }
 }
 
+<<<<<<< HEAD
   .navbar-light .navbar-nav .nav-item .nav-link {
   color: #d1d3e2;
 }
@@ -10071,13 +10191,27 @@ a:focus {
 }
 
   .navbar-light .navbar-nav .nav-item .nav-link:active {
+=======
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+  color: #d1d3e2;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
+  color: #b7b9cc;
+}
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link:active {
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
   color: #858796;
 }
 
 .sidebar {
   width: 6.5rem;
   min-height: 100vh;
+<<<<<<< HEAD
   height: 100%
+=======
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
 }
 
 .sidebar .nav-item {

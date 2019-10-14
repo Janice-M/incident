@@ -1,36 +1,102 @@
-<nav class="navbar navbar-expand-md navbar-light bg-secondary sticky-top">
-    <a class="navbar-brand " href="{% url 'admin_home'%}">
-       
-        Tatu Admin
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'admin_home' %}"> <i class="fa fa-home fa-1x mr-2"></i>Home<span class="sr-only">(current)</span></a>
-        </li> 
-      </ul>
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position:fixed; padding-bottom:-4em" id="wrapper">
+{% if user.is_authenticated %}
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'admin_home'%}">
+            <div class="sidebar-brand-icon rotate-n-15">
+              <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Tatu Admin <sup>3</sup></div>
+          </a>
+          <div class="admin_profile">
+            <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
+               margin-left: auto;
+               margin-right: auto;
+               border-radius: 50%;height: 40px; content-align:center;">
+             <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a>
+          </div>
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+
+          <!-- Nav Item - Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin_home'%}">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span></a>
+          </li>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            Interface
+          </div>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'ticket_management'%}" >
+              <i class="fas fa-fw fa-cog"></i>
+              <span>Ticket Management</span>
+            </a>
+          </li>
+
+          <!-- Nav Item - Utilities Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'user_management'%}">
+              <i class="fas fa-fw fa-wrench"></i>
+              <span>User Management</span>
+            </a>
+
+          </li>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            Addons
+          </div>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'department_management'%}" >
+              <i class="fas fa-fw fa-folder"></i>
+              <span>Department</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'change_password'%}" >
+              <i class="fas fa-fw fa-folder"></i>
+              <span>Change Password</span>
+            </a>
+          </li>
 
 
-      <ul class="navbar-nav mr-auto">
-        {% if user.is_authenticated %}
-        <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;   display: block;
-                margin-left: auto;
-                margin-right: auto;
-                border-radius: 50%;height: 40px;">
-            <a href="{% url 'admin_profile' %}" class="nav-item nav-link">{{user.username}}</a>
-        <a  class="nav-item nav-link" href="{% url 'user_management'%}">User Management</a>
-        <a  class="nav-item nav-link" href="{% url 'department_management'%}">Department Management</a>
-        <a  class="nav-item nav-link" href="{% url 'ticket_management'%}">Ticket Management</a>
-        
-        <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-sign-out fa-1x"></i>Log Out</a>      
-        {% else %}
-        <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fa fa-sign-in fa-1x"></i>Log In</a>
+          <!-- Nav Item - Tables -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tables' %}">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Tables</span></a>
+
+
+          </li>
+          <div class="admin_profile" >
+             <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
+             {% else %}
+             <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
+
+          </div>
+
         {% endif %}
-        
-      </ul>
-    </div>
-    </nav>
+          <!-- Divider -->
+          <hr class="sidebar-divider d-none d-md-block">
+
+          <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline" style="padding-left:3em">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+
+        </ul>
+        <!-- End of Sidebar -->

@@ -19,18 +19,22 @@ from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
 from customer import views as customer_views
+from tatuAdmin.views import Activate
 
 from django.contrib.auth import views as auth_views
 
 
 
 urlpatterns = [
+    path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
     path('',customer_views.index,name='index'),
     path('register/',customer_views.register,name='register'),
 
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         customer_views.activate, name='activate'),
+      url(r'^activate_user/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',Activate.as_view(), name='activate_user'),
+    
 
     path('login/',auth_views.LoginView.as_view(template_name='registration/login.html'),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
@@ -48,8 +52,24 @@ urlpatterns = [
     path('tatuadmin/',include('tatuAdmin.urls')),
     path('customer/',include('customer.urls')),
     path('agent/', include('agent.urls')),
+    # path('auth/', include('djoser.urls')),
+    # path('auth/', include('djoser.urls.authtoken')),
+    # path('api/', include('chat.urls')),
 
 ]
+
+# # djoser urls
+# urlpatterns += [
+#     path('auth/', include('djoser.urls')),
+#     path('auth/', include('djoser.urls.authtoken')),
+# ]
+
+
+# chat app urls
+# urlpatterns += [
+#     path('api/', include('chat.urls')),
+# ]
+#
 
 
 

@@ -1,125 +1,82 @@
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="position: fixed; margin-bottom: -7%;margin-top: -2em">
+<!-- ##################################################################33 -->
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="height:auto; padding-bottom:-4em; position:fixed">
 
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
-          <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-          </div>
-          <div class="sidebar-brand-text mx-3">Tatu Connet </div>
-        </a>
-          <a class="nav-link" >
-        <img src="{{user.profile.profile_photo.url}}" style="width:4em;   display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 50%;height: 4em;"></a>
-        <div style="color: white;"class="text-center">Welcome,{{user.username}}</div>
-      
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-       
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'index' %}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
-        {% if user.is_authenticated %}
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-  
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Tickets
-        </div>
-  
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">
-              <i class="fa fa-fw fa-user"></i>
-              <span>Customer Profle</span></a>
-          </li>
-
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'createticket' %}">
-              <i class="fas fa-paper-plane"></i>
-              <span>Create Tickets</span></a>
-          </li>
-  
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-  
-        <!-- Heading -->
-        <div class="sidebar-heading">
-         Logout
-        </div>
-  
-        <!-- Nav Item - Pages Collapse Menu -->
-    
-       
-        {% else %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">
-              <i class="fas fa-sign-in-alt"></i>
-              <span>Login</span></a>
-          </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">
-              <i class="fas fa-thumbs-up"></i>
-              <span>Register</span></a>
-          </li>
-          {% endif %}
-        <!-- Nav Item - Charts -->
-        
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span></a>
-        </li>
-       
-  
-       
-      
-       
-        <!-- Nav Item - Tables -->
-        
-  
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-  
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-  
-      </ul>
-      <!-- End of Sidebar -->
-  
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'index' %}">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-laugh-wink"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">Tatu Customer <sup>3</sup></div>
+  </a>
+{% if user.is_authenticated %}
+<div class="customer_profile">
+  <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
+     margin-left: auto;
+     margin-right: auto;
+     border-radius: 50%;height: 40px; content-align:center;">
+   <a href="{% url 'profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a>
 </div>
-<style>
-/* Start search */
- .search {
-  text-align: center;
-  padding: 15px 30px;
-  margin: 15px 0;
-  position: relative;
-}
- .search > input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #23262d;
-  padding: 7px 0 7px;
-  color: #DDD
-}
- .search > input ~ i {
-  position: absolute;
-  top: 22px;
-  right: 40px;
-  display: block;
-  color: #2b2f3a;
-  font-size: 19px;
-}
-/* End search */</style>
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
+
+    <a class="nav-link" href="{% url 'index' %}">
+
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+
+      <span>Dashboard</span></a>
+
+  </li>
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+        <li class="nav-item">
+
+            <a class="nav-link" href="{% url 'createticket' %}">
+
+              <i class="fas fa-paper-plane"></i>
+
+              <span>Create Tickets</span></a>
+
+          </li>
+
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Interface
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+
+  <div class="customer_profile" >
+    <!-- <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
+       margin-left: auto;
+       margin-right: auto;
+       border-radius: 50%;height: 40px; content-align:center;">
+     <a href="{% url 'agent_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a> -->
+     <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
+     {% else %}
+     <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
+
+  </div>
+
+{% endif %}
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline" style="padding-left:3em">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+
+</ul>
+<!-- End of Sidebar -->
+
+
+<!-- /Here we begin the new navbaR -->
+
+<!-- @@####################################################################### -->

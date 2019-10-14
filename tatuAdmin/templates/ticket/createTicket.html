@@ -1,14 +1,14 @@
 {% extends 'tatuadmin/base.html'%}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container">
+    <div class="container" style="float:right; padding-left:4em; margin-top:4em">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <form action="" method="POST">
                         {% csrf_token %}
                         <fieldset class="form-group mt-4">
-                            <legend class="border-bottom mb-4">Create Ticket</legend>
+                            <legend class="border-bottom mb-4">Create Ticket Type</legend>
                             {{tform | crispy}}
                             {{tformsub | crispy}}
                         </fieldset>

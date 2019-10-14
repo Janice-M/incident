@@ -11,9 +11,11 @@ from django.contrib.auth.mixins import (LoginRequiredMixin,UserPassesTestMixin)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 
 
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate,update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm,SetPasswordForm
 from django.contrib.sites.shortcuts import (get_current_site)
 from django.utils.encoding import force_bytes,force_text
 from django.utils.http import (urlsafe_base64_encode, urlsafe_base64_decode)
@@ -22,6 +24,9 @@ from customer.tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from customer.forms import UserUpdateForm,ProfileUpdateForm
+from django.views import View
+
+
 
 # Create your views here.
 @login_required
@@ -30,6 +35,16 @@ def admin_home(request):
     closed_tickets=Create_ticket.get_closed_tickets()
     pending_tickets=Create_ticket.get_pending_tickets()
     return render(request,'adminHome.html',{'tickets' : tickets ,'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+##################Customized foe the display of tables #########
+
+@login_required
+def tables(request):
+    # tickets = Create_ticket.get_tickets()
+    closed_tickets=Create_ticket.get_closed_tickets()
+    pending_tickets=Create_ticket.get_pending_tickets()
+    return render(request,'tables.html',{ 'closed_tickets':closed_tickets,'pending_tickets':pending_tickets})
+
+
 
 @login_required
 def admin_profile(request):
@@ -52,12 +67,34 @@ def admin_profile(request):
 
     }
     return render(request,'tatuadmin/admin_profile.html',context)
+
+
+def change_password(request):
+    '''
+    function to change a password for an admin
+    '''
+    if request.method=='POST':
+        form=SetPasswordForm(request.user,request.POST)
+        if form.is_valid():
+            user=form.save()
+            update_session_auth_hash(request,user)
+            messages.success(request,'Your password was successfully updated')
+            return redirect('admin_home')
+        else:
+            messages.error(request,'Please correct the error below.')
+    else:
+        form=SetPasswordForm(request.user)
+    return render(request,'change_password.html',{'form':form})
+
+
+
 # ###################################### agent management ##########################################################
+
 @login_required
 def user_management(request):
     profiles=Profile.get_agents()
 
-    return render(request,'agent/agentManagement.html',{'profiles':profiles}) 
+    return render(request,'agent/agentManagement.html',{'profiles':profiles})
 
 @login_required
 def create_agent(request):
@@ -70,59 +107,150 @@ def create_agent(request):
 
         if form.is_valid():
             agent_form=form.save(commit=False)
-            agent_form.is_active=False
+            role_choice=form.cleaned_data.get('role')
+            print(role_choice,type(role_choice))
+
+            if role_choice==str(1):
+                # this means its an agent being created
+                # agent_form representing current user being created
+                agent_form.is_active=False
+                username=form.cleaned_data.get('username')
+                useremail=form.cleaned_data.get('email')
+                userphonenumber=form.cleaned_data.get('phonenumber')
+                userpass=form.cleaned_data.get('password1')
+
+                try:
+                    if User.objects.get(email=useremail):
+
+                        messages.warning(request,f'Email already in use with another account')
+                        return render(request,'agent/createAgent.html',{'form':form})
+
+                    elif Profile.objects.filter(phone_number=userphonenumber).exists():
+                        messages.warning(request,f'Phone number already in use with another account')
+                        return render(request,'agent/createAgent',{'form':form})
+
+
+                except ObjectDoesNotExist:
+                    agent_form.save()
+
+                    current_site=get_current_site(request)
+                    mail_subject='Activate your Agent Account.'
+                    message=render_to_string('agent/account_email_activate.html',{
+                        'user':agent_form,
+                        'domain':current_site.domain,
+                        'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
+                        'token':account_activation_token.make_token(agent_form),
+                        'password':userpass,
+                        'email':useremail,
+                        'username':username,
+
+                    })
+
+                    to_email=useremail
+                    email=EmailMessage(mail_subject,message,to=[to_email])
+                    email.send()
+
+                    createdUser=User.objects.filter(email=useremail).first()
+                    createdUser.profile.phone_number=userphonenumber
+                    createdUser.profile.is_staff=True
+                    createdUser.profile.is_customer=False
+                    createdUser.save()
+
+                    messages.success(request,f'Account created for Agent {username}!')
+                    return redirect('user_management')
+                    
+
+            else:
+                #admin being created
+
+                agent_form.is_active=False
+                agent_form.is_superuser=True
+                agent_form.is_staff=True
+                username=form.cleaned_data.get('username')
+                useremail=form.cleaned_data.get('email')
+                userphonenumber=form.cleaned_data.get('phonenumber')
+                userpass=form.cleaned_data.get('password1')
             
-						
-            username=form.cleaned_data.get('username')
-            useremail=form.cleaned_data.get('email')
-            userphonenumber=form.cleaned_data.get('phonenumber')
-            userpass=form.cleaned_data.get('password1')
-            
-            try:
-                if User.objects.get(email=useremail):
 
-                    messages.warning(request,f'Email already in use with another account')
-                    return render(request,'agent/createAgent.html',{'form':form})
+                try:
+                    if User.objects.get(email=useremail):
 
-                elif userphonenumber==Profile.objects.filter(phone_number=userphonenumber).first():
-                    messages.warning(request,f'Phone number already in use with another account')
-                    return render(request,'agent/createAgent',{'form':form})
+                        messages.warning(request,f'Email already in use with another account')
+                        return render(request,'agent/createAgent.html',{'form':form})
+
+                    elif Profile.objects.filter(phone_number=userphonenumber).exists():
+                        messages.warning(request,f'Phone number already in use with another account')
+                        return render(request,'agent/createAgent',{'form':form})
 
 
-            except ObjectDoesNotExist:
-                form.save()
-                
-                current_site=get_current_site(request)
-                mail_subject='Activate your Agent Account.'
-                message=render_to_string('agent/account_email_activate.html',{
-                    'user':agent_form,
-                    'domain':current_site.domain,
-                    'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
-                    'token':account_activation_token.make_token(agent_form),
-                    'password':userpass,
-                    'email':form.cleaned_data.get('email'),
-                    'username':username,
+                except ObjectDoesNotExist:
+                    agent_form.save()
 
-                })
+                    current_site=get_current_site(request)
+                    mail_subject='Activate your Admin Account.'
+                    message=render_to_string('agent/account_email_activate.html',{
+                        'user':agent_form,
+                        'domain':current_site.domain,
+                        'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
+                        'token':account_activation_token.make_token(agent_form),
+                        'password':userpass,
+                        'email':useremail,
+                        'username':username,
 
-                to_email=useremail
-                email=EmailMessage(mail_subject,message,to=[to_email])
-                email.send()
+                    })
 
-                createdUser=User.objects.filter(email=useremail).first()
-                createdUser.profile.phone_number=userphonenumber
-                createdUser.profile.is_staff=True
-                createdUser.profile.is_customer=False
-                createdUser.profile.date_created=timezone.now()
-                createdUser.save()
-                
-                messages.success(request,f'Account created for {username} created!')
-                return redirect('user_management')
+                    to_email=useremail
+                    email=EmailMessage(mail_subject,message,to=[to_email])
+                    email.send()
 
+                    createdUser=User.objects.filter(email=useremail).first()
+                    createdUser.profile.phone_number=userphonenumber
+                    createdUser.profile.is_staff=True
+                    createdUser.profile.is_customer=False
+                    createdUser.save()
+
+                    messages.success(request,f'Account created for Admin {username}!')
+                    return redirect('user_management')
+          
     else:
         form=AgentCreationForm()
 
     return render(request,'agent/createAgent.html',{'form':form})
+
+
+
+class Activate(View):
+    '''
+    cbv to activate an agent and prompt for a passoword reset
+    '''
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+        if user is not None and account_activation_token.check_token(user, token):
+        
+            user.is_active = True
+            user.save()
+            login(request, user)
+
+            form = PasswordChangeForm(request.user)
+            return render(request, 'activation.html', {'form': form})
+
+        else:
+            return HttpResponse('Activation link is invalid!')
+
+    def post(self, request,*args,**kwargs):
+        form = PasswordChangeForm(request.user,request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user) # Important, to update the session with the new password
+            messages.success('Password changed successfully')
+        return redirect('login')
+
+
 
 @login_required
 def edit_agent(request,pk):
@@ -138,8 +266,8 @@ def edit_agent(request,pk):
                 profile.save()
             else:
                 agent.is_active=True
-                profile.save()  
-                
+                profile.save()
+
             usrform.save()
             messages.success(request,f'Account Updated for Agent {agent.username}')
             return redirect('user_management')
@@ -147,7 +275,7 @@ def edit_agent(request,pk):
 
         form=AgentProfileEditForm(instance=agent.profile)
         usrform=AgentUpdateForm(instance=agent)
-    return render(request,'agent/editAgent.html',{'form':form,'usrform':usrform}) 
+    return render(request,'agent/editAgent.html',{'form':form,'usrform':usrform})
 
 
 # ###################################### department management ##########################################################
@@ -155,9 +283,9 @@ def edit_agent(request,pk):
 def department_management(request):
 
     departments=Department.get_departments()
-    
 
-    return render(request,'department/departmentmanagement.html',{'departments':departments}) 
+
+    return render(request,'department/departmentmanagement.html',{'departments':departments})
 
 
 @login_required
@@ -169,7 +297,7 @@ def create_department(request):
         if form.is_valid():
             form.save()
 
-            department=form.cleaned_data.get('department')
+            department=form.cleaned_data.get('department_name')
             messages.success(request,f'{department} created successfully')
             return redirect('department_management')
     else:
@@ -191,7 +319,7 @@ def edit_department(request,pk):
     else:
 
         form=DepartmentEditForm(instance=department)
-    return render(request,'department/editDepartment.html',{'form':form}) 
+    return render(request,'department/editDepartment.html',{'form':form})
 
 
 
@@ -201,7 +329,7 @@ def ticket_management(request):
     # render ticket types
     tickets=TicketType.get_ticket_types()
 
-    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})     
+    return render(request,'ticket/ticketManagement.html',{'tickets':tickets})
 
 
 @login_required
@@ -233,7 +361,7 @@ def create_ticket(request):
         tform=CreateTicketTypeForm(request.POST)
         tformsub=CreateTicketSubtype(request.POST)
 
-    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub}) 
+    return render(request,'ticket/createTicket.html',{'tform':tform,'tformsub':tformsub})
 
 @login_required
 def assign_ticket(request, pk):
@@ -247,19 +375,26 @@ def assign_ticket(request, pk):
 
         if form.is_valid():
             take_form=form.save(commit=False)
-            take_form.status=Create_ticket.Pending
-            take_form.last_updated=timezone.now()
-            take_form.is_taken=True
-            take_form.save()
+            if take_form.agent:
 
+                take_form.status=Create_ticket.Pending
+                take_form.last_updated=timezone.now()
+                take_form.is_taken=True
+                take_form.save()
+                messages.success(request,f'Ticket {take_form.status} has changed from open to pending!')
 
-            messages.success(request,f'Ticket {take_form.status} has changed from open to pending!')
+            elif take_form.department:
+                take_form.last_updated=timezone.now()
+                take_form.is_taken=False
+                take_form.save()
+                messages.success(request,f'Ticket has been assigned to {take_form.department}!')
+           
             return redirect('admin_home')
 
     else:
         form=AssignForm(instance=ticket)
 
-    return render(request,'agent/assign_ticket.html',{'form':form})
+    return render(request,'agent/assign_ticket.html',{'form':form,'ticket':ticket})
 
 @login_required
 def edit_ticket(request,pk):
@@ -274,7 +409,7 @@ def edit_ticket(request,pk):
     else:
 
         form=EditTicketTypeForm(instance=ticket)
-    return render(request,'ticket/editTicket.html',{'form':form}) 
+    return render(request,'ticket/editTicket.html',{'form':form})
 
 
 class TicketDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
@@ -282,13 +417,13 @@ class TicketDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     class view method to delete a ticket
         declare the model to be affected
         declare the template to be used
-       
+
     '''
     model=TicketType
     template_name='ticket/ticketConfirmDelete.html'
     success_url='/'
     success_message = "Ticket was deleted successfully"
-  
+
 
 # ###################################### ticket subtypes ##########################################################
 @login_required
@@ -296,7 +431,7 @@ def create_ticket_subtypes(request):
 
     if request.method=='POST':
         subtypesform=CreateMoreTicketSubtype(request.POST)
-     
+
         if subtypesform.is_valid():
 
             subtypesform.save()
@@ -306,5 +441,5 @@ def create_ticket_subtypes(request):
             return redirect('ticket_management')
     else:
         subtypesform=CreateMoreTicketSubtype(request.POST)
-    
-    return render(request,'ticket/createSubtype.html',{'form':subtypesform})   
+
+    return render(request,'ticket/createSubtype.html',{'form':subtypesform})

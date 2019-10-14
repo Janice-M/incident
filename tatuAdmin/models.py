@@ -28,7 +28,7 @@ class TicketType(models.Model):
         choices=PRIORITY_CHOICES,
         default=3,
         blank=3,
-        
+
     )
 
     def __str__(self):
@@ -37,20 +37,20 @@ class TicketType(models.Model):
     @classmethod
     def get_ticket_types(cls):
         tickets=cls.objects.all()
-        return tickets  
+        return tickets
 
     @classmethod
     def delete_ticket(cls,pk):
         ticket=cls.objects.get(pk=pk)
         ticket.delete()
-             
+
 
 class TicketSubType(models.Model):
-    subtype=models.CharField(max_length=15,unique=True)
-    ticket=models.ForeignKey(TicketType,on_delete=models.CASCADE,null=True,blank=True)
+    subtype=models.CharField(max_length=35,unique=True,blank=True)
+    ticket=models.ForeignKey(TicketType,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
-        return f'{self.subtype} Subtype'
+        return f'{self.subtype}'
 
 
 
@@ -64,12 +64,11 @@ class Department(models.Model):
     @classmethod
     def get_departments(cls):
         departments=cls.objects.all()
-        return departments   
-    
-class Role(models.Model):
-    role_name=models.CharField(max_length=15)
+        return departments
 
+class Role(models.Model):
+
+    role_name=models.CharField(blank=True,null=True,max_length=10)
     def __str__(self):
-        
+
         return f'{self.role_name} Role'
-    

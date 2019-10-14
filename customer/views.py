@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 from agent import views as agent_views
 from .models import Create_ticket
+from tatuAdmin.models import *
 from .generator import randomStringDigits
 from customer.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
@@ -19,6 +20,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.http import HttpResponse,Http404,HttpResponseRedirect
+
 
 
 def register(request):
@@ -36,21 +38,22 @@ def register(request):
             username=form.cleaned_data.get('username')
             useremail=form.cleaned_data.get('email')
             userphonenumber=form.cleaned_data.get('phonenumber')
-            
+
             try:
                 if User.objects.get(email=useremail):
 
                     messages.warning(request,f'Email already in use with another account')
                     return render(request,'registration/registration_form.html',{'form':form})
 
-                elif userphonenumber==Profile.objects.filter(phone_number=userphonenumber).first():
-                    messages.warning(request,f'Phone number already in use with another account')
-                    return render(request,'registration/registration_form.html',{'form':form})
+                # elif Profile.objects.get(phone_number=userphonenumber):
+
+                #     messages.warning(request,f'Phone number already in use with another account')
+                #     return render(request,'registration/registration_form.html',{'form':form})
 
 
             except ObjectDoesNotExist:
                 form.save()
-                
+
                 current_site=get_current_site(request)
                 mail_subject='Activate your Tatu Account.'
                 message=render_to_string('registration/account_email_activate.html',{
@@ -65,13 +68,14 @@ def register(request):
                 email=EmailMessage(mail_subject,message,to=[to_email])
                 email.send()
 
+                # user.refresh_from_db() 
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.profile.is_customer= True
                 createdUser.save()
-                
-                
-                
+
+
+
                 messages.success(request,f'Account for {username} created!Please confirm you email to complete registration')
                 return redirect('login')
 
@@ -83,6 +87,7 @@ def register(request):
 
 
 def activate(request, uidb64, token):
+    current_user=request.user
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -93,11 +98,26 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
+        # checking user type
+        if current_user.is_superuser==True:
+            from tatuAdmin import views as tatuAdmin_views
+            #redirect newly created admin to change their password
+
+            return redirect(tatuAdmin_views.change_password)
+
+        elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
+            from agent import views as agent_views
+            # redirect newly created agent to change their password
+
+            return redirect(agent_views.agent_change_password)
+               
+
         return redirect('index')
         
+
     else:
         return HttpResponse('Activation link is invalid!')
-        
+
 
 @login_required
 def index(request):
@@ -131,11 +151,20 @@ def create_ticket(request):
 
         if form.is_valid():
             ctform=form.save(commit=False)
+
+            # <class 'tatuAdmin.models.TicketSubType'>
+            subtype=form.cleaned_data.get('ticket_subtype')
+
+            #subtype.subtype is the the str name for the subtype.Here we are fetching the ticket type
+            ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
+            ctform.ticket_type=ticket_type
+            print(ticket_type,type(ticket_type),"subtypeeeeeeeeeeeeeeeeeeeee")
+            
             ctform.status=Create_ticket.Open
             ctform.owner=current_user
-            issue=form.cleaned_data.get('issue')
+    
             val=randomStringDigits()
-            ctform.ticket_number=str(current_user.id)+val+str(current_user.profile.phone_number)
+            ctform.ticket_number=str(current_user.id)+val
 
             ctform.save()
             mssg=f'{request.user.username} ,Thank You for contacting us.A support ticket request has been created and a representative will be getting back to you shortly if necessary.'
@@ -147,6 +176,11 @@ def create_ticket(request):
         form=CreateTicketForm()
 
     return render(request,'tickets/createticket.html',{'form':form})
+
+def load_subtypes(request):
+    type_id=request.GET.get('ticket_type_id')
+    subtypes=TicketSubType.objects.filter(ticket=type_id).all()
+    return render(request,'tickets/subtypes_dropdown_list.html',{'subtypes':subtypes})
 
 
 @login_required
@@ -176,19 +210,20 @@ def search_results(request):
     current_user=request.user
     if 'ticket' in request.GET and request.GET['ticket']:
 
-        ticket_number=request.GET.get('ticket')
-        ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
+
+        search_term=request.GET.get('ticket')
+        ticketi=Create_ticket.search_my_tickets(current_user,search_term)
 
         context={
-        'message':f"{ticket_number}",
+        'message':f"{search_term}",
         'ticket':ticketi
         }
 
         return render(request,'customer/search.html',context)
-                
+
     else :
 
         context={
-        'message':f"Incorrect Ticket Number"
+        'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
         }
-        return render(request,'customer/search.html',context) 
+    return render(request,'customer/search.html',context)

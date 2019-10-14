@@ -3,40 +3,39 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
+<div class="container" style="float:right; padding-left:4em; margin-top:4em">
   <div class="row mt-2">
     <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_department'%}">Create Department</a>
   </div>
 
 
-  <div class="row mt-2">
-    <!-- <div class="col-md-2"></div> -->
-    <h5>All Departments ({{departments|length }})</h5>
-    <table class="table table-responsive mt-2">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for department in departments %}
-        <tr>
-          <th scope="row">{{department.id}}</th>
-          <td><a href="{% url 'edit_department' department.id %}">{{department.department_name}}</a></td>
-          <td>{{department.department_description}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="row mt-2">
+        <!-- <div class="col-md-2"></div> -->
+
+        <h5>All Departments ({{departments|length }})</h5>
+        <table class="table table-responsive mt-2">
+          <thead class="" style="background-color: #357EC7
+  ;color:black;">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Descriptiom</th>
+              <!-- <th scope="col">Agent Number</th> -->
+            </tr>
+          </thead>
+          <tbody>
+              {% for department in departments %}
+            <tr>
+              <th scope="row">{{department.id}}</th>
+              <td><a href="{% url 'edit_department' department.id %}">{{department.department_name}}</a></td>
+              <td>{{department.department_description}}</td>
+              <!-- <td>tbd</td> -->
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
 
-  </div>
-  <!-- row -->
-
-
-
-
-
-  {% endblock content %}
+    </div>
+    <!-- row -->
+{% endblock %}

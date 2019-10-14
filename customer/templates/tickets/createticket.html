@@ -1,46 +1,77 @@
-
 {% extends 'customer/base.html'%}
 {% load bootstrap4 %}
+{% load crispy_forms_tags %}
 {% block content %}
 <main>
-<div class="container "style="float:right; padding-left:5em; margin-top: -40em; margin-left: 12em">
-<div class="row">
-  <div class="col-md-">
-
-  </div>
-  <div class="col-md-6">
+  <div class="container ">
     <div class="row">
-      <div class="col-md-6 mt-5 nosho">
-   
-           
-       
-             
+      <div class="col-md-">
+        ​
       </div>
-      <div class="col-md-6 mt-5">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6 mt-5 nosho">
 
-        <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
 
-          <h4 style="font-family: 'fantasy', cursive;color: #4E73DF; size:15px" class="text-center">Create Ticket</h4>
-          {% csrf_token %}
-          {% bootstrap_form form layout='inline'%}
-       
-         
-          <div class="form-group">
-                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Create ticket</button>
-            </div>
-         
-         
-        </form>
+
+
+          </div>
+          <div class="col-md-6 mt-5">
+            ​
+            <form class="text-center border border-light p-5" action="" method="post"
+              style=" border-radius: 15px solid lightgrey; padding:7%; background-color:;width: 500px"
+              id="createTicketForm" data-subtypes-url="{% url 'ajax_load_subtypes'%}">
+              ​
+              <h4 style="font-family: 'fantasy', cursive;color: #b2def2; size:15px" class="text-center">Create Ticket
+              </h4>
+              {% csrf_token %}
+
+              {{form | crispy}}
+
+
+              <div class="form-group">
+                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect"
+                  type="submit">Create ticket</button>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1">
       </div>
     </div>
-  </div>
-  <div class="col-md-1">
-</div>
-</div>
-</div>
 </main>
 <style>
-body{
-background-color:whitesmoke;}
+  body {
+    background-color: ;
+  }
+
+  main {
+    margin-left: 160px;
+    /* Same as the width of the sidenav */
+    padding: 0px 10px;
+  }
+
 </style>
+​
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $("#id_ticket_type").change(function () {
+    var url = $("#createTicketForm").attr("data-subtypes-url");  // get the url of the `load_subtypes` view
+    var type_id = $(this).val();  // get the selected type ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+      data: {
+        'ticket_type_id': type_id       // add the ticket type id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_subtypes` view function
+        $("#id_ticket_subtype").html(data);  // replace the contents of the subtypes input with the data that came from the server
+      }
+    });
+
+  });
+</script>
 {% endblock content %}
