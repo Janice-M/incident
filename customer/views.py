@@ -106,7 +106,11 @@ def activate(request, uidb64, token):
             return redirect(tatuAdmin_views.change_password)
 
         elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
-            pass    
+            from agent import views as agent_views
+            # redirect newly created agent to change their password
+
+            return redirect(agent_views.agent_change_password)
+               
 
         return redirect('index')
         

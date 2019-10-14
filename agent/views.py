@@ -10,6 +10,8 @@ from .forms import *
 from django.utils import timezone
 from customer.forms import UserUpdateForm,ProfileUpdateForm
 from .status_email import send_status_email
+from django.contrib.auth import login,authenticate,update_session_auth_hash
+from django.contrib.auth.forms import SetPasswordForm
 # Create your views here.
 
 
@@ -42,6 +44,24 @@ def profile(request):
 
     }
     return render(request,'agent/profile.html',context)
+
+
+def agent_change_password(request):
+    '''
+    function to change a password for an agent
+    '''
+    if request.method=='POST':
+        form=SetPasswordForm(request.user,request.POST)
+        if form.is_valid():
+            user=form.save()
+            update_session_auth_hash(request,user)
+            messages.success(request,'Your password was successfully updated')
+            return redirect('agent_home')
+        else:
+            messages.error(request,'Please correct the error below.')
+    else:
+        form=SetPasswordForm(request.user)
+    return render(request,'agent/change_password.html',{'form':form})
 
 @login_required
 def take_or_assign_ticket(request, pk):
