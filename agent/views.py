@@ -4,10 +4,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 from customer.models import Create_ticket
+from tatuAdmin.models import *
+from customer.generator import randomStringDigits
 from .forms import *
 from django.utils import timezone
 from customer.forms import UserUpdateForm,ProfileUpdateForm
 from .status_email import send_status_email
+from django.contrib.auth import login,authenticate,update_session_auth_hash
+from django.contrib.auth.forms import SetPasswordForm
 # Create your views here.
 
 
@@ -41,6 +45,24 @@ def profile(request):
     }
     return render(request,'agent/profile.html',context)
 
+
+def agent_change_password(request):
+    '''
+    function to change a password for an agent
+    '''
+    if request.method=='POST':
+        form=SetPasswordForm(request.user,request.POST)
+        if form.is_valid():
+            user=form.save()
+            update_session_auth_hash(request,user)
+            messages.success(request,'Your password was successfully updated')
+            return redirect('agent_home')
+        else:
+            messages.error(request,'Please correct the error below.')
+    else:
+        form=SetPasswordForm(request.user)
+    return render(request,'agent/change_password.html',{'form':form})
+
 @login_required
 def take_or_assign_ticket(request, pk):
     '''
@@ -65,7 +87,7 @@ def take_or_assign_ticket(request, pk):
     else:
         form=Take_or_Assign_Form(instance=ticket)
 
-    return render(request,'agent/take_or_assign.html',{'form':form})
+    return render(request,'agent/take_or_assign.html',{'form':form,'ticket':ticket})
 
 
 @login_required
@@ -122,3 +144,44 @@ def resolve_ticket(request,pk):
         form=ResolveTicketForm(instance=ticket)
 
     return render(request,'agent/resolve_ticket.html',{'form':form})
+
+
+
+@login_required
+def create_ticket_for_customer(request):
+    '''
+    view function for creating a ticket for a customer
+    '''
+    current_user=request.user
+    if request.method=='POST':
+        form=CreateTicketForCustomerForm(request.POST)
+
+        if form.is_valid():
+            ctform=form.save(commit=False)
+
+            # <class 'tatuAdmin.models.TicketSubType'>
+            subtype=form.cleaned_data.get('ticket_subtype')
+
+            #subtype.subtype is the the str name for the subtype.Here we are fetching the ticket type
+            ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
+            ctform.ticket_type=ticket_type
+            
+            owner_class=form.cleaned_data.get('customer')
+            customer=User.objects.filter(username=owner_class.username).first()
+            ctform.owner=customer
+
+            ctform.status=Create_ticket.Open
+    
+            val=randomStringDigits()
+            ctform.ticket_number=str(current_user.id)+val
+
+            ctform.save()
+            mssg=f'Ticket created for customer {customer.username}'
+
+            messages.success(request,mssg)
+            return redirect('agent_home')
+
+    else:
+        form=CreateTicketForCustomerForm()
+
+    return render(request,'agent/create_ticket_for_customer.html',{'form':form})

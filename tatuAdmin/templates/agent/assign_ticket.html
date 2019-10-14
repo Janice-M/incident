@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
-                        <li class="list-group-item">Issue: {{ticket.issue}}</li>
+                        <li class="list-group-item">Issue: {{ticket.ticket_subtype}}</li>
                         <li class="list-group-item">Summary: {{ticket.summary}}</li>
                         <li class="list-group-item">Ticket Number: {{ticket.ticket_number}}</li>
                     </ul>
@@ -25,7 +25,7 @@
                             </fieldset>
                             <div class="form-group">
                                 <button class="btn btn-outline-primary" type="submit">Assign</button>
-                                <a class="btn btn-outline-info" href="{% url 'admin_home' %}">Cancel</a>
+                                <a class="btn btn-outline-danger" href="{% url 'admin_home' %}">Cancel</a>
                             </div>
                         </form>
                 </div>

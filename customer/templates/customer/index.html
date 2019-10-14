@@ -32,31 +32,31 @@
 
     <div class="row mt-2">
 
-      <table class="table table-primary">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Last Updated</th>
-            <th scope="col">Status</th>
-            <th scope="col">Ticket Number</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for ticket in tickets %}
-          <tr>
-            <th scope="row">{{ticket.id}}</th>
+        <table class="table table-primary">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Last Updated</th>
+              <th scope="col">Status</th>
+              <th scope="col">Ticket Number</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for ticket in tickets %}
+            <tr>
+              <th scope="row">{{ticket.id}}</th>
 
-            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-            <td>{{ticket.date_created }}</td>
-            <td>{{ticket.last_updated }}</td>
-            <td>{{ticket.get_status_display}}</td>
-            <td>{{ticket.ticket_number}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
+              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+              <td>{{ticket.last_updated |date:"D, d M ,Y" }}</td>
+              <td>{{ticket.get_status_display}}</td>
+              <td>{{ticket.ticket_number}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
 
     </div>

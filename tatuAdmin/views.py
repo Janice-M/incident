@@ -15,6 +15,7 @@ from django.utils.crypto import get_random_string
 
 
 from django.contrib.auth import login,authenticate,update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm,SetPasswordForm
 from django.contrib.sites.shortcuts import (get_current_site)
 from django.utils.encoding import force_bytes,force_text
 from django.utils.http import (urlsafe_base64_encode, urlsafe_base64_decode)
@@ -24,7 +25,7 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from customer.forms import UserUpdateForm,ProfileUpdateForm
 from django.views import View
-from django.contrib.auth.forms import PasswordChangeForm
+
 
 
 # Create your views here.
@@ -67,6 +68,26 @@ def admin_profile(request):
     }
     return render(request,'tatuadmin/admin_profile.html',context)
 
+
+def change_password(request):
+    '''
+    function to change a password for an admin
+    '''
+    if request.method=='POST':
+        form=SetPasswordForm(request.user,request.POST)
+        if form.is_valid():
+            user=form.save()
+            update_session_auth_hash(request,user)
+            messages.success(request,'Your password was successfully updated')
+            return redirect('admin_home')
+        else:
+            messages.error(request,'Please correct the error below.')
+    else:
+        form=SetPasswordForm(request.user)
+    return render(request,'change_password.html',{'form':form})
+
+
+
 # ###################################### agent management ##########################################################
 
 @login_required
@@ -82,67 +103,121 @@ def create_agent(request):
     view function for creating an agent
     '''
     if request.method=='POST':
-        data=request.POST.copy()
-        data['password1']=get_random_string(20)
-
-        form=AgentCreationForm(data)
+        form=AgentCreationForm(request.POST)
 
         if form.is_valid():
             agent_form=form.save(commit=False)
-            agent_form.is_active=False
+            role_choice=form.cleaned_data.get('role')
+            print(role_choice,type(role_choice))
+
+            if role_choice==str(1):
+                # this means its an agent being created
+                # agent_form representing current user being created
+                agent_form.is_active=False
+                username=form.cleaned_data.get('username')
+                useremail=form.cleaned_data.get('email')
+                userphonenumber=form.cleaned_data.get('phonenumber')
+                userpass=form.cleaned_data.get('password1')
+
+                try:
+                    if User.objects.get(email=useremail):
+
+                        messages.warning(request,f'Email already in use with another account')
+                        return render(request,'agent/createAgent.html',{'form':form})
+
+                    elif Profile.objects.filter(phone_number=userphonenumber).exists():
+                        messages.warning(request,f'Phone number already in use with another account')
+                        return render(request,'agent/createAgent',{'form':form})
+
+
+                except ObjectDoesNotExist:
+                    agent_form.save()
+
+                    current_site=get_current_site(request)
+                    mail_subject='Activate your Agent Account.'
+                    message=render_to_string('agent/account_email_activate.html',{
+                        'user':agent_form,
+                        'domain':current_site.domain,
+                        'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
+                        'token':account_activation_token.make_token(agent_form),
+                        'password':userpass,
+                        'email':useremail,
+                        'username':username,
+
+                    })
+
+                    to_email=useremail
+                    email=EmailMessage(mail_subject,message,to=[to_email])
+                    email.send()
+
+                    createdUser=User.objects.filter(email=useremail).first()
+                    createdUser.profile.phone_number=userphonenumber
+                    createdUser.profile.is_staff=True
+                    createdUser.profile.is_customer=False
+                    createdUser.save()
+
+                    messages.success(request,f'Account created for Agent {username}!')
+                    return redirect('user_management')
+                    
+
+            else:
+                #admin being created
+
+                agent_form.is_active=False
+                agent_form.is_superuser=True
+                agent_form.is_staff=True
+                username=form.cleaned_data.get('username')
+                useremail=form.cleaned_data.get('email')
+                userphonenumber=form.cleaned_data.get('phonenumber')
+                userpass=form.cleaned_data.get('password1')
             
 
-            username=form.cleaned_data.get('username')
-            useremail=form.cleaned_data.get('email')
-            userphonenumber=form.cleaned_data.get('phonenumber')
-            userpass=form.cleaned_data.get('password1')
-            
+                try:
+                    if User.objects.get(email=useremail):
 
-            try:
-                if User.objects.get(email=useremail):
+                        messages.warning(request,f'Email already in use with another account')
+                        return render(request,'agent/createAgent.html',{'form':form})
 
-                    messages.warning(request,f'Email already in use with another account')
-                    return render(request,'agent/createAgent.html',{'form':form})
-
-                elif Profile.objects.filter(phone_number=userphonenumber).exists():
-                    messages.warning(request,f'Phone number already in use with another account')
-                    return render(request,'agent/createAgent',{'form':form})
+                    elif Profile.objects.filter(phone_number=userphonenumber).exists():
+                        messages.warning(request,f'Phone number already in use with another account')
+                        return render(request,'agent/createAgent',{'form':form})
 
 
-            except ObjectDoesNotExist:
-                agent_form.save()
+                except ObjectDoesNotExist:
+                    agent_form.save()
 
-                current_site=get_current_site(request)
-                mail_subject='Activate your Agent Account.'
-                message=render_to_string('agent/account_email_activate.html',{
-                    'user':agent_form,
-                    'domain':current_site.domain,
-                    'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
-                    'token':account_activation_token.make_token(agent_form),
-                    'password':userpass,
-                    'email':form.cleaned_data.get('email'),
-                    'username':username,
+                    current_site=get_current_site(request)
+                    mail_subject='Activate your Admin Account.'
+                    message=render_to_string('agent/account_email_activate.html',{
+                        'user':agent_form,
+                        'domain':current_site.domain,
+                        'uid':urlsafe_base64_encode(force_bytes(agent_form.pk)),
+                        'token':account_activation_token.make_token(agent_form),
+                        'password':userpass,
+                        'email':useremail,
+                        'username':username,
 
-                })
+                    })
 
-                to_email=useremail
-                email=EmailMessage(mail_subject,message,to=[to_email])
-                email.send()
+                    to_email=useremail
+                    email=EmailMessage(mail_subject,message,to=[to_email])
+                    email.send()
 
-                createdUser=User.objects.filter(email=useremail).first()
-                createdUser.profile.phone_number=userphonenumber
-                createdUser.profile.is_staff=True
-                createdUser.profile.is_customer=False
-                createdUser.profile.date_created=timezone.now()
-                createdUser.save()
+                    createdUser=User.objects.filter(email=useremail).first()
+                    createdUser.profile.phone_number=userphonenumber
+                    createdUser.profile.is_staff=True
+                    createdUser.profile.is_customer=False
+                    createdUser.save()
 
-                messages.success(request,f'Account created for {username} created!')
-                return redirect('user_management')
-
+                    messages.success(request,f'Account created for Admin {username}!')
+                    return redirect('user_management')
+          
     else:
         form=AgentCreationForm()
 
     return render(request,'agent/createAgent.html',{'form':form})
+
+
 
 class Activate(View):
     '''

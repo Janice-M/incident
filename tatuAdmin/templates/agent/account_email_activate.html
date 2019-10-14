@@ -1,15 +1,14 @@
 {% autoescape off %}
 
     Welcome {{ user.username }},
-    ue the following credentials to log in
-    username:{{username}}
-    password: {{password}} 
-    to login in.
-    
-    Please click on the link to begin service:
-    http://{{ domain }}{% url 'activate_user' uidb64=uid token=token %}
-    
+    Log in credentials
+    username : {{user.username}}
+ 
+    You can change your password once you click the activation link.
+
+    Please click on the link to activate your account service:
+    http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 
     All men must serve,
-    Grey Worm
+    Tatu HR
 {% endautoescape %}

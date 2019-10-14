@@ -21,6 +21,7 @@ urlpatterns = [
     path('login/',auth_views.LoginView.as_view(template_name='registration/login.html'),name='login'),
     path('assign_ticket/<int:pk>/',views.assign_ticket,name='assign_ticket'),
     path('admin_profile/',views.admin_profile,name='admin_profile'),
+    path('password/',views.change_password,name='change_password'),
     path('tables/', views.tables, name='tables')
 
 

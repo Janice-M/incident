@@ -17,7 +17,6 @@ class Profile(models.Model):
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
     is_customer = models.BooleanField(default=True,null=True)
-    role = models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=True)
 
 
     def __str__(self):
@@ -25,7 +24,7 @@ class Profile(models.Model):
 
     @classmethod
     def get_agents(cls):
-        agents=cls.objects.filter(is_customer=False).all()
+        agents=cls.objects.filter(is_customer=False).filter(user__is_superuser=False).all()
         return agents
 
     @classmethod
@@ -58,16 +57,16 @@ class Create_ticket(models.Model):
 
     Statuses=(
        (Open,'Open'),
-       (Pending,'Pending'),
+       (Pending,'Inprogress'),
        (Closed,'Closed'),
 
    )
     owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
-    ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE)
+    ticket_type=models.ForeignKey(TicketType,on_delete=models.CASCADE,null=True)
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
     agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent',blank=True)
-    issue = models.CharField(max_length=60,blank=False)
+    issue = models.CharField(max_length=60,blank=True,null=True)
     summary = models.TextField(max_length=120,blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(default=timezone.now)
