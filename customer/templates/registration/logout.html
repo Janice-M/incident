@@ -1,8 +1,9 @@
 {% extends 'customer/base1.html'%}
 {% load crispy_forms_tags %}
+{% load static%}
 {% block content %}
 <div class="container" style="content-align:center;color:white;padding-top:8em;">
-    <div class="row mt-2 card-body card-fluid" style="padding-top:8em; background-color:lightblue;text-align:center">
+    <div class="row mt-2 card-body card-fluid" style="padding-top:8em; background-color:transparent;text-align:center">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <h3> <strong>You have been logged out! </strong></h3>
@@ -14,7 +15,7 @@
     </div>
 </div>
 <style>
-        body{background-image: url('https://www.standardmedia.co.ke/images/sunday/adgvkbebmzojob9tovy5d068b47acd99.jpg');
+        body{background-image: url("{%static 'img/TatuC0.jpg'%}");
         -webkit-background-size: cover;
           -moz-background-size: cover;
           -o-background-size: cover;

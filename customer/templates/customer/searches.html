@@ -18,9 +18,10 @@
             <div class="row mt-2">
 
                 <table class="table table-responsive mt-2">
-                    <thead class="thead-light">
+                    <thead class="thead" style="background-color: #357EC7
+            ;color:black;">
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col"></th>
                             <th scope="col">Title</th>
                             <th scope="col">Date Created</th>
                             <th scope="col">Last Updated</th>
@@ -31,7 +32,7 @@
                     <tbody>
                         {% for ticket in ticket %}
                         <tr>
-                            <th scope="row">{{ticket.id}}</th>
+                            <th scope="row"></th>
 
                             <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
                             <td>{{ticket.date_created }}</td>

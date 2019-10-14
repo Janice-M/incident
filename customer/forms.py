@@ -27,8 +27,8 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model=Profile
-        fields=['profile_photo','phone_number',] 
-        
+        fields=['profile_photo','phone_number',]
+
 class CreateTicketForm(forms.ModelForm):
     class Meta:
         model=Create_ticket

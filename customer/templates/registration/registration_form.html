@@ -1,6 +1,7 @@
 
 {% extends 'customer/base1.html'%}
 {% load bootstrap4 %}
+{% load static %}
 {% block content %}
 
 <div class="container ">
@@ -10,17 +11,17 @@
   </div>
   <div class="col-md-6">
     <div class="row">
-          
-      <div class="col-md-6 mt-5">
-          
+
+      <div class="col-md-8 mt-5">
+
 
         <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px">
                 <h4 style="font-family: 'Pacifico', cursive; color: #357EC7;size: 20px" class="text-center">Welcome to tatu connect</h4>
           <h4 style="font-family: 'Pacifico', cursive; color: #357EC7;size: 15px" class="text-center">Sign Up</h4>
           {% csrf_token %}
-          {% bootstrap_form form layout='inline'%}
-       
-         
+          {% bootstrap_form form layout='label'%}
+
+
           <div class="form-group">
                 <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect"type="submit">Sign Up</button>
             </div>
@@ -28,14 +29,14 @@
           <input type="hidden" name="next" value="{{next}}">
 
           <div class="col-md-6 mt-5 nosho">
-   
-         
-             
+
+
+
             </div>
           <div class="row" style="border: 2px solid lightgrey; padding:7%; background-color:white;">
                 <p>Already have an account?  <a href="{% url 'login' %}"></i>Login</a></p>
               </div>
-         
+
         </form>
       </div>
     </div>
@@ -44,11 +45,12 @@
 </div>
 </div>
 <style>
-body{background-image: url('https://www.standardmedia.co.ke/images/sunday/adgvkbebmzojob9tovy5d068b47acd99.jpg');
+body{background-image: url("{% static 'img/TatuC0.jpg' %}");
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; }</style>
+  background-size: cover;
+height:automatic; }</style>
 
 
 

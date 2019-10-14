@@ -5,7 +5,7 @@
     <h5>My Tickets ({{tickets|length }})</h5>
 
     <table class="table table-responsive mt-2">
-      <thead class="thead-light" style="background-color: #357EC7
+      <thead class="" style="background-color: #357EC7
 ;color:black;">
         <tr>
           <th scope="col">ID</th>
@@ -20,7 +20,7 @@
       <tbody>
         {% for ticket in tickets %}
         <tr>
-          <th scope="row">{{ticket.id}}</th>
+          <th scope="row"> <b></b></th>
 
           <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.agent.username}}</td>
