@@ -87,6 +87,7 @@ def register(request):
 
 
 def activate(request, uidb64, token):
+    current_user=request.user
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -97,7 +98,18 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
+        # checking user type
+        if current_user.is_superuser==True:
+            from tatuAdmin import views as tatuAdmin_views
+            #redirect newly created admin to change their password
+
+            return redirect(tatuAdmin_views.change_password)
+
+        elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
+            pass    
+
         return redirect('index')
+        
 
     else:
         return HttpResponse('Activation link is invalid!')
