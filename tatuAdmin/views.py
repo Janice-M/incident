@@ -15,7 +15,7 @@ from django.utils.crypto import get_random_string
 
 
 from django.contrib.auth import login,authenticate,update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm,SetPasswordForm
 from django.contrib.sites.shortcuts import (get_current_site)
 from django.utils.encoding import force_bytes,force_text
 from django.utils.http import (urlsafe_base64_encode, urlsafe_base64_decode)
@@ -74,18 +74,18 @@ def change_password(request):
     function to change a password for an admin
     '''
     if request.method=='POST':
-        form=PasswordChangeForm(request.user,request.POST)
+        form=SetPasswordForm(request.user,request.POST)
         if form.is_valid():
             user=form.save()
             update_session_auth_hash(request,user)
             messages.success(request,'Your password was successfully updated')
-            return redirect('change_password')
+            return redirect('admin_home')
         else:
             messages.error(request,'Please correct the error below.')
     else:
-        form=PasswordChangeForm(request.user)
+        form=SetPasswordForm(request.user)
     return render(request,'change_password.html',{'form':form})
-                    
+
 
 
 # ###################################### agent management ##########################################################
