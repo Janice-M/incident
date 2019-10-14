@@ -3,13 +3,12 @@
     Welcome {{ user.username }},
     Log in credentials
     username : {{user.username}}
-    password : {{password}}
-
+ 
     You can change your password once you click the activation link.
 
     Please click on the link to activate your account service:
     http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 
     All men must serve,
-    Grey Worm
+    Tatu HR
 {% endautoescape %}
