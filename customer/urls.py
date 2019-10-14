@@ -9,5 +9,6 @@ urlpatterns = [
     path('create_ticket/',views.create_ticket,name='createticket'),
     path('profile/',views.profile,name='profile'),
     url(r'^search/$',views.search_issues,name='search_results'),
+    path('ajax/load-subtypes/',views.load_subtypes,name='ajax_load_subtypes'),
 
 ]

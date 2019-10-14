@@ -4,10 +4,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from tatuAdmin import views as tatuAdmin_views
 from customer.models import Create_ticket
+from tatuAdmin.models import *
+from customer.generator import randomStringDigits
 from .forms import *
 from django.utils import timezone
 from customer.forms import UserUpdateForm,ProfileUpdateForm
 from .status_email import send_status_email
+from django.contrib.auth import login,authenticate,update_session_auth_hash
+from django.contrib.auth.forms import SetPasswordForm
 # Create your views here.
 
 
@@ -41,6 +45,24 @@ def profile(request):
     }
     return render(request,'agent/profile.html',context)
 
+
+def agent_change_password(request):
+    '''
+    function to change a password for an agent
+    '''
+    if request.method=='POST':
+        form=SetPasswordForm(request.user,request.POST)
+        if form.is_valid():
+            user=form.save()
+            update_session_auth_hash(request,user)
+            messages.success(request,'Your password was successfully updated')
+            return redirect('agent_home')
+        else:
+            messages.error(request,'Please correct the error below.')
+    else:
+        form=SetPasswordForm(request.user)
+    return render(request,'agent/change_password.html',{'form':form})
+
 @login_required
 def take_or_assign_ticket(request, pk):
     '''
@@ -65,7 +87,7 @@ def take_or_assign_ticket(request, pk):
     else:
         form=Take_or_Assign_Form(instance=ticket)
 
-    return render(request,'agent/take_or_assign.html',{'form':form})
+    return render(request,'agent/take_or_assign.html',{'form':form,'ticket':ticket})
 
 
 @login_required
@@ -76,8 +98,9 @@ def my_tickets(request):
 
     current_user=request.user
     tickets=Create_ticket.get_agent_tickets(request.user)
+    department_tickets=Create_ticket.get_tickets_by_department(current_user.profile.department)
 
-    return render(request,'agent/my_tickets.html',{'tickets':tickets})
+    return render(request,'agent/my_tickets.html',{'tickets':tickets,'department_tickets':department_tickets})
 
 
 
@@ -123,25 +146,42 @@ def resolve_ticket(request,pk):
     return render(request,'agent/resolve_ticket.html',{'form':form})
 
 
-#
-# def search_result(request):
-#     current_user=request.user
-#     if 'ticket' in request.GET and request.GET['ticket']:
-#
-#         ticket_number=request.GET.get('ticket')
-#         issue=request.GET.get('ticket')
-#         ticketi=Create_ticket.search_my_tickets(current_user,ticket_number)
-#
-#         context={
-#         'message':f"{ticket_number}",
-#         'ticket':ticketi
-#         }
-#
-#         return render(request,'agent/search.html',context)
-#
-#     else :
-#
-#         context={
-#         'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
-#         }
-#     return render(request,'agent/search.html',context)
+
+@login_required
+def create_ticket_for_customer(request):
+    '''
+    view function for creating a ticket for a customer
+    '''
+    current_user=request.user
+    if request.method=='POST':
+        form=CreateTicketForCustomerForm(request.POST)
+
+        if form.is_valid():
+            ctform=form.save(commit=False)
+
+            # <class 'tatuAdmin.models.TicketSubType'>
+            subtype=form.cleaned_data.get('ticket_subtype')
+
+            #subtype.subtype is the the str name for the subtype.Here we are fetching the ticket type
+            ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
+            ctform.ticket_type=ticket_type
+
+            owner_class=form.cleaned_data.get('customer')
+            customer=User.objects.filter(username=owner_class.username).first()
+            ctform.owner=customer
+
+            ctform.status=Create_ticket.Open
+
+            val=randomStringDigits()
+            ctform.ticket_number=str(current_user.id)+val
+
+            ctform.save()
+            mssg=f'Ticket created for customer {customer.username}'
+
+            messages.success(request,mssg)
+            return redirect('agent_home')
+
+    else:
+        form=CreateTicketForCustomerForm()
+
+    return render(request,'agent/create_ticket_for_customer.html',{'form':form})

@@ -46,11 +46,11 @@ class TicketType(models.Model):
 
 
 class TicketSubType(models.Model):
-    subtype=models.CharField(max_length=15,unique=True)
-    ticket=models.ForeignKey(TicketType,on_delete=models.CASCADE,null=True,blank=True)
+    subtype=models.CharField(max_length=35,unique=True,blank=True)
+    ticket=models.ForeignKey(TicketType,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
-        return f'{self.subtype} Subtype'
+        return f'{self.subtype}'
 
 
 
@@ -67,8 +67,8 @@ class Department(models.Model):
         return departments
 
 class Role(models.Model):
-    role_name=models.CharField(max_length=15)
 
+    role_name=models.CharField(blank=True,null=True,max_length=10)
     def __str__(self):
 
         return f'{self.role_name} Role'

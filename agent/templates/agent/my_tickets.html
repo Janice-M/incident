@@ -8,9 +8,14 @@
       <thead class="" style="background-color: #357EC7
 ;color:black;">
         <tr>
+<<<<<<< HEAD
           <th scope="col"></th>
           <th scope="col">Issue</th>
           <th scope="col">Ticket Type</th>
+=======
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
           <th scope="col">Ticket Number</th>
@@ -23,13 +28,12 @@
         <tr>
           <th scope="row"> <b></b></th>
 
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-          <td>{{ticket.ticket_type.name}}</td>
+          <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.agent.username}}</td>
           <td>{{ticket.get_status_display}}</td>
           <td>{{ticket.ticket_number}}</td>
-          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
-          <td><a href="{% url 'resolve_ticket' ticket.id %}">Resolve Ticket</a></td>
+          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}" class="btn btn-primary btn-sm">Re-Assign Ticket(s)</a> </td>
+          <td><a href="{% url 'resolve_ticket' ticket.id %}" class="btn btn-info btn-sm">Resolve Ticket</a></td>
         </tr>
         {% endfor %}
       </tbody>
@@ -38,6 +42,7 @@
 
   </div>
 
+<<<<<<< HEAD
   <!-- ==============modals========= -->
   {% for ticket in tickets  %}
   <div class="row mt-2" id="{{ticket.id}} {{ticket.owner.username}}" >
@@ -73,11 +78,46 @@
           </div>
         </div>
       </div>
+=======
+  <div class="row mt-2">
+      <h5>Department Tickets ({{department_tickets|length }})</h5>
+  
+      <table class="table table-responsive mt-2">
+        <thead class="thead-light" style="background-color: #357EC7
+  ;color:black;">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Agent</th>
+            <th scope="col">Status</th>
+            <th scope="col">Department</th>
+            <th scope="col">Ticket Number</th>
+            <th scope="col">Action Ticket(s)</th>
+            <th scope="col">Resolve Ticket(s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in department_tickets %}
+          <tr>
+            <th scope="row">{{ticket.id}}</th>
+  
+            <td>{{ticket.ticket_subtype }}</td>
+            <td>{{ticket.agent.username}}</td>
+            <td>{{ticket.get_status_display}}</td>
+            <td>{{ticket.department}}</td>
+            <td>{{ticket.ticket_number}}</td>
+            <td><a href="{% url 'take_or_assign_ticket' ticket.id %}" class="btn btn-primary btn-sm">Action</a> </td>
+            <td><a href="{% url 'resolve_ticket' ticket.id %}" class="btn btn-info btn-sm">Resolve Ticket</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  
+  
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
     </div>
 
-  </div>
-
-  {% endfor %}
+  <!-- ==============modals========= -->
 
 </section>
 {% endblock  %}

@@ -11,6 +11,7 @@
       </div>
         <div class="col-md-2"></div>
         <div class="col-md-8">
+<<<<<<< HEAD
             <form action="" method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
@@ -19,8 +20,32 @@
                 </fieldset>
                 <div class="form-group">
                     <button class="btn btn-outline-primary" type="submit">Action</button>
+=======
+            <div class="card">
+            <div class="card-header">
+                    <legend class="mb-4">Action Ticket</legend>
+>>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
                 </div>
-            </form>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+                    <li class="list-group-item">Issue: {{ticket.ticket_subtype}}</li>
+                    <li class="list-group-item">Summary: {{ticket.summary}}</li>
+                    <li class="list-group-item">Ticket Number: {{ticket.ticket_number}}</li>
+                    <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+                    <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+                </ul>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{form | crispy}}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-primary" type="submit">Action</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         </div>
         <div class="col-md-2"></div>
