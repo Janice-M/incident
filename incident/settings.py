@@ -17,7 +17,7 @@ from decouple import config, Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+SECRET_KEY='hr$mi3q0j+!6&*k(%6ax^m_lc!mm54)b!g*^b1d#5ib-!upskd'
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
