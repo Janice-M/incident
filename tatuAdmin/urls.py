@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin_profile/',views.admin_profile,name='admin_profile'),
     path('password/',views.change_password,name='change_password'),
     path('tables/', views.tables, name='tables'),
-    url(r'^search/$',views.search_results,name='search_results'),
+    url(r'^search/$',views.search_all_tickets,name='search_all_tickets'),
 
 
 ]

@@ -210,7 +210,6 @@ def search_issues(request):
     current_user=request.user
     if 'ticket' in request.GET and request.GET['ticket']:
 
-
         search_term=request.GET.get('ticket')
         ticketi=Create_ticket.search_my_tickets(current_user,search_term)
 
