@@ -79,7 +79,7 @@ class Create_ticket(models.Model):
 
     @classmethod
     def get_my_tickets(cls,owner):
-        my_tickets=cls.objects.filter(owner=owner).all()
+        my_tickets=cls.objects.filter(owner=owner).all().order_by('-date_created')
         return my_tickets
 
     @classmethod
