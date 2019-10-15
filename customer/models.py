@@ -109,7 +109,6 @@ class Create_ticket(models.Model):
     def get_tickets_by_department(cls,department):
         tickets=cls.objects.filter(status=cls.Open).filter(department=department).all()
         return tickets
-
     @classmethod
     def search_my_tickets(cls,owner,search_term):
         ticket=cls.objects.filter(owner=owner).filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term) )
