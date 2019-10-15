@@ -185,3 +185,25 @@ def create_ticket_for_customer(request):
         form=CreateTicketForCustomerForm()
 
     return render(request,'agent/create_ticket_for_customer.html',{'form':form})
+
+
+def search_tickets(request):
+    current_user=request.user
+    if 'ticket' in request.GET and request.GET['ticket']:
+
+        search_term=request.GET.get('ticket')
+        ticketi=Create_ticket.search_all_tickets(search_term)
+
+        context={
+        'message':f"{search_term}",
+        'ticket':ticketi
+        }
+        
+        return render(request,'agent/search.html',context)
+
+    else :
+
+        context={
+        'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
+        }
+    return render(request,'agent/search.html',context)

@@ -455,7 +455,7 @@ def search_all_tickets(request):
         'message':f"{search_term}",
         'ticket':ticketi
         }
-
+        
         return render(request,'tatuadmin/search.html',context)
 
     else :
