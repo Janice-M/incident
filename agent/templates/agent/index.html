@@ -50,7 +50,7 @@ th{
       </div>
       <div class="col-lg-4 col-sm-2" style="float:right">
 
-                      <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_results' %}">
+                      <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_tickets' %}">
 
                           <div class="search">
 
@@ -190,12 +190,12 @@ th{
       <thead class="thead" style="background-color: #357EC7
   ;color:black;">
         <tr>
-          <th scope="col" style="color:white"></th>
-          <th scope="col">Issue</th>
-          <th scope="col">Ticket Type</th>
+          <th scope="col"></th>
+          <th scope="col">Title</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
+          <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
           <th scope="col">Action</th>
         </tr>
@@ -205,11 +205,11 @@ th{
         <tr>
             <th scope="row" style="width:7.2em"></th>
 
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-          <td>{{ticket.ticket_type.name}}</td>
+          <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
           <td>{{ticket.agent.username}}</td>
           <td>{{ticket.get_status_display}}</td>
+          <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
           <td><button type="button" name="button" class="btn btn-primary outline" style="color:white; background-color:#4e73df;"><a href="{% url 'take_or_assign_ticket' ticket.id %}" style="color:white; background-color:#4e73df;">Action</a> </button></td>
         </tr>
@@ -222,13 +222,13 @@ th{
       <thead class="thead-primary" style="background-color: #357EC7
     ;color:black;">
         <tr>
-          <th scope="col" style="width:7.2em"></th>
-          <th scope="col" style="width:7.2em">Issue</th>
-          <th scope="col" style="width:7.2em">Ticket Type</th>
-          <th scope="col" style="width:7.2em">Date Created</th>
-          <th scope="col" style="width:7.2em">Agent</th>
-          <th scope="col" style="width:7.2em">Status</th>
-          <th scope="col" style="width:7.2em">Ticket Number</th>
+          <th scope="col"></th>
+          <th scope="col">Title</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Agent</th>
+          <th scope="col">Status</th>
+          <th scope="col">Department</th>
+          <th scope="col">Ticket Number</th>
         </tr>
       </thead>
       <tbody>
@@ -236,11 +236,12 @@ th{
         <tr>
           <th scope="row"></th>
 
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype }}</a></td>
           <td>{{ticket.ticket_type.name}}</td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
           <td>{{ticket.agent.username}}</td>
           <td>{{ticket.get_status_display}}</td>
+          <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
         </tr>
 
@@ -253,13 +254,13 @@ th{
       <thead class="thead-primary" style="background-color: #357EC7
     ;color:black;">
         <tr>
-          <th scope="col" style="width:7.2em"></th>
-          <th scope="col" style="width:7.2em">Issue</th>
-          <th scope="col" style="width:7.2em">Ticket Type</th>
-          <th scope="col" style="width:7.2em">Date Created</th>
-          <th scope="col" style="width:7.2em">Agent</th>
-          <th scope="col" style="width:7.2em">Status</th>
-          <th scope="col" style="width:7.2em">Ticket Number</th>
+          <th scope="col"></th>
+          <th scope="col">Title</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Agent</th>
+          <th scope="col">Status</th>
+          <th scope="col">Department</th>
+          <th scope="col">Ticket Number</th>
           <th scope="col" style="width:7.2em">Action</th>
         </tr>
       </thead>
@@ -268,11 +269,11 @@ th{
         <tr>
           <th scope="row" style="width:2em"></th>
 
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
-          <td>{{ticket.ticket_type.name}}</td>
+          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype }}</a></td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
           <td>{{ticket.agent.username}}</td>
           <td>{{ticket.get_status_display}}</td>
+          <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
           <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Action</a> </td>
         </tr>
@@ -284,6 +285,7 @@ th{
 </section>
 
   <!-- ==============modals========= -->
+
   {% for ticket in tickets  %}
   <div class="row mt-2">
 
@@ -333,7 +335,7 @@ th{
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+            <h6 class="modal-title" id="exampleModalLabel">{{ticket.ticket_subtype |upper}}</h6>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -341,7 +343,7 @@ th{
           <div class="modal-body">
             <div class="card card-body">
               <h6>Ticket Number:{{ticket.ticket_number}}</h6>
-              <p class="card-text">{{ticket.summary}}</p>
+              <p class="card-text">Summary: <br>{{ticket.summary}}</p>
               <li class="list-group">
               <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
               <li class="list-group-item">Email: {{ticket.owner.email}}</li>
@@ -374,7 +376,7 @@ th{
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+            <h6 class="modal-title" id="exampleModalLabel">{{ticket.ticket_subtype |upper}}</h6>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -382,7 +384,7 @@ th{
           <div class="modal-body">
             <div class="card card-body">
               <h6>Ticket Number:{{ticket.ticket_number}}</h6>
-              <p class="card-text">{{ticket.summary}}</p>
+              <p class="card-text">Summary: <br>{{ticket.summary}}</p>
               <li class="list-group">
               <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
               <li class="list-group-item">Email: {{ticket.owner.email}}</li>

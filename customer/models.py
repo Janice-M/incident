@@ -17,7 +17,6 @@ class Profile(models.Model):
     department=models.ForeignKey(Department,on_delete=models.DO_NOTHING,null=True,blank=True)
     is_staff = models.BooleanField(default=False,null=True)
     is_customer = models.BooleanField(default=True,null=True)
-    role = models.ForeignKey(Role,on_delete=models.DO_NOTHING,null=True,blank=True)
 
 
     def __str__(self):
@@ -25,7 +24,7 @@ class Profile(models.Model):
 
     @classmethod
     def get_agents(cls):
-        agents=cls.objects.filter(is_customer=False).all()
+        agents=cls.objects.filter(is_customer=False).filter(user__is_superuser=False).all()
         return agents
 
     @classmethod
@@ -58,7 +57,7 @@ class Create_ticket(models.Model):
 
     Statuses=(
        (Open,'Open'),
-       (Pending,'Pending'),
+       (Pending,'Inprogress'),
        (Closed,'Closed'),
 
    )
@@ -67,7 +66,7 @@ class Create_ticket(models.Model):
     ticket_subtype=models.ForeignKey(TicketSubType,on_delete=models.CASCADE)
     status=models.IntegerField(choices=Statuses,default=0,blank=0)
     agent = models.ForeignKey(User,null=True,on_delete=models.DO_NOTHING,related_name='agent',blank=True)
-    issue = models.CharField(max_length=60,blank=False)
+    issue = models.CharField(max_length=60,blank=True,null=True)
     summary = models.TextField(max_length=120,blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(default=timezone.now)
@@ -80,7 +79,7 @@ class Create_ticket(models.Model):
 
     @classmethod
     def get_my_tickets(cls,owner):
-        my_tickets=cls.objects.filter(owner=owner).all()
+        my_tickets=cls.objects.filter(owner=owner).all().order_by('-date_created')
         return my_tickets
 
     @classmethod
@@ -113,5 +112,10 @@ class Create_ticket(models.Model):
 
     @classmethod
     def search_my_tickets(cls,owner,search_term):
-        ticket=cls.objects.filter(owner=owner).filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term) )
+        ticket=cls.objects.filter(owner=owner).filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term)|Q(ticket_subtype__subtype__icontains=search_term))
         return ticket
+
+    @classmethod
+    def search_all_tickets(cls,search_term):
+        tickets=cls.objects.filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term)|Q(ticket_subtype__subtype__icontains=search_term))
+        return tickets

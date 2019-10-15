@@ -14,6 +14,7 @@
                margin-right: auto;
                border-radius: 50%;height: 40px; content-align:center;">
              <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a>
+             
           </div>
           <!-- Divider -->
           <hr class="sidebar-divider my-0">
@@ -63,6 +64,13 @@
             <a class="nav-link collapsed" href="{% url 'department_management'%}" >
               <i class="fas fa-fw fa-folder"></i>
               <span>Department</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'change_password'%}" >
+              <i class="fas fa-fw fa-folder"></i>
+              <span>Change Password</span>
             </a>
           </li>
 

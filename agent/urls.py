@@ -11,5 +11,7 @@ urlpatterns = [
     path('resolve_tickets/<int:pk>',views.resolve_ticket,name='resolve_ticket'),
     # path('profile/',views.profile,name='profile'),
     path('agent_profile/',views.profile,name='agent_profile'),
-    # url(r'^search/$',views.search_result,name='search_results'),
+    path('password/',views.agent_change_password,name='agent_change_password'),
+    path('create_ticket_for_customer',views.create_ticket_for_customer,name='create_ticket_for_customer'),
+    url(r'^search/$',views.search_tickets,name='search_tickets'),
 ]
