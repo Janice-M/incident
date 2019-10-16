@@ -70,7 +70,7 @@
               <th scope="col">Agent</th>
               <th scope="col">Status</th>
               <th scope="col">Priority</th>
-              <th scope="col">Take/ Assign Ticket(s)</th>
+              <th scope="col">Assign Ticket(s)</th>
 
             </tr>
           </thead>
@@ -79,13 +79,13 @@
             <tr>
               <!-- <th scope="row">{{ticket.id}}</th> -->
 
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}"  data-toggle="tooltip" title="Click to see ticket details!" data-placement="left">{{ticket.ticket_subtype}}</a></td>
               <td>{{ticket.ticket_type.name}}</td>
               <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
               <td>{{ticket.agent.username}}</td>
               <td>{{ticket.get_status_display}}</td>
               <td>{{ticket.ticket_type.get_priority_display}}</td>
-              <td><a href="{%url 'assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
+              <td><a href="{%url 'assign_ticket' ticket.id %}" data-toggle="tooltip" title="Click to reasign ticket" data-placement="left">Re-Assign Ticket</a> </td>
             </tr>
 
             {% endfor %}
@@ -208,7 +208,7 @@
        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
       </div>
     </div>
   </div>
@@ -219,5 +219,9 @@
 
 
         {% endfor %}
-
+        <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
   {% endblock %}

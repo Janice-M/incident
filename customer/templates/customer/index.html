@@ -47,7 +47,7 @@
             <tr>
               <!-- <th scope="row">{{ticket.id}}</th> -->
 
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}} " data-toggle="tooltip" title="Click to see ticket details!" data-placement="left">{{ticket.ticket_subtype}}</a></td>
               <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
               <td>{{ticket.last_updated |date:"D, d M ,Y" }}</td>
               <td>{{ticket.get_status_display}}</td>
@@ -100,4 +100,9 @@ main {
   margin-left: 200px; /* Same as the width of the sidenav */
   padding: 0px 10px;
 }</style>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 {% endblock  %}
