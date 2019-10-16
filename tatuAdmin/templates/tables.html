@@ -1,94 +1,105 @@
 {% extends 'tatuadmin/base.html'%}
 {% load static %}
-<!-- <!DOCTYPE html> -->
 
   {% block content %}
+  <section class="container" style="width:62em; padding-left:5em; padding-top:4em;">
+    <ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab" aria-controls="home-just"
+      aria-selected="true"><h5>Closed Tickets ({{closed_tickets|length }})</h5></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab" aria-controls="profile-just"
+      aria-selected="false"><h5>In progress Tickets ({{pending_tickets|length }})</h5></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab" aria-controls="contact-just"
+      aria-selected="false"></a>
+  </li>
+</ul>
+<div class="tab-content card pt-5" id="myTabContentJust">
+  <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+    <div class="row mt-2" style="padding-left:2em">
+      <h5>Closed Tickets ({{closed_tickets|length }})</h5>
+
+        <table class="table table-responsive mt-2">
+          <thead class="" style="background-color: #357EC7
+  ;color:black;">
+            <tr>
+              <!-- <th scope="col">#</th> -->
+              <th scope="col">Issue</th>
+              <th scope="col">Ticket Type</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Agent</th>
+              <th scope="col">Status</th>
+              <th scope="col">Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for ticket in closed_tickets %}
+            <tr>
+              <!-- <th scope="row">{{ticket.id}}</th> -->
+
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+              <td>{{ticket.ticket_type.name}}</td>
+              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+              <td>{{ticket.agent.username}}</td>
+              <td>{{ticket.get_status_display}}</td>
+              <td>{{ticket.ticket_type.get_priority_display}}</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+    </div>
+  </div>
+  <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
+      <div class="row mt-2" style="padding-left:2em">
+      <h5>In progress Tickets ({{pending_tickets|length }})</h5>
+  <br>
+        <table class="table table-responsive mt-2" >
+          <thead class="" style="background-color: #357EC7
+  ;color:black;">
+            <tr>
+              <!-- <th scope="col">#</th> -->
+              <th scope="col">Issue</th>
+              <th scope="col">Ticket Type</th>
+              <th scope="col">Date Created</th>
+              <th scope="col">Agent</th>
+              <th scope="col">Status</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Take/ Assign Ticket(s)</th>
+
+            </tr>
+          </thead>
+          <tbody>
+              {% for ticket in pending_tickets %}
+            <tr>
+              <!-- <th scope="row">{{ticket.id}}</th> -->
+
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+              <td>{{ticket.ticket_type.name}}</td>
+              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+              <td>{{ticket.agent.username}}</td>
+              <td>{{ticket.get_status_display}}</td>
+              <td>{{ticket.ticket_type.get_priority_display}}</td>
+              <td><a href="{%url 'assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
+            </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
+
+  </div>
+</div>
+  </section>
 <section class="container" style="float:right; padding-left:4em; margin-top:2em">
-  <div class="row mt-2">
-    <h5>Closed Tickets ({{closed_tickets|length }})</h5>
 
-      <table class="table table-responsive mt-2">
-        <thead class="" style="background-color: #357EC7
-;color:black;">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Date Created</th>
-            <th scope="col">Agent</th>
-            <th scope="col">Status</th>
-            <th scope="col">Priority</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for ticket in closed_tickets %}
-          <tr>
-            <th scope="row">{{ticket.id}}</th>
-
-            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
-            <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-            <td>{{ticket.agent.username}}</td>
-            <td>{{ticket.get_status_display}}</td>
-            <td>{{ticket.ticket_type.get_priority_display}}</td>
-
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-
-
-  </div>
-
-
-  <div class="row mt-2">
-    <h5>Pending Tickets ({{pending_tickets|length }})</h5>
-
-      <table class="table table-responsive mt-2" style="width:auto">
-        <thead class="" style="background-color: #357EC7
-;color:black;">
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <tr> -->
-            <!-- <th scope="col">#</th> -->
-            <!-- <th scope="col">Issue</th>
-            <th scope="col">Ticket Type</th>
-=======
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
->>>>>>> 959ce631c86c6d7a2fd3bd3eda8c935fc9caccbb
-=======
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
->>>>>>> f344ae16c0fad070336d8c2f1f4ff28f5a6d7af8
-            <th scope="col">Date Created</th>
-            <th scope="col">Agent</th>
-            <th scope="col">Status</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Action Ticket(s)</th>
-
-          </tr>
-        </thead>
-        <tbody>
-            {% for ticket in pending_tickets %}
-          <tr>
-            <th scope="row">{{ticket.id}}</th>
-
-            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
-=======
-            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
->>>>>>> f344ae16c0fad070336d8c2f1f4ff28f5a6d7af8
-            <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-            <td>{{ticket.agent.username}}</td>
-            <td>{{ticket.get_status_display}}</td>
-            <td>{{ticket.ticket_type.get_priority_display}}</td>
-            <td><a href="{%url 'assign_ticket' ticket.id %}">Re-Assign Ticket(s)</a> </td>
-          </tr>
-
-          {% endfor %}
-        </tbody>
-      </table>
-  </div>
  <!-- ==============modals========= -->
  {% for ticket in tickets  %}
  <div class="row mt-2">
