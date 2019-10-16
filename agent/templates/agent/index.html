@@ -219,8 +219,22 @@ th{
   </div>
   <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
     <table class="table table-responsive mt-2">
+      <thead class="thead" style="background-color: #357EC7
+  ;color:black;">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Title</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Agent</th>
+          <th scope="col">Status</th>
+          <th scope="col">Department</th>
+          <th scope="col">Ticket Number</th>
+          <!-- <th scope="col">Action</th> -->
+        </tr>
+      </thead>
+    <!-- <table class="table table-responsive mt-2">
       <thead class="thead-primary" style="background-color: #357EC7
-    ;color:black;">
+    ;color:black; width:100%; padding-inline:1.7em">
         <tr>
           <th scope="col"></th>
           <th scope="col">Title</th>
@@ -230,7 +244,7 @@ th{
           <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
         </tr>
-      </thead>
+      </thead> -->
       <tbody>
         {% for ticket in pending_tickets %}
         <tr>
@@ -252,7 +266,7 @@ th{
   <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
     <table class="table table-responsive mt-2">
       <thead class="thead-primary" style="background-color: #357EC7
-    ;color:black;">
+    ;color:white;">
         <tr>
           <th scope="col"></th>
           <th scope="col">Title</th>

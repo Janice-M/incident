@@ -1,7 +1,7 @@
 {%extends 'agent/base.html'%}
 {% block content %}
 <main >
-<div class="container" style="padding-left:12em; padding-top:8em; text-align:center">
+<div class="container container-fluid" style="padding-left:12em; padding-top:8em; text-align:center">
 
   <div class="row mt-2">
     {% if ticket %}
@@ -20,7 +20,7 @@
                 <table class="table table-responsive mt-2">
                     <thead class="thead">
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col"></th>
                             <th scope="col">Title</th>
                             <th scope="col">Date Created</th>
                             <th scope="col">Last Updated</th>
@@ -31,9 +31,9 @@
                     <tbody>
                         {% for ticket in ticket %}
                         <tr>
-                            <th scope="row">{{ticket.id}}</th>
+                            <th scope="row"></th>
 
-                            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+                            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_type}}</a></td>
                             <td>{{ticket.date_created }}</td>
                             <td>{{ticket.last_updated }}</td>
                             <td>{{ticket.get_status_display}}</td>
