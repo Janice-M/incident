@@ -14,6 +14,7 @@
                margin-right: auto;
                border-radius: 50%;height: 40px; content-align:center;">
              <a href="{% url 'admin_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a>
+
           </div>
           <!-- Divider -->
           <hr class="sidebar-divider my-0">
@@ -66,12 +67,12 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'change_password'%}" >
               <i class="fas fa-fw fa-folder"></i>
               <span>Change Password</span>
             </a>
-          </li>
+          </li> -->
 
 
           <!-- Nav Item - Tables -->
@@ -83,7 +84,7 @@
 
           </li>
           <div class="admin_profile" >
-             <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
+             <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
              {% else %}
              <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
 

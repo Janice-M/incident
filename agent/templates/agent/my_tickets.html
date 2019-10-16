@@ -1,49 +1,66 @@
 {% include 'agent/base.html'%}
 {% block content %}
-<section id="welcome-section" class="container" style="float:right; padding-left:4em; ">
-  <div class="row mt-2">
-    <h5>My Tickets ({{tickets|length }})</h5>
+<section class="container" style="width:62em; padding-left:5em; padding-top:4em;">
+  <ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
+<li class="nav-item">
+  <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab" aria-controls="home-just"
+    aria-selected="true"><h5>My Tickets ({{tickets|length }})</h5></a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab" aria-controls="profile-just"
+    aria-selected="false"><h5>Department Tickets ({{department_tickets|length }})</h5></a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab" aria-controls="contact-just"
+    aria-selected="false"></a>
+</li>
+</ul>
+<div class="tab-content card pt-5" id="myTabContentJust">
+<div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+  <div class="row mt-2" style="padding-left:2em">
 
-    <table class="table table-responsive mt-2">
-      <thead class="" style="background-color: #357EC7
-;color:black;">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Title</th>
-          <th scope="col">Agent</th>
-          <th scope="col">Status</th>
-          <th scope="col">Ticket Number</th>
-          <th scope="col">Re-Assign Ticket(s)</th>
-          <th scope="col">Resolve Ticket(s)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for ticket in tickets %}
-        <tr>
-          <th scope="row"> <b></b></th>
-
-          <td>{{ticket.ticket_subtype }}</td>
-          <td>{{ticket.agent.username}}</td>
-          <td>{{ticket.get_status_display}}</td>
-          <td>{{ticket.ticket_number}}</td>
-          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}" class="btn btn-primary btn-sm">Re-Assign Ticket(s)</a> </td>
-          <td><a href="{% url 'resolve_ticket' ticket.id %}" class="btn btn-info btn-sm">Resolve Ticket</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-
-  </div>
-
-  <div class="row mt-2">
-      <h5>Department Tickets ({{department_tickets|length }})</h5>
-  
       <table class="table table-responsive mt-2">
-        <thead class="thead-light" style="background-color: #357EC7
+        <thead class="" style="background-color: #357EC7
   ;color:black;">
           <tr>
             <th scope="col">ID</th>
+            <th scope="col">Title</th>
+
+            <th scope="col">Agent</th>
+            <th scope="col">Status</th>
+            <th scope="col">Ticket Number</th>
+            <th scope="col">Re-Assign Ticket(s)</th>
+            <th scope="col">Resolve Ticket(s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+          <tr>
+            <th scope="row"> <b></b></th>
+
+            <td>{{ticket.ticket_subtype }}</td>
+            <td>{{ticket.agent.username}}</td>
+            <td>{{ticket.get_status_display}}</td>
+            <td>{{ticket.ticket_number}}</td>
+            <td><a href="{% url 'take_or_assign_ticket' ticket.id %}" class="btn btn-primary btn-sm">Re-Assign Ticket(s)</a> </td>
+            <td><a href="{% url 'resolve_ticket' ticket.id %}" class="btn btn-info btn-sm">Resolve Ticket</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+  </div>
+</div>
+<div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
+    <div class="row mt-2" style="padding-left:2em">
+
+<br>
+      <table class="table table-responsive mt-2" >
+        <thead class="" style="background-color: #357EC7
+  ;color:white;">
+          <tr>
+            <th scope="col"></th>
             <th scope="col">Title</th>
             <th scope="col">Agent</th>
             <th scope="col">Status</th>
@@ -56,8 +73,8 @@
         <tbody>
           {% for ticket in department_tickets %}
           <tr>
-            <th scope="row">{{ticket.id}}</th>
-  
+            <th scope="row"></th>
+
             <td>{{ticket.ticket_subtype }}</td>
             <td>{{ticket.agent.username}}</td>
             <td>{{ticket.get_status_display}}</td>
@@ -69,10 +86,13 @@
           {% endfor %}
         </tbody>
       </table>
-  
-  
-    </div>
+  </div>
+</div>
+<div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
 
+</div>
+</div>
+</section>
   <!-- ==============modals========= -->
 
 </section>

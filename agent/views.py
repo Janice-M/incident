@@ -165,13 +165,13 @@ def create_ticket_for_customer(request):
             #subtype.subtype is the the str name for the subtype.Here we are fetching the ticket type
             ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
             ctform.ticket_type=ticket_type
-            
+
             owner_class=form.cleaned_data.get('customer')
             customer=User.objects.filter(username=owner_class.username).first()
             ctform.owner=customer
 
             ctform.status=Create_ticket.Open
-    
+
             val=randomStringDigits()
             ctform.ticket_number=str(current_user.id)+val
 
@@ -198,7 +198,7 @@ def search_tickets(request):
         'message':f"{search_term}",
         'ticket':ticketi
         }
-        
+
         return render(request,'agent/search.html',context)
 
     else :

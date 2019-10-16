@@ -23,10 +23,9 @@
 
           <h4 style="font-family: 'fantasy', cursive;color: #b2def2; size:15px" class="text-center">Create Ticket</h4>
           {% csrf_token %}
-          
-          {{form | crispy}}
-       
-         
+          {% bootstrap_form form layout='label'%}
+
+
           <div class="form-group">
                 <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Create ticket</button>
             </div>
