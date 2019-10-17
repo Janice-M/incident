@@ -225,4 +225,5 @@ def search_issues(request):
         context={
         'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
         }
+        
     return render(request,'customer/searches.html',context)
