@@ -1,11 +1,11 @@
 {% include 'customer/base.html'%}
 {% block content %}
-<main>
+<main style="padding-top:10%;">
 
-<section id="welcome-section" class="container">
+<section id="welcome-section" class="container-fluid" >
   <div class="row">
 <div class="col-lg-5 col-sm-2">
-  <h4 style="font-family: 'fantasy', cursive;color: #357EC7; size:15px" class="text-center">My Tickets ({{tickets|length }})</h4>
+  <h4 style="font-family: 'fantasy', cursive;color: #357EC7;" class="text-center">My Tickets ({{tickets|length }})</h4>
 
 </div>
 <div class="col-lg-2 col-sm-2">
@@ -14,13 +14,13 @@
 <div class="col-lg-1 col-sm-1">
 
 </div>
-<div class="col-lg-4 col-sm-2">
+<div class="col-lg-4 col-sm-2" style="position:fixed; display:flex;flex-direction:right; padding-left:42%;">
 
                 <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_results' %}">
 
                     <div class="search">
 
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket"><i class="fa fa-search"></i>
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
 
                   </div>
 
@@ -28,12 +28,12 @@
 </div>
   </div>
 
-    <div class="row mt-2">
+    <div class="row mt-2 row-fluid" style="padding-left:13%;">
 
-        <table class="table table-primary">
-          <thead class="" class="" style="background-color: #357EC7
-  ;color:black;">
-            <tr style="background-color:#357EC7">
+        <table class="table table-primary table-responsive" style="width:auto;">
+          <thead class="thead-primary" style="background-color: #357EC7
+        ;color:white;">
+            <tr >
               <!-- <th scope="col">#</th> -->
               <th scope="col">Title</th>
               <th scope="col">Date Created</th>

@@ -39,7 +39,7 @@ th{
 </style>
 {% block content %}
 
-<section id="welcome-section" class="container" style="float:right; padding-left:2em; ">
+<section id="welcome-section" class="container-fluid" style="float:right; padding-left:2em; ">
   <section style="padding-top:2em">
     <div class="row">
       <div class="col-lg-4 col-sm-2">
@@ -224,7 +224,7 @@ th{
         <tr>
           <th scope="col"></th>
           <th scope="col">Title</th>
-          <th scope="col"></th>
+          <th scope="col">Ticket Type</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
@@ -233,25 +233,12 @@ th{
           <!-- <th scope="col">Action</th> -->
         </tr>
       </thead>
-    <!-- <table class="table table-responsive mt-2">
-      <thead class="thead-primary" style="background-color: #357EC7
-    ;color:black; width:100%; padding-inline:1.7em">
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Title</th>
-          <th scope="col">Date Created</th>
-          <th scope="col">Agent</th>
-          <th scope="col">Status</th>
-          <th scope="col">Department</th>
-          <th scope="col">Ticket Number</th>
-        </tr>
-      </thead> -->
       <tbody>
         {% for ticket in pending_tickets %}
         <tr>
           <th scope="row"></th>
 
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype }}</a></td>
+          <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.ticket_type.name}}</td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
           <td>{{ticket.agent.username}}</td>
