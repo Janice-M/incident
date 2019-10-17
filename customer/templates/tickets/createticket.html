@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <main>
-<div class="container ">
+<div class="container-fluid ">
 <div class="row">
   <div class="col-md-">
 
@@ -19,7 +19,7 @@
       </div>
       <div class="col-md-6 mt-5">
 
-        <form  class="text-center border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:;width: 500px" id="createTicketForm" data-subtypes-url="{% url 'ajax_load_subtypes'%}">
+        <form  class="text-left border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:;width: 500px" id="createTicketForm" data-subtypes-url="{% url 'ajax_load_subtypes'%}">
 
           <h4 style="font-family: 'fantasy', cursive;color: #b2def2; size:15px" class="text-center">Create Ticket</h4>
           {% csrf_token %}

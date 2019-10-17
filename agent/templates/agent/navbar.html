@@ -48,29 +48,37 @@
         <span>Create Ticket</span></a>
     </li>
 
-  <div class="agent_profile" >
-    <!-- <img src="{{user.profile.profile_photo.url}}" alt="" style="width:40px;display: block;
-       margin-left: auto;
-       margin-right: auto;
-       border-radius: 50%;height: 40px; content-align:center;">
-     <a href="{% url 'agent_profile' %}" class="nav-item nav-link" style="padding-left:2em; color:white !important">Welcome {{user.username}}</a> -->
-     <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
-     {% else %}
-     <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
+    <li class="nav-item">
 
-  </div>
+        <a class="nav-link" href="{% url 'logout' %}">
 
-{% endif %}
-  <!-- Divider -->
-  <hr class="sidebar-divider d-none d-md-block">
+          <i class="fas fa-sign-out-alt"></i>
 
-  <!-- Sidebar Toggler (Sidebar) -->
-  <div class="text-center d-none d-md-inline" style="padding-left:3em">
-    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-  </div>
+          <span>Logout</span></a>
 
-</ul>
-<!-- End of Sidebar -->
+      </li>
+
+       {% else %}
+       <li class="nav-item">
+
+           <a class="nav-link" href="{% url 'login' %}">
+
+             <i class="fas fa-sign-in"></i>
+
+             <span>Logout</span></a>
+
+         </li>
 
 
-<!-- /Here we begin the new navbaR -->
+    {% endif %}
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline" style="padding-left:-3em;margin-left: auto;
+    margin-right: auto;">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+    </ul>
+    <!-- End of Sidebar -->
