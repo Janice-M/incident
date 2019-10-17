@@ -1,5 +1,5 @@
-{% extends 'customer/base1.html'%} {% load bootstrap4 %} {% load static %} {%
-block content %}
+{% extends 'customer/base1.html'%} {% load bootstrap4 %} {% load static %} 
+{% block content %}
 
 <div class="container ">
   <div class="row">
@@ -63,73 +63,4 @@ block content %}
     }
   </style>
 
-  {% endblock content %} {% extends 'customer/base1.html'%} {% load bootstrap4
-  %} {% load static %} {% block content %}
-
-  <div class="container ">
-    <div class="row">
-      <div class="col-md-"></div>
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-6 mt-5 nosho"></div>
-          <div class="col-md-6 mt-5">
-            <form
-              class="text-center border border-light p-5"
-              action=""
-              method="post"
-              style=" border-radius: 15px solid lightgrey; padding:7%; background-color:white;width: 500px"
-            >
-              <h4 style=" color: #357EC7;size: 20px" class="text-center">
-                Welcome back to tatu connect
-              </h4>
-              <h4 style="color: #357EC7; size:15px" class="text-center">
-                Login
-              </h4>
-
-              <div class="" style="text-align:left;">
-                {% csrf_token %} {% bootstrap_form form layout='label'%}
-              </div>
-
-              <div class="form-group">
-                <button
-                  class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect"
-                  type="submit"
-                >
-                  Login
-                </button>
-              </div>
-              <small class="text-muted">
-                <a href="{% url 'password_reset' %}">Forgot Password?</a>
-              </small>
-              <!-- <input type="hidden" name="next" value="{{next}}"> -->
-              <div
-                class="row"
-                style="border: 2px solid lightgrey; padding:7%; background-color:white;"
-              >
-                <p>
-                  Don't have an account?
-                  <a href="{% url 'register' %}">Sign Up</a>
-                </p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <style>
-      body {
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-image: url("https://images.unsplash.com/photo-1415889129442-70faf6ef3bcd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1532&q=80");
-        background-size: cover;
-        background-position: center;
-        height: auto;
-        background-repeat: no-repeat;
-      }
-    </style>
-
-    {% endblock content %}
-  </div>
-</div>
+  {% endblock content %} 
