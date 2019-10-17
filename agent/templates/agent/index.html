@@ -1,9 +1,67 @@
-{% extends 'agent/base.html'%}
-{% load bootstrap4 %}
-{% load static %}
-{% block content %}
-<section id="welcome-section" class="container" style="float:right; padding-left:4em; ">
+{% include 'agent/base.html'%}
+<style media="screen">
+  body {
+    /* padding : 10px ; */
 
+  }
+th{
+  color:white;
+}
+  #exTab1 .tab-content {
+    color : black;
+    background-color: #fff;
+    padding : 5px 15px;
+  }
+
+  #exTab2 h3 {
+    color : black;
+    background-color: #fff;
+    padding : 5px 15px;
+  }
+
+  remove border radius for the tab
+
+  #exTab1 .nav-pills > li > a {
+    border-radius: 0;
+  }
+
+  /* change border radius for the tab , apply corners on top*/
+
+  #exTab3 .nav-pills > li > a {
+    border-radius: 4px 4px 0 0 ;
+  }
+
+  #exTab3 .tab-content {
+    color : black;
+    background-color: #fff;
+    /* padding : 5px 15px; */
+  }
+</style>
+{% block content %}
+
+<section id="welcome-section" class="container-fluid" style="float:right; padding-left:2em; ">
+  <section style="padding-top:2em">
+    <div class="row">
+      <div class="col-lg-4 col-sm-2">
+
+      </div>
+      <div class="col-lg-4 col-sm-2">
+
+      </div>
+      <div class="col-lg-4 col-sm-2" style="float:right">
+
+                      <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_tickets' %}">
+
+                          <div class="search">
+
+                          <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket"><i class="fa fa-search"></i>
+
+                        </div>
+
+                      </form>
+      </div>
+    </div>
+  </section>
   <!-- ############# Open Tickets ############### -->
     <section id="welcome-section" class="container" style="float:right; padding-left:4em; margin-top:2em">
       <section class="row">
@@ -38,7 +96,7 @@
                  <div class="card-body">
                    <div class="row no-gutters align-items-center">
                      <div class="col mr-2">
-                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pending Tickets </div>
+                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">In Progress Tickets </div>
                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{pending_tickets|length }}</div>
                        <div class="col">
                          <div class="progress progress-sm mr-2">
@@ -111,27 +169,41 @@
                  </div>
                </div>
     <!-- ##########################End My Ticket ########################## -->
-  <div class="row mt-2">
-    <h5>Open Tickets ({{tickets|length }})</h5>
-
+<section>
+  <ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab" aria-controls="home-just"
+      aria-selected="true">Open Tickets ({{tickets|length }})</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab" aria-controls="profile-just"
+      aria-selected="false">In Progress Tickets ({{pending_tickets|length }})</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab" aria-controls="contact-just"
+      aria-selected="false">Closed Tickets ({{closed_tickets|length }})</a>
+  </li>
+</ul>
+<div class="tab-content card pt-5" id="myTabContentJust">
+  <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
     <table class="table table-responsive mt-2">
-      <thead class="thead-primary" style="background-color: #357EC7
-;color:black;">
+      <thead class="thead" style="background-color: #357EC7
+  ;color:black;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"></th>
           <th scope="col">Title</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
           <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
-          <th scope="col">Action Ticket(s)</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         {% for ticket in tickets %}
         <tr>
-          <th scope="row">{{ticket.id}}</th>
+            <th scope="row" style="width:7.2em"></th>
 
           <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
@@ -139,37 +211,34 @@
           <td>{{ticket.get_status_display}}</td>
           <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
-          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}" class="btn btn-primary btn-sm">Action</a> </td>
+          <td><button type="button" name="button" class="btn btn-primary outline" style="color:white; background-color:#4e73df;"><a href="{% url 'take_or_assign_ticket' ticket.id %}" style="color:white; background-color:#4e73df;">Action</a> </button></td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
-
-
   </div>
-
-  <div class="row mt-2">
-    <h5>Closed Tickets</h5>
-
+  <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
     <table class="table table-responsive mt-2">
-      <thead class="thead-primary" style="background-color: #357EC7
-;color:black;">
+      <thead class="thead" style="background-color: #357EC7
+  ;color:black;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"></th>
           <th scope="col">Title</th>
+          <th scope="col">Ticket Type</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
           <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
+          <!-- <th scope="col">Action</th> -->
         </tr>
       </thead>
       <tbody>
-        {% for ticket in closed_tickets %}
+        {% for ticket in pending_tickets %}
         <tr>
-          <th scope="row">{{ticket.id}}</th>
+          <th scope="row"></th>
 
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype }}</a></td>
+          <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.ticket_type.name}}</td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
           <td>{{ticket.agent.username}}</td>
@@ -177,34 +246,30 @@
           <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
         </tr>
+
         {% endfor %}
       </tbody>
     </table>
-
-
   </div>
-
-
-  <div class="row mt-2">
-    <h5>Pending Tickets</h5>
-
+  <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
     <table class="table table-responsive mt-2">
       <thead class="thead-primary" style="background-color: #357EC7
-;color:black;">
+    ;color:white;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"></th>
           <th scope="col">Title</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
           <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
+          <th scope="col" style="width:7.2em">Action</th>
         </tr>
       </thead>
       <tbody>
-        {% for ticket in pending_tickets %}
+        {% for ticket in closed_tickets %}
         <tr>
-          <th scope="row">{{ticket.id}}</th>
+          <th scope="row" style="width:2em"></th>
 
           <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype }}</a></td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
@@ -212,14 +277,56 @@
           <td>{{ticket.get_status_display}}</td>
           <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
+          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Action</a> </td>
         </tr>
-
         {% endfor %}
       </tbody>
     </table>
   </div>
+</div>
+</section>
+
   <!-- ==============modals========= -->
-  
+
+  {% for ticket in tickets  %}
+  <div class="row mt-2">
+
+    <!-- Modal -->
+    <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card card-body">
+              <h6>Ticket Number:{{ticket.ticket_number}}</h6>
+              <p class="card-text">{{ticket.summary}}</p>
+              <li class="list-group">
+              <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
+              <li class="list-group-item">Email: {{ticket.owner.email}}</li>
+              <li class="list-group-item">Status: {{ticket.get_status_display}}</li>
+              <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
+              <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
+              <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% endfor %}
+
   <!-- ==============modals========= -->
   {% for ticket in closed_tickets  %}
   <div class="row mt-2">
@@ -246,7 +353,7 @@
               <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
               <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
               <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
+
             </div>
           </div>
           <div class="modal-footer">
@@ -287,7 +394,7 @@
               <li class="list-group-item">Date Created: {{ticket.date_created |date:"D, d M ,Y"}}</li>
               <li class="list-group-item">Priority: {{ticket.ticket_type.get_priority_display}}</li>
               <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-              </li>
+
             </div>
           </div>
           <div class="modal-footer">

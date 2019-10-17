@@ -79,7 +79,7 @@ class Create_ticket(models.Model):
 
     @classmethod
     def get_my_tickets(cls,owner):
-        my_tickets=cls.objects.filter(owner=owner).all()
+        my_tickets=cls.objects.filter(owner=owner).all().order_by('-date_created')
         return my_tickets
 
     @classmethod
@@ -108,9 +108,14 @@ class Create_ticket(models.Model):
     @classmethod
     def get_tickets_by_department(cls,department):
         tickets=cls.objects.filter(status=cls.Open).filter(department=department).all()
-        return tickets    
+        return tickets
 
     @classmethod
     def search_my_tickets(cls,owner,search_term):
-        ticket=cls.objects.filter(owner=owner).filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term) )
+        ticket=cls.objects.filter(owner=owner).filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term)|Q(ticket_subtype__subtype__icontains=search_term))
         return ticket
+
+    @classmethod
+    def search_all_tickets(cls,search_term):
+        tickets=cls.objects.filter(Q(issue__icontains=search_term) |Q(ticket_number__icontains=search_term)|Q(summary__icontains=search_term)|Q(ticket_subtype__subtype__icontains=search_term))
+        return tickets

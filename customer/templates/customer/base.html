@@ -21,37 +21,42 @@
 ​
         <!-- Custom styles for this template-->
         <link href="{% static  'css/sb-admin-2.min.css' %}" rel="stylesheet">
-​
+<style media="screen">
+thead{
+  color:white;
+  background-color:#357EC7;
+}
+
+h1{
+  font-size: 1vw;
+}
+h2{
+  font-size: 1vw;
+}
+h3{
+  font-size: 1vw;
+}
+h4{
+  font-size: 1.9vw;
+}
+h5{
+  font-size: 1vw;
+}
+</style>
         {% endblock styles %}
     </head>
-​
-    <body>
+
+    <body class="">
+      <style media="screen">
+        form{
+        color:black;}
+      </style>
         {% include 'customer/navbar.html'%}
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <!-- flash messages -->
-                    {% if  messages %}
-                    {% for mssg in messages  %}
-                    <div class="alert alert-{{mssg.tags}}">
-                        {{mssg}}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                    <!-- end flash messages -->
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-        </div>
-        {% block content %}
-        {% endblock content %}
+       
         {% block scripts %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="{% static 'js/jquerys.min.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src=" {% static 'js/popper.min.js' %}"></script>
         <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>
         <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js ' %}"></script>
 ​
@@ -61,7 +66,7 @@
         <!-- Custom scripts for all pages-->
         <script src=" {% static 'js/sb-admin-2.min.js' %}"></script>
         {% bootstrap_javascript%}
-        <script src="{% static 'js/tatuadmin.js'%}"></script>
+        <!-- <script src="{% static 'js/tatuadmin.js'%}"></script> -->
         {% endblock scripts %}
     </body>
 ​

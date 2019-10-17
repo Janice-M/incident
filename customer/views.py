@@ -68,7 +68,7 @@ def register(request):
                 email=EmailMessage(mail_subject,message,to=[to_email])
                 email.send()
 
-                # user.refresh_from_db() 
+                # user.refresh_from_db()
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.profile.is_customer= True
@@ -110,10 +110,10 @@ def activate(request, uidb64, token):
             # redirect newly created agent to change their password
 
             return redirect(agent_views.agent_change_password)
-               
+
 
         return redirect('index')
-        
+
 
     else:
         return HttpResponse('Activation link is invalid!')
@@ -129,11 +129,11 @@ def index(request):
 
     if current_user.is_superuser==True:
 
-        print(current_user.is_superuser,"yeeeeeeeeeeeeeeeeeeah")
+        print(current_user.is_superuser,"yeah")
         return redirect(tatuAdmin_views.admin_home)
 
     elif current_user.profile.is_staff==True and current_user.profile.is_customer==False:
-        print(current_user.is_superuser,"ageeeeeeeeeeeeeeeeeeeeeeeeeeent")
+        print(current_user.is_superuser,"agent")
         return redirect(agent_views.agent_home)
 
     else :
@@ -159,10 +159,10 @@ def create_ticket(request):
             ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
             ctform.ticket_type=ticket_type
             print(ticket_type,type(ticket_type),"subtypeeeeeeeeeeeeeeeeeeeee")
-            
+
             ctform.status=Create_ticket.Open
             ctform.owner=current_user
-    
+
             val=randomStringDigits()
             ctform.ticket_number=str(current_user.id)+val
 
@@ -206,10 +206,9 @@ def profile(request):
     return render(request,'registration/profile.html',context)
 
 
-def search_results(request):
+def search_issues(request):
     current_user=request.user
     if 'ticket' in request.GET and request.GET['ticket']:
-
 
         search_term=request.GET.get('ticket')
         ticketi=Create_ticket.search_my_tickets(current_user,search_term)
@@ -219,11 +218,11 @@ def search_results(request):
         'ticket':ticketi
         }
 
-        return render(request,'customer/search.html',context)
+        return render(request,'customer/searches.html',context)
 
     else :
 
         context={
         'message':"Sorry, but the ticket seems not to exist or the ticket number is incorrect! Please check the ticket number and try again "
         }
-    return render(request,'customer/search.html',context)
+    return render(request,'customer/searches.html',context)

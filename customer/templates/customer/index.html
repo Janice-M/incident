@@ -1,11 +1,11 @@
 {% include 'customer/base.html'%}
 {% block content %}
-<main>
+<main style="padding-top:10%;">
 
-<section id="welcome-section" class="container">
+<section id="welcome-section" class="container-fluid" >
   <div class="row">
 <div class="col-lg-5 col-sm-2">
-  <h4 style="font-family: 'fantasy', cursive;color: #357EC7; size:15px" class="text-center">My Tickets ({{tickets|length }})</h4>
+  <h4 style="font-family: 'fantasy', cursive;color: #357EC7;" class="text-center">My Tickets ({{tickets|length }})</h4>
 
 </div>
 <div class="col-lg-2 col-sm-2">
@@ -14,13 +14,13 @@
 <div class="col-lg-1 col-sm-1">
 
 </div>
-<div class="col-lg-4 col-sm-2">
+<div class="col-lg-4 col-sm-2" style="float:right; display:flex;flex-direction:right; padding-left:62%;">
 
                 <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_results' %}">
 
                     <div class="search">
 
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket"><i class="fa fa-search"></i>
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
 
                   </div>
 
@@ -28,12 +28,13 @@
 </div>
   </div>
 
-    <div class="row mt-2">
+    <div class="row mt-2 row-fluid" style="padding-left:13%;">
 
-        <table class="table table-primary">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
+        <table class="table table-primary table-responsive" style="width:auto;">
+          <thead class="thead-primary" style="background-color: #357EC7
+        ;color:white;">
+            <tr >
+              <!-- <th scope="col">#</th> -->
               <th scope="col">Title</th>
               <th scope="col">Date Created</th>
               <th scope="col">Last Updated</th>
@@ -44,9 +45,9 @@
           <tbody>
               {% for ticket in tickets %}
             <tr>
-              <th scope="row">{{ticket.id}}</th>
+              <!-- <th scope="row">{{ticket.id}}</th> -->
 
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}} " data-toggle="tooltip" title="Click to see ticket details!" data-placement="left">{{ticket.ticket_subtype}}</a></td>
               <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
               <td>{{ticket.last_updated |date:"D, d M ,Y" }}</td>
               <td>{{ticket.get_status_display}}</td>
@@ -82,7 +83,7 @@
          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
         </div>
       </div>
     </div>
@@ -99,4 +100,9 @@ main {
   margin-left: 200px; /* Same as the width of the sidenav */
   padding: 0px 10px;
 }</style>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 {% endblock  %}
