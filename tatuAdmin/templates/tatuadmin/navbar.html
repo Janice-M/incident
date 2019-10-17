@@ -83,19 +83,35 @@
 
 
           </li>
-          <div class="admin_profile" >
-             <a href="{% url 'logout' %}" class="nav-item nav-link" style="padding-left:2em; color:white!important"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400">Log Out</i></a>
-             {% else %}
-             <a href="{% url 'login' %}" class="nav-item nav-link"><i class="fas fa-fw fa-sign-in fa-1x"></i>Log In</a>
+          <li class="nav-item">
 
-          </div>
+              <a class="nav-link" href="{% url 'logout' %}">
+
+                <i class="fas fa-sign-out-alt"></i>
+
+                <span>Logout</span></a>
+
+            </li>
+
+             {% else %}
+             <li class="nav-item">
+
+                 <a class="nav-link" href="{% url 'login' %}">
+
+                   <i class="fas fa-sign-in"></i>
+
+                   <span>Logout</span></a>
+
+               </li>
+
 
         {% endif %}
           <!-- Divider -->
           <hr class="sidebar-divider d-none d-md-block">
 
           <!-- Sidebar Toggler (Sidebar) -->
-          <div class="text-center d-none d-md-inline" style="padding-left:3em">
+          <div class="text-center d-none d-md-inline" style="padding-left:-3em;margin-left: auto;
+          margin-right: auto;">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
           </div>
 
