@@ -2,11 +2,14 @@
 {% load static %}
 <!-- <!DOCTYPE html> -->
 
+<div class="container container-fluid">
+
+
   {% block content %}
 <!-- <body id="page-top"> -->
 
   <!-- Page Wrapper -->
-  <section style="padding-top:2em">
+  <section style="padding-top:2em" class="card-body card-fluid">
     <div class="row">
       <div class="col-lg-4 col-sm-2">
 
@@ -30,12 +33,15 @@
   </section>
 
 <!-- ############# Open Tickets ############### -->
-  <section id="welcome-section" class="container" style="float:right; padding-left:4em; margin-top:2em">
-    <section class="row">
+  <section id="welcome-section" class="card-body card-fluid" style=" padding-left:25%; margin-top:2em">
+    <section class="row row-fluid card-body">
+      <!-- <div class="col-sm-1 col-xl-0">
+
+      </div> -->
            <div class="col-xl-3 col-md-6 mb-4">
              <div class="card border-left-primary shadow h-100 py-2">
-               <div class="card-body">
-                 <div class="row no-gutters align-items-center">
+               <div class="card-body card-fluid">
+                 <div class="row no-gutters align-items-center row-fluid">
                    <div class="col mr-2">
                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Open Tickets</div>
                      <div class="row no-gutters align-items-center">
@@ -73,7 +79,7 @@
                    </div>
 
                    <div class="col-auto">
-                     <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard fa-2x text-gray-300"></i>
                    </div>
 
                  </div>
@@ -108,16 +114,19 @@
                </div>
              </div>
            </div>
+           <div class="col-sm-1 col-fluid">
+
+           </div>
 <!-- ##########################End Closed Ticket ########################## -->
     </section>
-      <div class="row mt-2">
+      <div class="row mt-2 row-fluid" padding-left:3%;>
         <h5>Open Tickets ({{tickets|length }})</h5>
 
           <table class="table table-responsive mt-2" style="color:black; overflow:hidden">
             <thead class="" style="background-color: #357EC7
 ;color:black;">
               <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Title</th>
                 <th scope="col">Date Created</th>
                 <th scope="col">Agent</th>
@@ -149,10 +158,10 @@
 
      <!-- ==============modals========= -->
      {% for ticket in tickets  %}
-     <div class="row mt-2">
+     <div class="row mt-2 row-fluid">
 
   <!-- Modal -->
-  <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade modal-fluid" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
@@ -188,10 +197,10 @@
 
      <!-- ==============modals========= -->
      {% for ticket in closed_tickets  %}
-     <div class="row mt-2">
+     <div class="row mt-2 row-fluid">
 
   <!-- Modal -->
-  <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade modal-fluid" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
@@ -231,7 +240,7 @@
       <div class="row mt-2">
 
   <!-- Modal -->
-  <div class="modal primary " id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal primary modal-fluid" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -268,3 +277,4 @@
   </section>
 
     {% endblock %}
+</div>

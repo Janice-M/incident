@@ -39,7 +39,7 @@ th{
 </style>
 {% block content %}
 
-<section id="welcome-section" class="container" style="float:right; padding-left:2em; ">
+<section id="welcome-section" class="container-fluid" style="float:right; padding-left:2em; ">
   <section style="padding-top:2em">
     <div class="row">
       <div class="col-lg-4 col-sm-2">
@@ -190,7 +190,7 @@ th{
       <thead class="thead" style="background-color: #357EC7
   ;color:black;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"></th>
           <th scope="col">Title</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
@@ -219,16 +219,18 @@ th{
   </div>
   <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
     <table class="table table-responsive mt-2">
-      <thead class="thead-primary" style="background-color: #357EC7
-    ;color:black;">
+      <thead class="thead" style="background-color: #357EC7
+  ;color:black;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"></th>
           <th scope="col">Title</th>
+          <th scope="col">Ticket Type</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
           <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
+          <!-- <th scope="col">Action</th> -->
         </tr>
       </thead>
       <tbody>
@@ -236,7 +238,7 @@ th{
         <tr>
           <th scope="row"></th>
 
-          <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype }}</a></td>
+          <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.ticket_type.name}}</td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
           <td>{{ticket.agent.username}}</td>
@@ -252,15 +254,16 @@ th{
   <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
     <table class="table table-responsive mt-2">
       <thead class="thead-primary" style="background-color: #357EC7
-    ;color:black;">
+    ;color:white;">
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col"></th>
           <th scope="col">Title</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
           <th scope="col">Status</th>
           <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
+          <th scope="col" style="width:7.2em">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -284,7 +287,7 @@ th{
 </section>
 
   <!-- ==============modals========= -->
-  
+
   {% for ticket in tickets  %}
   <div class="row mt-2">
 

@@ -68,7 +68,7 @@ def register(request):
                 email=EmailMessage(mail_subject,message,to=[to_email])
                 email.send()
 
-                # user.refresh_from_db() 
+                # user.refresh_from_db()
                 createdUser=User.objects.filter(email=useremail).first()
                 createdUser.profile.phone_number=userphonenumber
                 createdUser.profile.is_customer= True
@@ -110,10 +110,10 @@ def activate(request, uidb64, token):
             # redirect newly created agent to change their password
 
             return redirect(agent_views.agent_change_password)
-               
+
 
         return redirect('index')
-        
+
 
     else:
         return HttpResponse('Activation link is invalid!')
@@ -159,10 +159,10 @@ def create_ticket(request):
             ticket_type=TicketSubType.objects.filter(subtype=subtype.subtype).first().ticket
             ctform.ticket_type=ticket_type
             print(ticket_type,type(ticket_type),"subtypeeeeeeeeeeeeeeeeeeeee")
-            
+
             ctform.status=Create_ticket.Open
             ctform.owner=current_user
-    
+
             val=randomStringDigits()
             ctform.ticket_number=str(current_user.id)+val
 

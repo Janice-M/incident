@@ -32,12 +32,12 @@ class ProfileUpdateForm(forms.ModelForm):
 class CreateTicketForm(forms.ModelForm):
     class Meta:
         model=Create_ticket
-        fields=['ticket_subtype','summary',] 
+        fields=['ticket_subtype','summary',]
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.fields['ticket_subtype'].label='Title'
-        
+
     #     if 'ticket_type_id' in self.data:
     #         try:
     #             type_id=int(self.data.get('ticket_type_id'))
@@ -46,13 +46,4 @@ class CreateTicketForm(forms.ModelForm):
     #             pass
     #     elif self.instance.pk:
     #         type_id=int(self.data.get('ticket_type_id'))
-    #         self.fields['ticket_subtype'].queryset=TicketSubType.objects.filter(ticket=type_id).all() 
-
-
-   
-
-
-
-
-
-
+    #         self.fields['ticket_subtype'].queryset=TicketSubType.objects.filter(ticket=type_id).all()
