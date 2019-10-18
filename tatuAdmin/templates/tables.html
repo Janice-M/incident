@@ -85,7 +85,7 @@
               <td>{{ticket.agent.username}}</td>
               <td>{{ticket.get_status_display}}</td>
               <td>{{ticket.ticket_type.get_priority_display}}</td>
-              <td><a href="{%url 'assign_ticket' ticket.id %}" data-toggle="tooltip" title="Click to reasign ticket" data-placement="left">Re-Assign Ticket</a> </td>
+              <td><a href="{%url 'assign_ticket' ticket.id %}" class="btn btn-primary" data-toggle="tooltip" title="Click to reasign ticket" data-placement="left">Re-Assign Ticket</a> </td>
             </tr>
 
             {% endfor %}

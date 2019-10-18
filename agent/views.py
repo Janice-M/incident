@@ -134,7 +134,7 @@ def resolve_ticket(request,pk):
                 resolve_form.agent=request.user
                 resolve_form.save()
 
-                send_status_email(ticket.owner.username,ticket.owner.email,ticket.ticket_number,ticket.status)
+                send_status_email(ticket.owner.username,ticket.owner.email,ticket.ticket_number,ticket.get_status_display)
 
                 messages.success(request,f'Ticket {resolve_form.issue} has change from pending to Closed !')
                 return redirect('my_tickets')

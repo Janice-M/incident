@@ -3,9 +3,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container" style="float:right; padding-left:4em; margin-top:4em">
+<div class="container-fluid" style="float:right; padding-left:20%; margin-top:4em">
   <div class="row mt-2">
-    <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_agent'%}"
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'create_agent'%}" data-toggle="tooltip" title="Click to create agents!" data-placement="left"
       >Create Agent/Admin</a
     >
   </div>
@@ -29,7 +29,7 @@
           {% for profile in profiles %}
         <tr>
           <th scope="row">{{profile.user.id}}</th>
-          <td><a href="{% url 'edit_agent' profile.user.id %}">{{profile.user.username}}</a></td>
+          <td><a href="{% url 'edit_agent' profile.user.id %}" data-toggle="tooltip" title="Click to manage agent!" data-placement="top">{{profile.user.username}}</a></td>
           <td>{{profile.user.email}}</td>
           <td>{{profile.phone_number}}</td>
           <td>{{profile.is_staff}}</td>
@@ -41,6 +41,11 @@
 
 
 </div>
-<!-- row -->
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 </div>
+
 {% endblock content %}
