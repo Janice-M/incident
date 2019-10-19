@@ -3,31 +3,22 @@
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
 {% block content %}
-<main>
+<main id="content">
 <div class="container-fluid ">
-<div class="row">
-  <div class="col-md-">
+<!-- <div class="row"> -->
 
-  </div>
-  <div class="col-md-6">
-    <div class="row">
-      <div class="col-md-6 mt-5 nosho">
+    <div class="card-body "  style="padding-left:26%">
+      <div class="card">
 
+        <form  class="text-left border border-light p-5 shadow mb-4 "action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:;width: 100%" id="createTicketForm" data-subtypes-url="{% url 'ajax_load_subtypes'%}">
 
-
-
-      </div>
-      <div class="col-md-6 mt-5">
-
-        <form  class="text-left border border-light p-5"action="" method="post" style=" border-radius: 15px solid lightgrey; padding:7%; background-color:;width: 500px" id="createTicketForm" data-subtypes-url="{% url 'ajax_load_subtypes'%}">
-
-          <h4 style="font-family: 'fantasy', cursive;color: #b2def2; size:15px" class="text-center">Create Ticket</h4>
+          <h4 style="font-family: 'fantasy', cursive;color: #4e73df; size:15px" class="text-center">Create Ticket</h4>
           {% csrf_token %}
           {% bootstrap_form form layout='label'%}
 
 
           <div class="form-group">
-                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Create ticket</button>
+                <button class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Create ticket</button>
             </div>
 
 
@@ -35,22 +26,18 @@
       </div>
     </div>
   </div>
-  <div class="col-md-1">
-</div>
-</div>
+  <!-- <div class="col-md-1">
+</div> -->
+<!-- </div> -->
 </main>
 <style>
-body{
-background-color:;}
-main {
-  margin-left: 160px; /* Same as the width of the sidenav */
-  padding: 0px 10px;
-}</style>
+
+</style>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
   $("#id_ticket_type").change(function () {
-    var url = $("#createTicketForm").attr("data-subtypes-url");  // get the url of the `load_subtypes` view
+    var url = $("#createTicketForm").attr("data-subtypes-url");  // get the url of the `licket_subtypes` view
     var type_id = $(this).val();  // get the selected type ID from the HTML input
 
     $.ajax({                       // initialize an AJAX request
