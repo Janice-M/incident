@@ -11,15 +11,15 @@
       </div>
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="card">
+            <div class="card shadow mb-4">
             <div class="card-header">
-                    <legend class="mb-4">Action Ticket</legend>
+                    <legend class="mb-4">Assign Ticket</legend>
 
             <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
                     <legend class="mb-4">Action Ticket</legend>
 
-                </div>
+                </div> -->
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item">Owner: {{ticket.owner.username}}</li>
@@ -35,7 +35,7 @@
                         {{form | crispy}}
                     </fieldset>
                     <div class="form-group">
-                        <button class="btn btn-outline-primary" type="submit">Action</button>
+                        <button class="btn btn-outline-primary" type="submit">Assign </button>
                     </div>
                 </form>
             </div>

@@ -3,49 +3,64 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container" style="float:right; padding-left:4em; margin-top:4em">
-  <div class="row mt-2">
-    <a class="btn btn-sm btn-outline-secondary " href="{% url 'create_ticket' %}"
-      >Create Ticket Type</a
-    >
-    <a class="btn btn-sm btn-outline-info ml-2" href="{% url 'create_ticket_subtype' %}"
-      >Create Ticket Subtype</a
-    >
+<section id="content" class="container-fluid">
+  <div class="container" style="float:right; padding-left:4em; margin-top:4em">
+
+<div class="card-body">
+  <div class="row">
+    <div class="col">
+<h5 class="m-0 font-weight-bold text-primary"> Ticket Types ({{tickets |length }})</h5>
+    </div>
+    <div class="col">
+      <a class="btn btn-sm btn-outline-info" href="{% url 'create_ticket' %}"
+        >Create Ticket Type</a
+      >
+    </div>
+<div class="col">
+  <a class="btn btn-sm btn-outline-info ml-2 " href="{% url 'create_ticket_subtype' %}"
+    >Create Ticket Subtype</a
+  >
+</div>
+
+  </div>
+<div class="table-responsive">
+
+
+
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead class="" style="background-color: #357EC7
+  ;color:black;">
+            <tr>
+              <!-- <th scope="col">ID</th> -->
+              <th scope="col">Ticket Type</th>
+              <th scope="col">Priority</th>
+              <th scope="col">Delete Ticket</th>
+
+            </tr>
+          </thead>
+          <tbody>
+              {% for ticket in tickets %}
+            <tr>
+              <!-- <th scope="row">{{ticket.id}}</th> -->
+              <td><a href="{% url 'edit_ticket' ticket.id %}">{{ticket.name}}</a></td>
+              <td>{{ticket.priority}}</td>
+              <td><a class="btn btn-outline-primary"  href="{% url 'delete_ticket' ticket.id %}"><i class="fas fa-fw fa-trash"></i></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+
+
+  </div>
+</div>
+
+      <!-- row -->
+
+
+
   </div>
 
-
-    <div class="row mt-2">
-        <h5> Ticket Types ({{tickets |length }})</h5>
-        <table class="table table-responsive mt-2">
-            <thead class="" style="background-color: #357EC7
-    ;color:black;">
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Ticket Type</th>
-                <th scope="col">Priority</th>
-                <th scope="col">yes</th>
-
-              </tr>
-            </thead>
-            <tbody>
-                {% for ticket in tickets %}
-              <tr>
-                <th scope="row">{{ticket.id}}</th>
-                <td><a href="{% url 'edit_ticket' ticket.id %}">{{ticket.name}}</a></td>
-                <td>{{ticket.priority}}</td>
-                <td><a class="btn btn-outline-primary"  href="{% url 'delete_ticket' ticket.id %}">Yes</a></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-
-
-
-    </div>
-    <!-- row -->
-
-
-
-</div>
+</section>
 
 {% endblock content %}

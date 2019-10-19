@@ -1,94 +1,106 @@
 {%extends 'customer/base.html'%}
 {% block content %}
-<main style="padding-left:8em; padding-top:8em; text-align:center">
-<div class="container">
-
-  <div class="row mt-2">
-    {% if ticket %}
+<main style="padding-left:6%; padding-top:8%; text-align:center">
+  <div class="container-fluid">
+    <section id="welcome-section" class="container">
+    <div class="row mt-2">
+      {% if ticket %}
       <p class="title">Found {{ ticket|length }} of ticket number {{message}}</p>
-    {% else %}
-      <h5 class="title"><strong>Ticket number {{message}} does not exist</strong> </h5>
-    {% endif %}
-  </div>
+      {% else %}
+      <h5 class="title" style="padding-left:8%"><strong>Ticket number {{message}} does not exist</strong> </h5>
+      {% endif %}
+    </div>
 
-</div>
-        {% if ticket %}
 
-        <section id="welcome-section" class="container">
-            <div class="row mt-2">
+    {% if ticket %}
 
-                <table class="table table-responsive mt-2">
-                    <thead class="thead" style="background-color: #357EC7
+
+      <div class="card shadow mb-4">
+
+
+        <div class=" card-body">
+
+
+          <div class="table-responsive">
+
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead class="thead" style="background-color: #357EC7
             ;color:black;">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Date Created</th>
-                            <th scope="col">Last Updated</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Ticket Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ticket in ticket %}
-                        <tr>
-                            <th scope="row"></th>
+                <tr>
+                  <!-- <th scope="col"></th> -->
+                  <th scope="col">Title</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Last Updated</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Ticket Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ticket in ticket %}
+                <tr>
+                  <!-- <th scope="row"></th> -->
 
-                            <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_type}}</a></td>
-                            <td>{{ticket.date_created }}</td>
-                            <td>{{ticket.last_updated }}</td>
-                            <td>{{ticket.get_status_display}}</td>
-                            <td>{{ticket.ticket_number}}</td>
+                  <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_type}}</a></td>
+                  <td>{{ticket.date_created }}</td>
+                  <td>{{ticket.last_updated }}</td>
+                  <td>{{ticket.get_status_display}}</td>
+                  <td>{{ticket.ticket_number}}</td>
                 </tr>
                 {% endfor %}
-            </tbody>
-        </table>
+              </tbody>
+            </table>
 
 
-    </div>
-
-    {% for ticket in ticket  %}
-    <div class="row mt-2">
-
-<!-- Modal -->
-<div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-         <div class="card card-body">
-           <h5>Edited By:</h5>
-           <li class="list-group">
-             <li class="list-group-item">Agent: {{ticket.agent.username}}</li>
-             <li class="list-group-item">Last Updated: {{ticket.last_updated |date:"D, d M ,Y"}}</li>
-             <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-           </li>
-         </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+          </div>
         </div>
       </div>
-    </div>
+      {% for ticket in ticket %}
+      <div class="row mt-2">
+
+        <!-- Modal -->
+        <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="card card-body">
+                  <h5>Edited By:</h5>
+                  <li class="list-group">
+                  <li class="list-group-item">Agent: {{ticket.agent.username}}</li>
+                  <li class="list-group-item">Last Updated: {{ticket.last_updated |date:"D, d M ,Y"}}</li>
+                  <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+                  </li>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {% endfor %}
+    </section>
   </div>
-
-    </div>
-
-    {% endfor %}
-</section>
 </main>
 <style>
-body{
-background-color:whitesmoke;}
-main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  padding: 0px 10px;
-}</style>
+  body {
+    background-color: whitesmoke;
+  }
+
+  main {
+    margin-left: 200px;
+    /* Same as the width of the sidenav */
+    padding: 0px 10px;
+  }
+</style>
 {% endif %}
 
 {% endblock %}

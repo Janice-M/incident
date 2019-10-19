@@ -53,9 +53,13 @@ th{
                       <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_tickets' %}">
 
                           <div class="search">
+                            <div class="input-group-append">
+                            <input class="form-control mr-sm-2 bg-light border-0 small" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
 
-                          <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket"><i class="fa fa-search"></i>
-
+                              <button class="btn btn-primary" type="search">
+                                <i class="fas fa-search fa-sm"></i>
+                              </button>
+                            </div>
                         </div>
 
                       </form>
@@ -185,15 +189,15 @@ th{
   </li>
 </ul>
 <div class="tab-content card pt-5" id="myTabContentJust">
-  <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
-    <table class="table table-responsive mt-2">
+  <div class="tab-pane fade show active table-responsive" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead class="thead" style="background-color: #357EC7
   ;color:black;">
         <tr>
-          <th scope="col"></th>
+          <!-- <th scope="col"></th> -->
           <th scope="col">Title</th>
           <th scope="col">Date Created</th>
-          <th scope="col">Agent</th>
+          <!-- <th scope="col"></th> -->
           <th scope="col">Status</th>
           <th scope="col">Department</th>
           <th scope="col">Ticket Number</th>
@@ -203,11 +207,11 @@ th{
       <tbody>
         {% for ticket in tickets %}
         <tr>
-            <th scope="row" style="width:7.2em"></th>
+            <!-- <th scope="row" style="width:7.2em"></th> -->
 
           <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-          <td>{{ticket.agent.username}}</td>
+          <!-- <td>{{ticket.agent.username}}</td> -->
           <td>{{ticket.get_status_display}}</td>
           <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
@@ -217,12 +221,12 @@ th{
       </tbody>
     </table>
   </div>
-  <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
-    <table class="table table-responsive mt-2">
+  <div class="tab-pane fade table-responsive" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead class="thead" style="background-color: #357EC7
   ;color:black;">
         <tr>
-          <th scope="col"></th>
+          <!-- <th scope="col"></th> -->
           <th scope="col">Title</th>
           <th scope="col">Ticket Type</th>
           <th scope="col">Date Created</th>
@@ -236,7 +240,7 @@ th{
       <tbody>
         {% for ticket in pending_tickets %}
         <tr>
-          <th scope="row"></th>
+          <!-- <th scope="row"></th> -->
 
           <td>{{ticket.ticket_subtype }}</td>
           <td>{{ticket.ticket_type.name}}</td>
@@ -251,12 +255,12 @@ th{
       </tbody>
     </table>
   </div>
-  <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
-    <table class="table table-responsive mt-2">
+  <div class="tab-pane fade table-responsive" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead class="thead-primary" style="background-color: #357EC7
     ;color:white;">
         <tr>
-          <th scope="col"></th>
+          <!-- <th scope="col"></th> -->
           <th scope="col">Title</th>
           <th scope="col">Date Created</th>
           <th scope="col">Agent</th>
@@ -269,7 +273,7 @@ th{
       <tbody>
         {% for ticket in closed_tickets %}
         <tr>
-          <th scope="row" style="width:2em"></th>
+          <!-- <th scope="row" style="width:2em"></th> -->
 
           <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype }}</a></td>
           <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
@@ -277,7 +281,7 @@ th{
           <td>{{ticket.get_status_display}}</td>
           <td>{{ticket.department}}</td>
           <td>{{ticket.ticket_number}}</td>
-          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}">Action</a> </td>
+          <td><a href="{% url 'take_or_assign_ticket' ticket.id %}" class="btn btn-primary">Action</a> </td>
         </tr>
         {% endfor %}
       </tbody>
@@ -317,7 +321,7 @@ th{
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
           </div>
         </div>
       </div>
@@ -357,7 +361,7 @@ th{
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-exit" data-dismiss="modal">Exit</button>
           </div>
         </div>
       </div>

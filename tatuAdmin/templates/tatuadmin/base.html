@@ -24,14 +24,14 @@
 
     {% endblock styles %}
 </head>
-<body>
+<body id="page-top">
   <style media="screen">
     form{
     color:black;}
   </style>
     {% include 'tatuadmin/navbar.html'%}
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -58,6 +58,10 @@
     {% block content %}
 
     {% endblock content %}
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
 
 

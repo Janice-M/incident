@@ -1,108 +1,118 @@
 {% include 'customer/base.html'%}
 {% block content %}
-<main style="padding-top:10%;">
+<main style="padding-top:10%; padding-left:26%" class="container-fluid">
 
-<section id="welcome-section" class="container-fluid" >
-  <div class="row">
-<div class="col-lg-5 col-sm-2">
-  <h4 style="font-family: 'fantasy', cursive;color: #357EC7;" class="text-center">My Tickets ({{tickets|length }})</h4>
+  <section id="welcome-section">
+    <div class="card shadow mb-4">
+      <div class="card-header" style="; display:flex;flex-direction:right; ">
+        <div class="">
+          <h4 style="font-family: 'fantasy', cursive;color: #357EC7;" class="m-0 font-weight-bold text-primary">My Tickets ({{tickets|length }})</h4>
+        </div>
 
-</div>
-<div class="col-lg-2 col-sm-2">
+        <div style="padding-left:62%; position:relative;">
 
-</div>
-<div class="col-lg-1 col-sm-1">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" role="search" style="width:10%;" action="{% url 'search_results' %}">
 
-</div>
-<div class="col-lg-4 col-sm-2" style="position:fixed; display:flex;flex-direction:right; padding-left:42%;">
+            <div class="search">
+              <div class="input-group-append">
+              <input class="form-control mr-sm-2 bg-light border-0 small" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
 
-                <form class="form-inline my-2 my-sm-0" role="search" action="{% url 'search_results' %}">
+                <button class="btn btn-primary" type="search">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
 
-                    <div class="search">
+          </form>
+        </div>
+      </div>
+      <!-- <div class="col-lg-2 col col-sm-2">
 
-                      <input class="form-control mr-sm-2" type="search" placeholder="Search For Ticket" aria-label="Search" name="ticket">
+      </div> -->
+      <!-- <div class="col-lg-1 col-sm-1">
 
-                  </div>
+      </div> -->
 
-                </form>
-</div>
-  </div>
 
-    <div class="row mt-2 row-fluid" style="padding-left:13%;">
+      <div class="card-body">
+        <div class="table-responsive">
 
-        <table class="table table-primary table-responsive" style="width:auto;">
-          <thead class="thead-primary" style="background-color: #357EC7
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead class="thead-primary" style="background-color: #357EC7
         ;color:white;">
-            <tr >
-              <!-- <th scope="col">#</th> -->
-              <th scope="col">Title</th>
-              <th scope="col">Date Created</th>
-              <th scope="col">Last Updated</th>
-              <th scope="col">Status</th>
-              <th scope="col">Ticket Number</th>
-            </tr>
-          </thead>
-          <tbody>
+              <tr>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">Title</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Last Updated</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ticket Number</th>
+              </tr>
+            </thead>
+            <tbody>
               {% for ticket in tickets %}
-            <tr>
-              <!-- <th scope="row">{{ticket.id}}</th> -->
+              <tr>
+                <!-- <th scope="row">{{ticket.id}}</th> -->
 
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}} " data-toggle="tooltip" title="Click to see ticket details!" data-placement="left">{{ticket.ticket_subtype}}</a></td>
-              <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
-              <td>{{ticket.last_updated |date:"D, d M ,Y" }}</td>
-              <td>{{ticket.get_status_display}}</td>
-              <td>{{ticket.ticket_number}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-
-    </div>
-    {% for ticket in tickets  %}
-    <div class="row mt-2">
-
-<!-- Modal -->
-<div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-         <div class="card card-body">
-           <h5>Edited By:</h5>
-           <li class="list-group">
-             <li class="list-group-item">Agent: {{ticket.agent.username}}</li>
-             <li class="list-group-item">Last Updated: {{ticket.last_updated |date:"D, d M ,Y"}}</li>
-             <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
-           </li>
-         </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+                <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}} " data-toggle="tooltip" title="Click to see ticket details!" data-placement="left">{{ticket.ticket_subtype}}</a></td>
+                <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
+                <td>{{ticket.last_updated |date:"D, d M ,Y" }}</td>
+                <td>{{ticket.get_status_display}}</td>
+                <td>{{ticket.ticket_number}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </div>
+    <!-- </div> -->
+    {% for ticket in tickets %}
+    <div class="row mt-2">
+
+      <!-- Modal -->
+      <div class="modal fade" id="{{ticket.id}}{{ticket.owner.username}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="exampleModalLabel">{{ticket.issue |upper}}</h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card card-body">
+                <h5>Edited By:</h5>
+                <li class="list-group">
+                <li class="list-group-item">Agent: {{ticket.agent.username}}</li>
+                <li class="list-group-item">Last Updated: {{ticket.last_updated |date:"D, d M ,Y"}}</li>
+                <li class="list-group-item">Time: {{ticket.last_updated |date:"H:i"}}</li>
+                </li>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
 
     {% endfor %}
-</section>
+  </section>
 </main>
 <style>
-/* Style the main content */
-main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  padding: 0px 10px;
-}</style>
+  /* Style the main content */
+  main {
+    margin-left: 10%;
+    /* Same as the width of the sidenav */
+    padding: 0% 10%;
+  }
+</style>
 <script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
+  $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 </script>
-{% endblock  %}
+{% endblock %}

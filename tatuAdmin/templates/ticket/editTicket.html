@@ -1,21 +1,27 @@
 {% extends 'tatuadmin/base.html'%}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="row" style=" padding-left:0em; margin-top:4em">>
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Edit Ticket</legend>
-                    {{form | crispy}}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-primary" type="submit">Update</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-2"></div>
+<section class="container-fluid container" id="content" style="padding-left:17%">
+  <div class="row card shadow mb-4" style=" padding-left:0em; margin-top:4em">
+    <div class="card-body">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+          <form action="" method="POST">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Edit Ticket</legend>
+                  {{form | crispy}}
+              </fieldset>
+              <div class="form-group">
+                  <button class="btn btn-outline-primary" type="submit">Update</button>
+              </div>
+          </form>
+      </div>
+      <div class="col-md-2"></div>
     </div>
+
+  </div>
+
+</section>
 
 {% endblock content %}
