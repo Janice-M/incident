@@ -1,10 +1,12 @@
 {% extends 'tatuadmin/base.html'%}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container-fluid row row-fluid" style="padding-left:6.2%; padding-top:2%">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <form action="" method="POST">
+    <div class="container-fluid" style="padding-left:26%; padding-top:2%">
+      <!-- <div class="col-1"></div> -->
+      <div class=" card shadow mb-4" style="padding-left:8%; width:88%">
+
+        <div class="card-body" style="width:100%;padding-left:0%;">
+            <form action="" method="POST" style="padding-left:0%">
                 {% csrf_token %}
                 <fieldset class="form-group">
                     <legend class="border-bottom mb-4">Edit Agent</legend>
@@ -17,7 +19,12 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-2"></div>
+
+      </div>
+      <!-- <div class="col-1"></div> -->
+        <!-- -->
+
+        <!-- <div class="col-md-2"></div> -->
     </div>
 
 {% endblock content %}
