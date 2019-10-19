@@ -6,11 +6,11 @@
     <ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab" aria-controls="home-just"
-      aria-selected="true"><h5>Closed Tickets ({{closed_tickets|length }})</h5></a>
+      aria-selected="true"><h5 class="m-0 font-weight-bold text-primary">Closed Tickets ({{closed_tickets|length }})</h5></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab" aria-controls="profile-just"
-      aria-selected="false"><h5>In progress Tickets ({{pending_tickets|length }})</h5></a>
+      aria-selected="false"><h5 class="m-0 font-weight-bold text-primary">In progress Tickets ({{pending_tickets|length }})</h5></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab" aria-controls="contact-just"
@@ -19,10 +19,10 @@
 </ul>
 <div class="tab-content card pt-5" id="myTabContentJust">
   <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
-    <div class="row mt-2" style="padding-left:2em">
-      <h5>Closed Tickets ({{closed_tickets|length }})</h5>
+    <div class="row mt-2 table-responsive" style="padding-left:2em">
+      <!-- <h5 style="color:blue;">Closed Tickets ({{closed_tickets|length }})</h5> -->
 
-        <table class="table table-responsive mt-2">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead class="" style="background-color: #357EC7
   ;color:black;">
             <tr>
@@ -40,7 +40,7 @@
             <tr>
               <!-- <th scope="row">{{ticket.id}}</th> -->
 
-              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.issue}}</a></td>
+              <td><a data-toggle="modal" href="#{{ticket.id}}{{ticket.owner.username}}">{{ticket.ticket_subtype}}</a></td>
               <td>{{ticket.ticket_type.name}}</td>
               <td>{{ticket.date_created |date:"D, d M ,Y"}}</td>
               <td>{{ticket.agent.username}}</td>
@@ -55,11 +55,11 @@
 
     </div>
   </div>
-  <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
-      <div class="row mt-2" style="padding-left:2em">
-      <h5>In progress Tickets ({{pending_tickets|length }})</h5>
+  <div class="tab-pane fade " id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
+      <div class="row mt-2 table-responsive " style="padding-left:2em">
+      <!-- <h5 style="color:blue;">In progress Tickets ({{pending_tickets|length }})</h5> -->
   <br>
-        <table class="table table-responsive mt-2" >
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
           <thead class="" style="background-color: #357EC7
   ;color:black;">
             <tr>
@@ -224,4 +224,21 @@
           $('[data-toggle="tooltip"]').tooltip();
         });
         </script>
+        <!-- Bootstrap core JavaScript-->
+  <script src="static 'vendor/jquery/jquery.min.js'"></script>
+  <script src="static 'vendor/bootstrap/js/bootstrap.bundle.min.js'"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="static 'vendor/jquery-easing/jquery.easing.min.js'"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="static 'js/sb-admin-2.min.js'"></script>
+
+  <!-- Page level plugins -->
+  <script src="static 'vendor/datatables/jquery.dataTables.min.js'"></script>
+  <script src="static 'vendor/datatables/dataTables.bootstrap4.min.js'"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="static 'js/demo/datatables-demo.js'"></script>
+
   {% endblock %}
