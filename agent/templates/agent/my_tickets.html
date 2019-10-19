@@ -1,6 +1,6 @@
 {% include 'agent/base.html'%}
 {% block content %}
-<section class="container" style="width:62em; padding-left:5em; padding-top:4em;">
+<section class="container-fluid" style=" padding-left:22%; padding-top:4%;">
   <ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
 <li class="nav-item">
   <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab" aria-controls="home-just"
@@ -17,13 +17,13 @@
 </ul>
 <div class="tab-content card pt-5" id="myTabContentJust">
 <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
-  <div class="row mt-2" style="padding-left:2em">
+  <div class="row mt-2 table-responsive" style="padding-left:2em">
 
-      <table class="table table-responsive mt-2">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead class="" style="background-color: #357EC7
   ;color:black;">
           <tr>
-            <th scope="col">ID</th>
+            <!-- <th scope="col">ID</th> -->
             <th scope="col">Title</th>
 
             <th scope="col">Agent</th>
@@ -36,7 +36,7 @@
         <tbody>
           {% for ticket in tickets %}
           <tr>
-            <th scope="row"> <b></b></th>
+            <!-- <th scope="row"> <b></b></th> -->
 
             <td>{{ticket.ticket_subtype }}</td>
             <td>{{ticket.agent.username}}</td>
@@ -53,14 +53,14 @@
   </div>
 </div>
 <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
-    <div class="row mt-2" style="padding-left:2em">
+    <div class="row mt-2 table-responsive" style="padding-left:2em">
 
 <br>
-      <table class="table table-responsive mt-2" >
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead class="" style="background-color: #357EC7
   ;color:white;">
           <tr>
-            <th scope="col"></th>
+            <!-- <th scope="col"></th> -->
             <th scope="col">Title</th>
             <th scope="col">Agent</th>
             <th scope="col">Status</th>
@@ -73,7 +73,7 @@
         <tbody>
           {% for ticket in department_tickets %}
           <tr>
-            <th scope="row"></th>
+            <!-- <th scope="row"></th> -->
 
             <td>{{ticket.ticket_subtype }}</td>
             <td>{{ticket.agent.username}}</td>
