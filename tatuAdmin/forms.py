@@ -20,6 +20,9 @@ class AgentCreationForm(UserCreationForm):
     email=forms.EmailField()
     phonenumber=forms.CharField(max_length=16)
     role=forms.ChoiceField(choices=roles,required=True)
+    password1=forms.CharField(initial='march2013',widget = forms.HiddenInput())
+    password2=forms.CharField(initial='march2013',widget = forms.HiddenInput())
+
  
 
     class Meta:
