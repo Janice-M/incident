@@ -16,7 +16,7 @@ django-registration==3.0.1
 django-registration-redux==2.4
 django-templated-mail==1.1.1
 django-tinymce==2.8.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==4.3.0
 djoser==2.0.3
